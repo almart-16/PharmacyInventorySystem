@@ -1,26 +1,26 @@
-package Pojos;
+package pojos;
 
-public class Purchase {
+public class Order {
 	private String id;
-    private String patientId;
     private String pharmacyId;
-    private String date;
+    private String supplierId;
     private String medicationId;
+    private String date;
     private int quantity;
-    private double price;
+    private String status;
 
-    public Purchase() {
+    public Order() {
     }
 
-    public Purchase(String id, String patientId, String pharmacyId, String date,
-                    String medicationId, int quantity, double price) {
+    public Order(String id, String pharmacyId, String supplierId, String medicationId,
+                  String date, int quantity, String status) {
         this.id = id;
-        this.patientId = patientId;
         this.pharmacyId = pharmacyId;
-        this.date = date;
+        this.supplierId = supplierId;
         this.medicationId = medicationId;
+        this.date = date;
         this.quantity = quantity;
-        this.price = price;
+        this.status = status;
     }
 
     public String getId() {
@@ -29,15 +29,6 @@ public class Purchase {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-
-    public String getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(String patientId) {
-        this.patientId = patientId;
     }
 
 
@@ -50,12 +41,12 @@ public class Purchase {
     }
 
 
-    public String getDate() {
-        return date;
+    public String getSupplierId() {
+        return supplierId;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
     }
 
 
@@ -65,6 +56,15 @@ public class Purchase {
 
     public void setMedicationId(String medicationId) {
         this.medicationId = medicationId;
+    }
+
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
 
@@ -80,28 +80,25 @@ public class Purchase {
     }
 
 
-    public double getPrice() {
-        return price;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPrice(double price) {
-        if (price < 0) {
-            throw new IllegalArgumentException("Price cannot be negative");
-        }
-        this.price = price;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "Purchase{" +
+        return "Order{" +
                 "id='" + id + '\'' +
-                ", patientId='" + patientId + '\'' +
                 ", pharmacyId='" + pharmacyId + '\'' +
-                ", date='" + date + '\'' +
+                ", supplierId='" + supplierId + '\'' +
                 ", medicationId='" + medicationId + '\'' +
+                ", date='" + date + '\'' +
                 ", quantity=" + quantity +
-                ", price=" + price +
+                ", status='" + status + '\'' +
                 '}';
     }
-
+	
 }
