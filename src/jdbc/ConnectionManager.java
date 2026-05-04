@@ -117,6 +117,7 @@ public class ConnectionManager {
                 s.executeUpdate(query); 
             }
         } catch (SQLException e) {
+        	// SQL Exception
             System.err.println("Error creating tables");
             e.printStackTrace();
         }
