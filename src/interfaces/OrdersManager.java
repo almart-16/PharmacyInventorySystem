@@ -1,8 +1,7 @@
 package interfaces;
-
 import java.util.List;
 
-import pojos.Order;
+import Pojos.Order;
 
 public interface OrdersManager {
 

@@ -1,4 +1,4 @@
-package pojos;
+package Pojos;
 
 public class Municipality {
 	private int id;

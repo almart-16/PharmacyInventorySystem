@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.List;
 
-import pojos.Inventory;
+import Pojos.Inventory;
 
 public interface InventoryManager {
 	
