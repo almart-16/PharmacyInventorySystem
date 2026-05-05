@@ -45,8 +45,8 @@ public class ConnectionManager {
             "id TEXT PRIMARY KEY, " + 
             "name TEXT NOT NULL UNIQUE, " + 
             "target_illnes TEXT, " + 
-            "SS TEXT, " + 
-            "recipe TEXT) ", 
+            "SS BOOLEAN NOT NULL, " + 
+            "recipe BOOLEAN NOT NULL) ", 
             
             //supplier 
             "CREATE TABLE IF NOT EXISTS Supplier (" +
