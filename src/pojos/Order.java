@@ -1,4 +1,4 @@
-package Pojos;
+package pojos;
 
 public class Order {
 	private String id;

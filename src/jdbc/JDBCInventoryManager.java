@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 import interfaces.InventoryManager;
-import Pojos.Inventory;
+import pojos.Inventory;
 
 public class JDBCInventoryManager implements InventoryManager {
 

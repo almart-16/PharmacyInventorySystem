@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 import interfaces.MedicationManager;
-import Pojos.Medication;
+import pojos.Medication;
 
 public class JDBCMedicationManager implements MedicationManager {
 

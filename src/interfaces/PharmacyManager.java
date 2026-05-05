@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.List;
 
-import Pojos.Pharmacy;
+import pojos.Pharmacy;
 
 public interface PharmacyManager {
 	

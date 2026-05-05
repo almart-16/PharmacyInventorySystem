@@ -1,6 +1,6 @@
 package interfaces;
 
-import Pojos.Purchase;
+import pojos.Purchase;
 
 public interface PurchaseManager {
 

@@ -1,2 +1,8 @@
 /ConnexionManager.class
 /ConnectionManager.class
+/JDBCInventoryManager.class
+/JDBCMedicationManager.class
+/JDBCOrdersManager.class
+/JDBCPharmacyManager.class
+/JDBCPurchaseManager.class
+/JDBCSupplierManager.class

@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 import interfaces.OrdersManager;
-import Pojos.Order;
+import pojos.Order;
 
 public class JDBCOrdersManager implements OrdersManager {
 
