@@ -30,7 +30,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
             // Iniciamos la transacción (desactivamos el autocommit)
         	//AUTOCOMMIT:Esto significa que cada vez que ejecutas una sola sentencia 
         	//DML (un INSERT, UPDATE o DELETE), la base de datos hace un 
-    +
+    
     //COMMIT automáticamente justo después de terminar esa línea.
         	//DESACTIVAR: No guardes nada de forma permanente hasta que commit. 
         	//Si te digo que canceles (rollback), olvida todo lo que te he dicho desde que empezamos.

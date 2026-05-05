@@ -118,3 +118,5 @@ public class JDBCSupplierManager implements SupplierManager{
         return supplier;
 
 }
+	
+}
