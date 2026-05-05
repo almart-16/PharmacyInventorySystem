@@ -1,6 +1,7 @@
 
 package jdbc;
 
+import interfaces.SupplierManager;
 import pojos.Supplier;
 
 import java.sql.Connection;
