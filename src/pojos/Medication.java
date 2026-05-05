@@ -5,19 +5,19 @@ public class Medication {
 
 	    private String id;
 	    private String name;
-	    private String targetIllness;
+	    private String target_illness;
 	    private boolean ss;
-	    private boolean receta;
+	    private boolean prescription;
 
 	    public Medication() {
 	    }
 
-	    public Medication(String id, String name, String targetIllness, boolean ss, boolean receta) {
+	    public Medication(String id, String name, String targetIllness, boolean ss, boolean prescription) {
 	        this.id = id;
 	        this.name = name;
-	        this.targetIllness = targetIllness;
+	        this.target_illness = target_illness;
 	        this.ss = ss;
-	        this.receta = receta;
+	        this.prescription = prescription;
 	    }
 
 	    public String getId() {
@@ -38,12 +38,12 @@ public class Medication {
 	    }
 
 
-	    public String getTargetIllness() {
-	        return targetIllness;
+	    public String getTarget_illness() {
+	        return target_illness;
 	    }
 
-	    public void setTargetIllness(String targetIllness) {
-	        this.targetIllness = targetIllness;
+	    public void setTargetIllness(String target_illness) {
+	        this.target_illness = target_illness;
 	    }
 
 
@@ -56,12 +56,12 @@ public class Medication {
 	    }
 
 
-	    public boolean isReceta() {
-	        return receta;
+	    public boolean isPrescription() {
+	        return prescription;
 	    }
 
-	    public void setReceta(boolean receta) {
-	        this.receta = receta;
+	    public void setReceta(boolean prescription) {
+	        this.prescription = prescription;
 	    }
 
 	    @Override
@@ -69,9 +69,9 @@ public class Medication {
 	        return "Medication{" +
 	                "id='" + id + '\'' +
 	                ", name='" + name + '\'' +
-	                ", targetIllness='" + targetIllness + '\'' +
+	                ", targetIllness='" + target_illness + '\'' +
 	                ", ss=" + ss +
-	                ", receta=" + receta +
+	                ", receta=" + prescription +
 	                '}';
 	    }
 	    

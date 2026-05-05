@@ -2,7 +2,7 @@ package pojos;
 
 public class Purchase {
 	private String id;
-    private String patientId;
+    private String clientId;
     private String pharmacyId;
     private String date;
     private String medicationId;
@@ -15,7 +15,7 @@ public class Purchase {
     public Purchase(String id, String patientId, String pharmacyId, String date,
                     String medicationId, int quantity, double price) {
         this.id = id;
-        this.patientId = patientId;
+        this.clientId = patientId;
         this.pharmacyId = pharmacyId;
         this.date = date;
         this.medicationId = medicationId;
@@ -33,11 +33,11 @@ public class Purchase {
 
 
     public String getPatientId() {
-        return patientId;
+        return clientId;
     }
 
     public void setPatientId(String patientId) {
-        this.patientId = patientId;
+        this.clientId = patientId;
     }
 
 
@@ -95,7 +95,7 @@ public class Purchase {
     public String toString() {
         return "Purchase{" +
                 "id='" + id + '\'' +
-                ", patientId='" + patientId + '\'' +
+                ", patientId='" + clientId + '\'' +
                 ", pharmacyId='" + pharmacyId + '\'' +
                 ", date='" + date + '\'' +
                 ", medicationId='" + medicationId + '\'' +

@@ -30,7 +30,7 @@ public class JDBCMedicationManager implements MedicationManager {
                     rs.getString("name"),
                     rs.getString("target_illnes"),
                     rs.getString("SS").equalsIgnoreCase("yes"),
-                    rs.getString("recipe").equalsIgnoreCase("yes")
+                    rs.getString("prescription").equalsIgnoreCase("yes")
                 );
             }
 
@@ -56,7 +56,7 @@ public class JDBCMedicationManager implements MedicationManager {
                     rs.getString("name"),
                     rs.getString("target_illnes"),
                     rs.getString("SS").equalsIgnoreCase("yes"),
-                    rs.getString("recipe").equalsIgnoreCase("yes")
+                    rs.getString("prescription").equalsIgnoreCase("yes")
                 ));
             }
 
@@ -69,18 +69,18 @@ public class JDBCMedicationManager implements MedicationManager {
 
     @Override
     public boolean addMedication(Medication m) {
-        String sql = "INSERT INTO Medication (id, name, target_illnes, SS, recipe) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Medication (id, name, target_illnes, SS, prescription) VALUES (?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setString(1, m.getId());
             stmt.setString(2, m.getName());
-            stmt.setString(3, m.getTargetIllness());
+            stmt.setString(3, m.getTarget_illness());
 
             // convertimos boolean → texto
             stmt.setString(4, m.isSs() ? "yes" : "no");
-            stmt.setString(5, m.isReceta() ? "yes" : "no");
+            stmt.setString(5, m.isPrescription() ? "yes" : "no");
 
             return stmt.executeUpdate() > 0;
 
