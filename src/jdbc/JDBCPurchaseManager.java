@@ -45,7 +45,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
                         String recipeRequired = rsRecipe.getString("recipe");
                         // Asumimos que guarda "yes" o "no"
                         if ("yes".equalsIgnoreCase(recipeRequired)) {
-                            System.out.println("⚠️ ATENCIÓN: El medicamento " + purchase.getMedicationId() + " requiere receta. Verifique la receta del paciente.");
+                            System.out.println("ATENCIÓN: El medicamento " + purchase.getMedicationId() + " requiere receta. Verifique la receta del paciente.");
                   
                         }
                     } else {
@@ -80,7 +80,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
             }
 
             // Reducir el stock (UPDATE)
-            String sqlUpdateStock = "UPDATE Inventory SET stock_quantity = stock_quantity - ? WHERE pharmacy_id = ? AND medication_id = ?";
+            String sqlUpdateStock = "UPDATE Inventory SET stock_quantity = stock_quantity - ? WHERE pharmacyId = ? AND medicationId = ?";
             try (PreparedStatement pstmtUpdate = connection.prepareStatement(sqlUpdateStock)) {
                 pstmtUpdate.setInt(1, purchase.getQuantity());
                 pstmtUpdate.setString(2, purchase.getPharmacyId());
@@ -124,7 +124,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
         return success;
     }
     public boolean create(Purchase purchase) {
-        String sql = "INSERT INTO Purchase (id, patient_id, pharmacy_id, medication_id, date, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Purchase (id, clientId, pharmacyId, medicationId, date, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, purchase.getId());
             pstmt.setString(2, purchase.getPatientId());
@@ -159,7 +159,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
     }
 
     public boolean update(Purchase purchase) {
-        String sql = "UPDATE Purchase SET patient_id = ?, pharmacy_id = ?, medication_id = ?, date = ?, quantity = ?, price = ? WHERE id = ?";
+        String sql = "UPDATE Purchase SET clientId = ?, pharmacyId = ?, medicationId = ?, date = ?, quantity = ?, price = ? WHERE id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, purchase.getPatientId());
             pstmt.setString(2, purchase.getPharmacyId());
@@ -206,9 +206,9 @@ public class JDBCPurchaseManager implements PurchaseManager {
     private Purchase extractPurchaseFromResultSet(ResultSet rs) throws SQLException {
         Purchase purchase = new Purchase();
         purchase.setId(rs.getString("id"));
-        purchase.setPatientId(rs.getString("patient_id"));
-        purchase.setPharmacyId(rs.getString("pharmacy_id"));
-        purchase.setMedicationId(rs.getString("medication_id"));
+        purchase.setPatientId(rs.getString("clientId"));
+        purchase.setPharmacyId(rs.getString("pharmacyId"));
+        purchase.setMedicationId(rs.getString("medicationId"));
         purchase.setDate(rs.getString("date"));
         purchase.setQuantity(rs.getInt("quantity"));
         purchase.setPrice(rs.getDouble("price"));

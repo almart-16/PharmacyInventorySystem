@@ -19,7 +19,7 @@ public class JDBCInventoryManager implements InventoryManager {
         String sql = "SELECT * FROM Inventory WHERE pharmacy_id = ? AND medication_id = ?";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, pharmacyId);
             stmt.setString(2, medicationId);
 

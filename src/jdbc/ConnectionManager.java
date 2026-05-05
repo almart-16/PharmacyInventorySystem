@@ -46,70 +46,74 @@ public class ConnectionManager {
             "name TEXT NOT NULL UNIQUE, " + 
             "target_illnes TEXT, " + 
             "SS BOOLEAN NOT NULL, " + 
-            "recipe BOOLEAN NOT NULL) ", 
+            "prescription BOOLEAN NOT NULL) ", 
             
             //supplier 
             "CREATE TABLE IF NOT EXISTS Supplier (" +
             "id TEXT PRIMARY KEY, " +
-            "name TEXT NOT NULL)",
+            "name TEXT NOT NULL)" +
+            "phone TEXT NOT NULL UNIQUE",
             
+     
+        
             //client 
             "CREATE TABLE IF NOT EXISTS Client (" +
             "id TEXT PRIMARY KEY, " +
             "name TEXT NOT NULL, " +
-            "national_id TEXT UNIQUE, " +
-            "municipality_id TEXT, " +
-            "FOREIGN KEY(municipality_id) REFERENCES Municipality(id))",
+            "nationalId TEXT UNIQUE, " +
+            "age INTEGER " +
+            "municipalityId TEXT, " +
+            "FOREIGN KEY(municipalityId) REFERENCES Municipality(id))",
             
             //pharmacy
             "CREATE TABLE IF NOT EXISTS Pharmacy (" + 
             "id TEXT PRIMARY KEY, " +
             "address TEXT, " +
             "phone TEXT, " +
-            "registration_number TEXT UNIQUE, " +
-            "municipality_id TEXT, " +
-            "FOREIGN KEY(municipality_id) REFERENCES Municipality(id))",
+            "registrationNumber TEXT UNIQUE, " +
+            "municipalitId TEXT, " +
+            "FOREIGN KEY(municipalityId) REFERENCES Municipality(id))",
             
  
             //inventory 
             "CREATE TABLE IF NOT EXISTS Inventory (" +
             "id TEXT PRIMARY KEY, " +
-            "pharmacy_id TEXT, " +
-            "medication_id TEXT, " +
-            "supplier_id TEXT, " +
-            "stock_quantity INTEGER, " +
+            "pharmacyId TEXT, " +
+            "medicationId TEXT, " +
+            "supplierId TEXT, " +
+            "stockQuantity INTEGER, " +
             "price REAL, " +
-            "expiration_date TEXT, " +
-            "minimum_stock INTEGER, " +
-            "FOREIGN KEY(pharmacy_id) REFERENCES Pharmacy(id), " +
-            "FOREIGN KEY(medication_id) REFERENCES Medication(id), " +
-            "FOREIGN KEY(supplier_id) REFERENCES Supplier(id))",
+            "expirationDate TEXT, " +
+            "minimumStock INTEGER, " +
+            "FOREIGN KEY(pharmacyId) REFERENCES Pharmacy(id), " +
+            "FOREIGN KEY(medicationId) REFERENCES Medication(id), " +
+            "FOREIGN KEY(supplierId) REFERENCES Supplier(id))",
             
             //purchase 
             "CREATE TABLE IF NOT EXISTS Purchase (" +
             "id TEXT PRIMARY KEY, " +
-            "client_id TEXT, " +
-            "pharmacy_id TEXT, " +
-            "medication_id TEXT, " +
+            "clientId TEXT, " +
+            "pharmacyId TEXT, " +
             "date TEXT, " +
+            "medicationId TEXT, " +
             "quantity INTEGER, " +
             "price REAL, " +
-            "FOREIGN KEY(client_id) REFERENCES Client(id), " +
-            "FOREIGN KEY(pharmacy_id) REFERENCES Pharmacy(id), " +
-            "FOREIGN KEY(medication_id) REFERENCES Medication(id))",
+            "FOREIGN KEY(clientId) REFERENCES Client(id), " +
+            "FOREIGN KEY(pharmacyId) REFERENCES Pharmacy(id), " +
+            "FOREIGN KEY(medicationId) REFERENCES Medication(id))",
             
             //orders 
-            "CREATE TABLE IF NOT EXISTS Orders (" +
+            "CREATE TABLE IF NOT EXISTS Order (" +
             "id TEXT PRIMARY KEY, " +
-            "pharmacy_id TEXT, " +
-            "supplier_id TEXT, " +
-            "medication_id TEXT, " +
+            "pharmacyId TEXT, " +
+            "supplierId TEXT, " +
+            "medicationId TEXT, " +
             "date TEXT, " +
             "quantity INTEGER, " +
             "status TEXT, " +
-            "FOREIGN KEY(pharmacy_id) REFERENCES Pharmacy(id), " +
-            "FOREIGN KEY(supplier_id) REFERENCES Supplier(id), " +
-            "FOREIGN KEY(medication_id) REFERENCES Medication(id))"
+            "FOREIGN KEY(pharmacyId) REFERENCES Pharmacy(id), " +
+            "FOREIGN KEY(supplierId) REFERENCES Supplier(id), " +
+            "FOREIGN KEY(medicationId) REFERENCES Medication(id))"
     };
 	
 		try (Statement s = c.createStatement()) {

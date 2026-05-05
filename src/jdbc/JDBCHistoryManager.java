@@ -8,10 +8,10 @@ import pojos.History;
 
 public class JDBCHistoryManager implements HistoryManager {
 
-    private ConnectionManager cm;
+    private Connection connection;
 
-    public JDBCHistoryManager(ConnectionManager cm) {
-        this.cm = cm;
+    public JDBCHistoryManager(Connection connection) {
+        this.connection = connection;
     }
 
     // 🔹 HISTORIAL POR FARMACIA
@@ -19,7 +19,7 @@ public class JDBCHistoryManager implements HistoryManager {
     public void showHistoryByPharmacy(String pharmacyId) {
 
         String sql = 
-            "SELECT date, 'Sale' AS type, medication_id, quantity, price " +
+            "SELECT date, 'Sale' AS type, medicationId, quantity, price " +
             "FROM Purchase WHERE pharmacy_id = ? " +
             "UNION ALL " +
             "SELECT date, 'Restock' AS type, medication_id, quantity, NULL AS price " +
@@ -27,7 +27,7 @@ public class JDBCHistoryManager implements HistoryManager {
             "ORDER BY date DESC";
 
         try {
-            PreparedStatement stmt = cm.getc().prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, pharmacyId);
             stmt.setString(2, pharmacyId);
 
@@ -50,7 +50,7 @@ public class JDBCHistoryManager implements HistoryManager {
         }
     }
 
-    // 🔹 HISTORIAL POR MEDICAMENTO
+    // HISTORIAL POR MEDICAMENTO
     @Override
     public void showHistoryByMedication(String medicationId) {
 
@@ -63,7 +63,7 @@ public class JDBCHistoryManager implements HistoryManager {
             "ORDER BY date DESC";
 
         try {
-            PreparedStatement stmt = cm.getc().prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, medicationId);
             stmt.setString(2, medicationId);
 
@@ -97,7 +97,7 @@ public class JDBCHistoryManager implements HistoryManager {
             "ORDER BY date DESC";
 
         try {
-            Statement stmt = cm.getc().createStatement();
+            Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
