@@ -51,8 +51,13 @@ public class ConnectionManager {
             //supplier 
             "CREATE TABLE IF NOT EXISTS Supplier (" +
             "id TEXT PRIMARY KEY, " +
+<<<<<<< HEAD
             "name TEXT NOT NULL)" +
             "phone TEXT NOT NULL UNIQUE",
+=======
+            "name TEXT NOT NULL, "+ 
+            "phone TEXT)",
+>>>>>>> 4378796aff638ca928e9bfcec81bc7ad33828fc3
             
      
         
@@ -70,9 +75,16 @@ public class ConnectionManager {
             "id TEXT PRIMARY KEY, " +
             "address TEXT, " +
             "phone TEXT, " +
+<<<<<<< HEAD
             "registrationNumber TEXT UNIQUE, " +
             "municipalitId TEXT, " +
             "FOREIGN KEY(municipalityId) REFERENCES Municipality(id))",
+=======
+            "registration_number TEXT UNIQUE, " +
+            "municipality_id TEXT, " +
+            "photo BLOB,"+ //punto extra 
+            "FOREIGN KEY(municipality_id) REFERENCES Municipality(id))",
+>>>>>>> 4378796aff638ca928e9bfcec81bc7ad33828fc3
             
  
             //inventory 
