@@ -12,20 +12,20 @@ public interface InventoryManager {
 	
 	boolean reduceStock(String pharmacyId, String medicationId, int quantity);
 	
-	// En el use case 5: después de añadir un medication, este se añade al inventario
+	// In use case 5: after adding a medicine, it is also added to the inventory
 	boolean addInventory(Inventory inventory);
 	
 	boolean updateInventoryInformation(String pharmacyId, String medicationId, double price,
 			                           String expirationDate, String supplierId);
 	
-	// Inventory es quien tiene la informacion de cuanto stock hay de los medicamentos
+	// Inventory has the information about how many stock (medicines) are available
 	List<Inventory> getLowStockMedications();
 	
-	// Aviso de que hay poco stock
+	// Advise there is not enough stock
 	boolean isLowStock(String pharmacyId, String medicationId);
 	
 	
-	// Aviso de que no hay stock
+	// Advise there is no stock at all
 	boolean isOutOfStock(String pharmacyId, String medicationId);
 
 

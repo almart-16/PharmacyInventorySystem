@@ -3,7 +3,7 @@ package interfaces;
 
 public interface HistoryManager {
 	
-	// Para el use case 9: 
+	// For use case 9:
 
 	void showHistoryByPharmacy(String pharmacyId);
 	

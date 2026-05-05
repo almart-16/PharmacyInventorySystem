@@ -51,15 +51,11 @@ public class ConnectionManager {
             //supplier 
             "CREATE TABLE IF NOT EXISTS Supplier (" +
             "id TEXT PRIMARY KEY, " +
-<<<<<<< HEAD
             "name TEXT NOT NULL)" +
             "phone TEXT NOT NULL UNIQUE",
-=======
             "name TEXT NOT NULL, "+ 
             "phone TEXT)",
->>>>>>> 4378796aff638ca928e9bfcec81bc7ad33828fc3
             
-     
         
             //client 
             "CREATE TABLE IF NOT EXISTS Client (" +

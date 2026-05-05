@@ -4,11 +4,11 @@ import pojos.Purchase;
 
 public interface PurchaseManager {
 
-	//guardar una compra de un medicamento en la base de datos
+	// Save a medicine purchase in the data base
 	boolean savePurchase(Purchase purchase);
 	
-	//se registra la venta, se reduce el stock en el inventario, y se guarda la compra
-	// CUANDO HAGÁIS ESTE MÉTODO, COMPROBAR SI EL MEDICAMENTO NECESITA RECETA O NO
+	// The sale of a medicine is registered, then the stock is reduced from the inventory and lastly the purchase is registered.
+	// CUANDO HAGÁIS ESTE MÉTODO, COMPROBAR SI EL MEDICAMENTO NECESITA RECETA O NO!!
 	boolean sellMedication(Purchase purchase);
 	
 	
