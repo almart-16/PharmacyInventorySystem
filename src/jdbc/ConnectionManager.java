@@ -51,7 +51,8 @@ public class ConnectionManager {
             //supplier 
             "CREATE TABLE IF NOT EXISTS Supplier (" +
             "id TEXT PRIMARY KEY, " +
-            "name TEXT NOT NULL)",
+            "name TEXT NOT NULL, "+ 
+            "phone TEXT)",
             
             //client 
             "CREATE TABLE IF NOT EXISTS Client (" +
@@ -68,6 +69,7 @@ public class ConnectionManager {
             "phone TEXT, " +
             "registration_number TEXT UNIQUE, " +
             "municipality_id TEXT, " +
+            "photo BLOB,"+ //punto extra 
             "FOREIGN KEY(municipality_id) REFERENCES Municipality(id))",
             
  

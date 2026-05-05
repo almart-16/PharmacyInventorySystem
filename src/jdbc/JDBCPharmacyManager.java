@@ -18,9 +18,9 @@ public class JDBCPharmacyManager implements PharmacyManager {
     public JDBCPharmacyManager(Connection connection) {
         this.connection = connection;
     }
-
-    @Override
+  
     //Uso DML (queries) para consultas
+    @Override
     public Pharmacy findbyRegistrationNumber(String number) {
         String sql = "SELECT * FROM Pharmacy WHERE registration_number = ?";
         Pharmacy pharmacy = null;
@@ -57,12 +57,17 @@ public class JDBCPharmacyManager implements PharmacyManager {
         } catch (SQLException e) {
             System.err.println("Error al leer la farmacia con ID: " + id);
             e.printStackTrace();
+            
+            //Java imprime en pantalla la 
+            //traza completa del error 
+            //que ha ocurrido, mostrando dónde 
+            //y por qué fallo el programa.
+            
         }
         return pharmacy;
     }
 
     @Override
-    
     public List<Pharmacy> getAllPharmacies() {
         String sql = "SELECT * FROM Pharmacy";
         List<Pharmacy> pharmacies = new ArrayList<>();
@@ -81,7 +86,7 @@ public class JDBCPharmacyManager implements PharmacyManager {
     }
 
     public boolean create(Pharmacy pharmacy) {
-        String sql = "INSERT INTO Pharmacy (id, address, phone, registration_number, municipality_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Pharmacy (id, address, phone, registration_number, municipality_id, photo) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, pharmacy.getId());
@@ -90,6 +95,7 @@ public class JDBCPharmacyManager implements PharmacyManager {
             pstmt.setString(4, pharmacy.getRegistrationNumber());
             // Transformamos el int del POJO al TEXT de SQLite
             pstmt.setString(5, String.valueOf(pharmacy.getMunicipalityId()));
+            pstmt.setBytes(6, pharmacy.getPhoto());
 
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
@@ -101,14 +107,15 @@ public class JDBCPharmacyManager implements PharmacyManager {
     }
 
     public boolean update(Pharmacy pharmacy) {
-        String sql = "UPDATE Pharmacy SET address = ?, phone = ?, registration_number = ?, municipality_id = ? WHERE id = ?";
+        String sql = "UPDATE Pharmacy SET address = ?, phone = ?, registration_number = ?, municipality_id = ?, photo = ? WHERE id = ?";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, pharmacy.getAddress());
             pstmt.setString(2, pharmacy.getPhone());
             pstmt.setString(3, pharmacy.getRegistrationNumber());
             pstmt.setString(4, String.valueOf(pharmacy.getMunicipalityId()));
-            pstmt.setString(5, pharmacy.getId());
+            pstmt.setBytes(5, pharmacy.getPhoto());
+            pstmt.setString(6, pharmacy.getId());
 
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
@@ -142,6 +149,7 @@ public class JDBCPharmacyManager implements PharmacyManager {
         pharmacy.setAddress(rs.getString("address"));
         pharmacy.setPhone(rs.getString("phone"));
         pharmacy.setRegistrationNumber(rs.getString("registration_number"));
+        pharmacy.setPhoto(rs.getBytes("photo"));
         
         // Mapeo inverso:de TEXT en SQLite a int en el POJO
         String municipalityIdStr = rs.getString("municipality_id");
@@ -149,7 +157,7 @@ public class JDBCPharmacyManager implements PharmacyManager {
             try {
                 pharmacy.setMunicipalityId(Integer.parseInt(municipalityIdStr));
             } catch (NumberFormatException e) {
-                System.err.println("Advertencia: El municipio no es un número válido: " + municipalityIdStr);
+                System.err.println("Error : El municipio no es un numero valido: " + municipalityIdStr);
             }
         }
         
