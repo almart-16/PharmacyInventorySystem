@@ -8,10 +8,10 @@ import pojos.Order;
 
 public class JDBCOrdersManager implements OrdersManager {
 
-    private Connection cm;
+    private Connection connection;
 
     public JDBCOrdersManager(Connection connection) {
-        this.cm = connection;
+        this.connection = connection;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class JDBCOrdersManager implements OrdersManager {
         String sql = "INSERT INTO Orders VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setString(1, o.getId());
             stmt.setString(2, o.getPharmacyId());
@@ -43,7 +43,7 @@ public class JDBCOrdersManager implements OrdersManager {
         String sql = "UPDATE Orders SET status = ? WHERE id = ?";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, status);
             stmt.setString(2, id);
 
@@ -61,7 +61,7 @@ public class JDBCOrdersManager implements OrdersManager {
         String sql = "DELETE FROM Orders WHERE id = ?";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, id);
 
             return stmt.executeUpdate() > 0;

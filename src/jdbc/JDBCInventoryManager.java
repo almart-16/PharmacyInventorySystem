@@ -8,10 +8,10 @@ import pojos.Inventory;
 
 public class JDBCInventoryManager implements InventoryManager {
 
-    private Connection cm;
-
+    private Connection connection;
+    
     public JDBCInventoryManager(Connection connection) {
-        this.cm = connection;
+        this.connection = connection;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class JDBCInventoryManager implements InventoryManager {
         String sql = "UPDATE Inventory SET stock_quantity = stock_quantity + ? WHERE pharmacy_id = ? AND medication_id = ?";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, quantity);
             stmt.setString(2, pharmacyId);
             stmt.setString(3, medicationId);
@@ -69,7 +69,7 @@ public class JDBCInventoryManager implements InventoryManager {
         String sql = "UPDATE Inventory SET stock_quantity = stock_quantity - ? WHERE pharmacy_id = ? AND medication_id = ?";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, quantity);
             stmt.setString(2, pharmacyId);
             stmt.setString(3, medicationId);
@@ -88,7 +88,7 @@ public class JDBCInventoryManager implements InventoryManager {
         String sql = "INSERT INTO Inventory (id, pharmacy_id, medication_id, supplier_id, stock_quantity, price, expiration_date, minimum_stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setString(1, i.getId());
             stmt.setString(2, i.getPharmacyId());
@@ -115,7 +115,7 @@ public class JDBCInventoryManager implements InventoryManager {
         String sql = "UPDATE Inventory SET price = ?, expiration_date = ?, supplier_id = ? WHERE pharmacy_id = ? AND medication_id = ?";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setDouble(1, price);
             stmt.setString(2, expirationDate);
@@ -138,7 +138,7 @@ public class JDBCInventoryManager implements InventoryManager {
         String sql = "SELECT * FROM Inventory WHERE stock_quantity <= minimum_stock";
 
         try {
-            Statement stmt = cm.createStatement();
+            Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -166,7 +166,7 @@ public class JDBCInventoryManager implements InventoryManager {
         String sql = "SELECT * FROM Inventory WHERE pharmacy_id = ? AND medication_id = ? AND stock_quantity <= minimum_stock";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, pharmacyId);
             stmt.setString(2, medicationId);
 
@@ -185,7 +185,7 @@ public class JDBCInventoryManager implements InventoryManager {
         String sql = "SELECT * FROM Inventory WHERE pharmacy_id = ? AND medication_id = ? AND stock_quantity = 0";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, pharmacyId);
             stmt.setString(2, medicationId);
 

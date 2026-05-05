@@ -8,10 +8,10 @@ import pojos.Medication;
 
 public class JDBCMedicationManager implements MedicationManager {
 
-    private Connection cm;
+    private Connection connection;
 
     public JDBCMedicationManager(Connection connection) {
-        this.cm = connection;
+        this.connection = connection;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class JDBCMedicationManager implements MedicationManager {
         String sql = "SELECT * FROM Medication WHERE name = ?";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, name);
 
             ResultSet rs = stmt.executeQuery();
@@ -47,7 +47,7 @@ public class JDBCMedicationManager implements MedicationManager {
         String sql = "SELECT * FROM Medication";
 
         try {
-            Statement stmt = cm.createStatement();
+            Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -72,7 +72,7 @@ public class JDBCMedicationManager implements MedicationManager {
         String sql = "INSERT INTO Medication (id, name, target_illnes, SS, recipe) VALUES (?, ?, ?, ?, ?)";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setString(1, m.getId());
             stmt.setString(2, m.getName());
@@ -96,7 +96,7 @@ public class JDBCMedicationManager implements MedicationManager {
         String sql = "DELETE FROM Medication WHERE id = ?";
 
         try {
-            PreparedStatement stmt = cm.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, medicationId);
 
             return stmt.executeUpdate() > 0;
