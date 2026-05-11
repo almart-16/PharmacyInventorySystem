@@ -1,5 +1,4 @@
-package main;
 
-public class Main {
+public class main {
 
 }

@@ -1,4 +1,3 @@
-
 package jdbc;
 
 import interfaces.SupplierManager;
@@ -30,18 +29,19 @@ public class JDBCSupplierManager implements SupplierManager{
 
             int rowsAffected = pstmt.executeUpdate();
             
-            // Si se inserto correctamente, devolvemos el mismo objeto
+            // If inserted successfully, return the same object
             if (rowsAffected > 0) {
                 return supplier; 
             }
         } catch (SQLException e) {
-            System.err.println("Error al añadir el proveedor: " + supplier.getName());
+            System.err.println("Error adding supplier: " + supplier.getName());
             e.printStackTrace();
         }
         
-        // Si llegamos aquí, hubo un error o no se insertaron filas
+        // If we reach here, there was an error or no rows were inserted
         return null;
     }
+    
 	@Override
     public Supplier findById(String id) {
         String sql = "SELECT * FROM Supplier WHERE id = ?";
@@ -56,12 +56,13 @@ public class JDBCSupplierManager implements SupplierManager{
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al buscar el proveedor con ID: " + id);
+            System.err.println("Error finding supplier with ID: " + id);
             e.printStackTrace();
         }
         
         return supplier;
     }
+    
 	@Override
     public List<Supplier> getAllSupliers() {
         String sql = "SELECT * FROM Supplier";
@@ -74,7 +75,7 @@ public class JDBCSupplierManager implements SupplierManager{
                 suppliers.add(extractSupplierFromResultSet(rs));
             }
         } catch (SQLException e) {
-            System.err.println("Error al recuperar la lista de proveedores.");
+            System.err.println("Error retrieving the list of suppliers.");
             e.printStackTrace();
         }
         
@@ -91,11 +92,12 @@ public class JDBCSupplierManager implements SupplierManager{
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error al actualizar el proveedor con ID: " + supplier.getId());
+            System.err.println("Error updating supplier with ID: " + supplier.getId());
             e.printStackTrace();
             return false;
         }
     }
+    
 	public boolean deleteSupplier(String id) {
         String sql = "DELETE FROM Supplier WHERE id = ?";
 
@@ -103,7 +105,7 @@ public class JDBCSupplierManager implements SupplierManager{
             pstmt.setString(1, id);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error al eliminar el proveedor con ID: " + id);
+            System.err.println("Error deleting supplier with ID: " + id);
             e.printStackTrace();
             return false;
         }
@@ -113,10 +115,9 @@ public class JDBCSupplierManager implements SupplierManager{
         Supplier supplier = new Supplier();
         supplier.setId(rs.getString("id"));
         supplier.setName(rs.getString("name"));
-        // El POJO y el insert contemplan el teléfono, asegúrate de que exista en la BD
+        // The POJO and the insert include the phone, ensure it exists in the DB
         supplier.setPhone(rs.getString("phone")); 
         return supplier;
-
-}
+    }
 	
 }
