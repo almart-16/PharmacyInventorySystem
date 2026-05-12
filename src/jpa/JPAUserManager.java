@@ -124,18 +124,20 @@ public User login(String userName, byte[] password) {
 	
 	@Override 
 	public void updatePassword(User user, byte [] newPassword ) {
-		byte [] hashedPassword = cryptPasswordvoid updatePassword(Integer userId, byte[] newPassword).hashPassword(newPassword);
-		em.getTransaction().begin();
-		
-		User managedUser = em.find(User.class, user.getUserId());
-		if (managedUser != null) {
-			managedUser.setPassword(hashedPassword);
-		}else {
-			System.out.println("no user");
-		}
-		user.setPassword(hashedPassword);
-		
-		em.getTransaction().commit();
+		String hashedPassword = BCrypt.hashpw(new String(newPassword), BCrypt.gensalt());
+	    
+	    try {
+	        em.getTransaction().begin();
+	        User managedUser = em.find(User.class, user.getUserId());
+	        if (managedUser != null) {
+	            managedUser.setPassword(hashedPassword.getBytes()); // Guardar siempre encriptado
+	            user.setPassword(hashedPassword.getBytes());
+	        }
+	        em.getTransaction().commit();
+	    } catch (Exception e) {
+	        if (em.getTransaction().isActive()) em.getTransaction().rollback();
+	        e.printStackTrace();
+	    }
 		
 	}
 	
