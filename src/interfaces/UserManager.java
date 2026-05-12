@@ -18,4 +18,6 @@ public interface UserManager {
 	
 	void delateUser(Integer id);
 	
+	void updatePassword(User user, byte[] newPassword);
+	
 }
