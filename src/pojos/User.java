@@ -2,6 +2,8 @@ package pojos;
 
 import java.io.Serializable;
 
+@Entity
+@Table(name)
 
 public class User implements Serializable {
 	private Integer id;

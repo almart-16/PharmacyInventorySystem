@@ -2,6 +2,8 @@ package pojos;
 
 import java.io.Serializable;
 
+@Entity 
+
 public class Role implements Serializable {
 
     private Integer id;
