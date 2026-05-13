@@ -82,5 +82,10 @@ public class JPARoleManager implements RoleManager {
 		}
 	}
 	
+	public void disconnect() {
+	    em.close();
+	}
+	
+	
 
 }
