@@ -1,4 +1,3 @@
-
 package jdbc;
 
 import interfaces.PharmacyManager;
@@ -12,20 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCPharmacyManager implements PharmacyManager {
-	private final Connection connection;
+    private final Connection connection;
 
-	   
     public JDBCPharmacyManager(Connection connection) {
         this.connection = connection;
     }
   
-    //Uso DML (queries) para consultas
+    // Using DML for queries
     @Override
     public Pharmacy findbyRegistrationNumber(String number) {
         String sql = "SELECT * FROM Pharmacy WHERE registration_number = ?";
         Pharmacy pharmacy = null;
 
-     // Uso de try-with-resources para asegurar el cierre de PreparedStatement y ResultSet
+        // Using try-with-resources to ensure PreparedStatement and ResultSet are closed
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, number);
 
@@ -35,7 +33,7 @@ public class JDBCPharmacyManager implements PharmacyManager {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al buscar farmacia por número de registro: " + number);
+            System.err.println("Error finding pharmacy by registration number: " + number);
             e.printStackTrace();
         }
         return pharmacy;
@@ -55,14 +53,11 @@ public class JDBCPharmacyManager implements PharmacyManager {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al leer la farmacia con ID: " + id);
+            System.err.println("Error reading pharmacy with ID: " + id);
             e.printStackTrace();
             
-            //Java imprime en pantalla la 
-            //traza completa del error 
-            //que ha ocurrido, mostrando dónde 
-            //y por qué fallo el programa.
-            
+            // Java prints the full stack trace of the error to the screen,
+            // showing where and why the program failed.
         }
         return pharmacy;
     }
@@ -79,7 +74,7 @@ public class JDBCPharmacyManager implements PharmacyManager {
                 pharmacies.add(extractPharmacyFromResultSet(rs));
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener la lista de farmacias.");
+            System.err.println("Error retrieving the list of pharmacies.");
             e.printStackTrace();
         }
         return pharmacies;
@@ -93,14 +88,14 @@ public class JDBCPharmacyManager implements PharmacyManager {
             pstmt.setString(2, pharmacy.getAddress());
             pstmt.setString(3, pharmacy.getPhone());
             pstmt.setString(4, pharmacy.getRegistrationNumber());
-            // Transformamos el int del POJO al TEXT de SQLite
+            // Transform the POJO's int to SQLite's TEXT
             pstmt.setString(5, String.valueOf(pharmacy.getMunicipalityId()));
             pstmt.setBytes(6, pharmacy.getPhoto());
 
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.err.println("Error al crear la farmacia con ID: " + pharmacy.getId());
+            System.err.println("Error creating pharmacy with ID: " + pharmacy.getId());
             e.printStackTrace();
             return false;
         }
@@ -120,7 +115,7 @@ public class JDBCPharmacyManager implements PharmacyManager {
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.err.println("Error al actualizar la farmacia con ID: " + pharmacy.getId());
+            System.err.println("Error updating pharmacy with ID: " + pharmacy.getId());
             e.printStackTrace();
             return false;
         }
@@ -136,13 +131,13 @@ public class JDBCPharmacyManager implements PharmacyManager {
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.err.println("Error al eliminar la farmacia con ID: " + id);
+            System.err.println("Error deleting pharmacy with ID: " + id);
             e.printStackTrace();
             return false;
         }
     }
 
-    //Metodos auxiliares com set 
+    // Helper methods for setting 
     private Pharmacy extractPharmacyFromResultSet(ResultSet rs) throws SQLException {
         Pharmacy pharmacy = new Pharmacy();
         pharmacy.setId(rs.getString("id"));
@@ -151,13 +146,13 @@ public class JDBCPharmacyManager implements PharmacyManager {
         pharmacy.setRegistrationNumber(rs.getString("registration_number"));
         pharmacy.setPhoto(rs.getBytes("photo"));
         
-        // Mapeo inverso:de TEXT en SQLite a int en el POJO
+        // Inverse mapping: from TEXT in SQLite to int in the POJO
         String municipalityIdStr = rs.getString("municipality_id");
         if (municipalityIdStr != null && !municipalityIdStr.isEmpty()) {
             try {
                 pharmacy.setMunicipalityId(Integer.parseInt(municipalityIdStr));
             } catch (NumberFormatException e) {
-                System.err.println("Error : El municipio no es un numero valido: " + municipalityIdStr);
+                System.err.println("Error: The municipality is not a valid number: " + municipalityIdStr);
             }
         }
         

@@ -11,15 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCPurchaseManager implements PurchaseManager {
-	
-	private final Connection connection;
+    
+    private final Connection connection;
 
     public JDBCPurchaseManager(Connection connection) {
         this.connection = connection;
     }
+
     @Override
     public boolean savePurchase(Purchase purchase) {
-        return create(purchase); // Reutilizamos la operación CREATE del CRUD
+        return create(purchase); // Reuse the CREATE operation from CRUD
     }
 
     @Override
@@ -27,34 +28,32 @@ public class JDBCPurchaseManager implements PurchaseManager {
         boolean success = false;
         
         try {
-            // Iniciamos la transacción (desactivamos el autocommit)
-        	//AUTOCOMMIT:Esto significa que cada vez que ejecutas una sola sentencia 
-        	//DML (un INSERT, UPDATE o DELETE), la base de datos hace un 
-    
-    //COMMIT automáticamente justo después de terminar esa línea.
-        	//DESACTIVAR: No guardes nada de forma permanente hasta que commit. 
-        	//Si te digo que canceles (rollback), olvida todo lo que te he dicho desde que empezamos.
+            // Start the transaction (disable autocommit)
+            // AUTOCOMMIT: This means that every time you execute a single DML statement 
+            // (an INSERT, UPDATE or DELETE), the database does a COMMIT automatically 
+            // right after finishing that line.
+            // DISABLE: Do not save anything permanently until commit. 
+            // If I tell you to cancel (rollback), forget everything I've told you since we started.
             connection.setAutoCommit(false);
 
-            // Comprobar si el medicamento necesita receta
-            String sqlRecipe = "SELECT recipe FROM Medication WHERE id = ?";
-            try (PreparedStatement pstmtRecipe = connection.prepareStatement(sqlRecipe)) {
-                pstmtRecipe.setString(1, purchase.getMedicationId());
-                try (ResultSet rsRecipe = pstmtRecipe.executeQuery()) {
-                    if (rsRecipe.next()) {
-                        String recipeRequired = rsRecipe.getString("recipe");
-                        // Asumimos que guarda "yes" o "no"
-                        if ("yes".equalsIgnoreCase(recipeRequired)) {
-                            System.out.println("ATENCIÓN: El medicamento " + purchase.getMedicationId() + " requiere receta. Verifique la receta del paciente.");
-                  
+            // Check if the medication requires a prescription
+            String sqlPrescription = "SELECT prescription FROM Medication WHERE id = ?";
+            try (PreparedStatement pstmtPrescription = connection.prepareStatement(sqlPrescription)) {
+                pstmtPrescription.setString(1, purchase.getMedicationId());
+                try (ResultSet rsPrescription = pstmtPrescription.executeQuery()) {
+                    if (rsPrescription.next()) {
+                        String prescriptionRequired = rsPrescription.getString("prescription");
+                        // We assume it stores "yes" or "no"
+                        if ("yes".equalsIgnoreCase(prescriptionRequired)) {
+                            System.out.println("WARNING: Medication " + purchase.getMedicationId() + " requires a prescription. Please verify the patient's prescription.");
                         }
                     } else {
-                        throw new SQLException("Medicamento no encontrado en la base de datos.");
+                        throw new SQLException("Medication not found in the database.");
                     }
                 }
             }
 
-            // Comprobar stock actual e inventario en la farmacia específica
+            // Check current stock and minimum inventory in the specific pharmacy
             String sqlCheckStock = "SELECT stock_quantity, minimum_stock FROM Inventory WHERE pharmacy_id = ? AND medication_id = ?";
             int currentStock = 0;
             int minStock = 0;
@@ -67,20 +66,20 @@ public class JDBCPurchaseManager implements PurchaseManager {
                         currentStock = rsStock.getInt("stock_quantity");
                         minStock = rsStock.getInt("minimum_stock");
                     } else {
-                        throw new SQLException("El medicamento no está en el inventario de esta farmacia.");
+                        throw new SQLException("The medication is not in the inventory of this pharmacy.");
                     }
                 }
             }
 
-            // Validar REQ12: Prevenir que el stock sea negativo
+            // Validate REQ12: Prevent stock from becoming negative
             if (currentStock < purchase.getQuantity()) {
-                System.err.println(" Error: Stock insuficiente. Stock actual: " + currentStock);
+                System.err.println("Error: Insufficient stock. Current stock: " + currentStock);
                 connection.rollback();
                 return false;
             }
 
-            // Reducir el stock (UPDATE)
-            String sqlUpdateStock = "UPDATE Inventory SET stock_quantity = stock_quantity - ? WHERE pharmacyId = ? AND medicationId = ?";
+            // Reduce stock (UPDATE)
+            String sqlUpdateStock = "UPDATE Inventory SET stock_quantity = stock_quantity - ? WHERE pharmacy_id = ? AND medication_id = ?";
             try (PreparedStatement pstmtUpdate = connection.prepareStatement(sqlUpdateStock)) {
                 pstmtUpdate.setInt(1, purchase.getQuantity());
                 pstmtUpdate.setString(2, purchase.getPharmacyId());
@@ -88,33 +87,33 @@ public class JDBCPurchaseManager implements PurchaseManager {
                 pstmtUpdate.executeUpdate();
             }
 
-            // Guardar la compra (INSERT)
+            // Save the purchase (INSERT)
             savePurchase(purchase);
 
-            // Use Case 7: Notificación de stock bajo
+            // Use Case 7: Low stock notification
             int newStock = currentStock - purchase.getQuantity();
             if (newStock <= minStock) {
-                System.out.println("ALERTA DE SISTEMA: El stock del medicamento " + purchase.getMedicationId() + 
-                                   " en la farmacia " + purchase.getPharmacyId() + " ha llegado a " + newStock + 
-                                   " (Mínimo: " + minStock + "). ¡Generar orden de pedido!");
+                System.out.println("SYSTEM ALERT: The stock for medication " + purchase.getMedicationId() + 
+                                   " in pharmacy " + purchase.getPharmacyId() + " has reached " + newStock + 
+                                   " (Minimum: " + minStock + "). Generate a purchase order!");
             }
 
-            // 8. Si todo ha ido bien, confirmamos la transacción
+            // 8. If everything went well, commit the transaction
             connection.commit();
             success = true;
-            System.out.println("Venta registrada y stock actualizado con éxito.");
+            System.out.println("Sale registered and stock updated successfully.");
 
         } catch (SQLException e) {
-            System.err.println("Error durante la venta. Revirtiendo cambios (Rollback)...");
+            System.err.println("Error during the sale. Reverting changes (Rollback)...");
             e.printStackTrace();
             try {
-                connection.rollback(); // Deshacemos todo si hay un fallo
+                connection.rollback(); // Undo everything if there is a failure
             } catch (SQLException rollbackEx) {
                 rollbackEx.printStackTrace();
             }
         } finally {
             try {
-                // Siempre volvemos a dejar la conexión en su estado original
+                // Always return the connection to its original state
                 connection.setAutoCommit(true);
             } catch (SQLException autoCommitEx) {
                 autoCommitEx.printStackTrace();
@@ -123,11 +122,12 @@ public class JDBCPurchaseManager implements PurchaseManager {
         
         return success;
     }
+
     public boolean create(Purchase purchase) {
-        String sql = "INSERT INTO Purchase (id, clientId, pharmacyId, medicationId, date, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Purchase (id, client_id, pharmacy_id, medication_id, date, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, purchase.getId());
-            pstmt.setString(2, purchase.getPatientId());
+            pstmt.setString(2, purchase.getClientId()); // Changed from getPatientId to getClientId
             pstmt.setString(3, purchase.getPharmacyId());
             pstmt.setString(4, purchase.getMedicationId());
             pstmt.setString(5, purchase.getDate());
@@ -136,7 +136,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error al insertar Purchase ID: " + purchase.getId());
+            System.err.println("Error inserting Purchase ID: " + purchase.getId());
             e.printStackTrace();
             return false;
         }
@@ -152,16 +152,16 @@ public class JDBCPurchaseManager implements PurchaseManager {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al leer Purchase ID: " + id);
+            System.err.println("Error reading Purchase ID: " + id);
             e.printStackTrace();
         }
         return null;
     }
 
     public boolean update(Purchase purchase) {
-        String sql = "UPDATE Purchase SET clientId = ?, pharmacyId = ?, medicationId = ?, date = ?, quantity = ?, price = ? WHERE id = ?";
+        String sql = "UPDATE Purchase SET client_id = ?, pharmacy_id = ?, medication_id = ?, date = ?, quantity = ?, price = ? WHERE id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, purchase.getPatientId());
+            pstmt.setString(1, purchase.getClientId()); // Changed from getPatientId to getClientId
             pstmt.setString(2, purchase.getPharmacyId());
             pstmt.setString(3, purchase.getMedicationId());
             pstmt.setString(4, purchase.getDate());
@@ -171,7 +171,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error al actualizar Purchase ID: " + purchase.getId());
+            System.err.println("Error updating Purchase ID: " + purchase.getId());
             e.printStackTrace();
             return false;
         }
@@ -183,7 +183,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
             pstmt.setString(1, id);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error al eliminar Purchase ID: " + id);
+            System.err.println("Error deleting Purchase ID: " + id);
             e.printStackTrace();
             return false;
         }
@@ -198,17 +198,18 @@ public class JDBCPurchaseManager implements PurchaseManager {
                 purchases.add(extractPurchaseFromResultSet(rs));
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener el historial de compras.");
+            System.err.println("Error retrieving purchase history.");
             e.printStackTrace();
         }
         return purchases;
     }
+
     private Purchase extractPurchaseFromResultSet(ResultSet rs) throws SQLException {
         Purchase purchase = new Purchase();
         purchase.setId(rs.getString("id"));
-        purchase.setPatientId(rs.getString("clientId"));
-        purchase.setPharmacyId(rs.getString("pharmacyId"));
-        purchase.setMedicationId(rs.getString("medicationId"));
+        purchase.setClientId(rs.getString("client_id")); // Changed from setPatientId to setClientId
+        purchase.setPharmacyId(rs.getString("pharmacy_id")); // Changed camelCase to snake_case based on DB
+        purchase.setMedicationId(rs.getString("medication_id"));
         purchase.setDate(rs.getString("date"));
         purchase.setQuantity(rs.getInt("quantity"));
         purchase.setPrice(rs.getDouble("price"));
