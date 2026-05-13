@@ -2,11 +2,20 @@ package pojos;
 
 import java.io.Serializable;
 
+import javax.persistence.*;
+
 @Entity 
+@Table(name = "roles")
 
 public class Role implements Serializable {
+	
 
-    private Integer id;
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "role_id")
+	private Integer id;
+    
+    @Column(name="roleName", nullable = false, unique = true)
     private String roleName; // Ej: "admin", "pharmacist", "manager"ç
     
     public Role() {}

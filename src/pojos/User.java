@@ -2,13 +2,26 @@ package pojos;
 
 import java.io.Serializable;
 
+import javax.persistence.*;
+
 @Entity
-@Table(name)
+@Table(name = "users")
+
 
 public class User implements Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column (name= "user_id")
 	private Integer id;
+	
+	@Column (name="userName", nullable = false, unique = true)
 	private String username;
+	
+	@Column (name = "password", nullable = false)
 	private byte[] password;
+	
+	@ManyToOne 
+	@JoinColumn (name = "role_id", nullable = false)
 	private Role role;
 	
 	public User () {}

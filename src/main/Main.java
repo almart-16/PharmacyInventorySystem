@@ -1,10 +1,11 @@
+package main;
 
 import jdbc.*;
 import pojos.*;
 import interfaces.*;
 import java.sql.Connection;
 
-public class main {
+public class Main {
 	
 	public static void main(String[] args) {
         System.out.println("Starting Pharmacy Management System");

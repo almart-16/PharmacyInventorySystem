@@ -85,6 +85,15 @@ public User login(String userName, byte[] password) {
 }
 	 */
 	
+	public boolean checkPassword(String userName, byte[] password) {
+	    User user = this.findUserByUserName(userName);
+	    if (user == null) {
+	        return false;
+	    }
+	
+	    return BCrypt.checkpw(password, user.getPassword());
+	}
+	
 		
 	
 	@SuppressWarnings("unchecked")
