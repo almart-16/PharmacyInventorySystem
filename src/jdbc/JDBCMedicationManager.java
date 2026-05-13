@@ -76,7 +76,7 @@ public class JDBCMedicationManager implements MedicationManager {
 
             stmt.setString(1, m.getId());
             stmt.setString(2, m.getName());
-            stmt.setString(3, m.getTarget_illness());
+            stmt.setString(3, m.getTargetIllness());
 
             // convertimos boolean → texto
             stmt.setString(4, m.isSs() ? "yes" : "no");

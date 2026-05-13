@@ -12,10 +12,10 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(String id, String patientId, String pharmacyId, String date,
+    public Purchase(String id, String clientId, String pharmacyId, String date,
                     String medicationId, int quantity, double price) {
         this.id = id;
-        this.clientId = patientId;
+        this.clientId = clientId;
         this.pharmacyId = pharmacyId;
         this.date = date;
         this.medicationId = medicationId;
@@ -32,12 +32,12 @@ public class Purchase {
     }
 
 
-    public String getPatientId() {
+    public String getClientId() {
         return clientId;
     }
 
-    public void setPatientId(String patientId) {
-        this.clientId = patientId;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
 
@@ -95,7 +95,7 @@ public class Purchase {
     public String toString() {
         return "Purchase{" +
                 "id='" + id + '\'' +
-                ", patientId='" + clientId + '\'' +
+                ", cliientId='" + clientId + '\'' +
                 ", pharmacyId='" + pharmacyId + '\'' +
                 ", date='" + date + '\'' +
                 ", medicationId='" + medicationId + '\'' +

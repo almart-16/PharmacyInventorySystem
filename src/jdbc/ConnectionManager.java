@@ -40,8 +40,8 @@ public class ConnectionManager {
             "CREATE TABLE IF NOT EXISTS Medication ( " +
             "id TEXT PRIMARY KEY, " + 
             "name TEXT NOT NULL UNIQUE, " + 
-            "target_illness TEXT, " + 
-            "SS BOOLEAN NOT NULL, " + 
+            "targetIllness TEXT, " + 
+            "ss BOOLEAN NOT NULL, " + 
             "prescription BOOLEAN NOT NULL)", 
             
             // Supplier (Corregido: errores de comillas y campos duplicados)
@@ -64,50 +64,50 @@ public class ConnectionManager {
             "id TEXT PRIMARY KEY, " +
             "address TEXT, " +
             "phone TEXT, " +
-            "registration_number TEXT UNIQUE, " +
-            "municipality_id TEXT, " +
+            "registrationNumber TEXT UNIQUE, " +
+            "municipalityId TEXT, " +
             "photo BLOB, " + 
-            "FOREIGN KEY(municipality_id) REFERENCES Municipality(id))",
+            "FOREIGN KEY(municipalityId) REFERENCES Municipality(id))",
             
             // Inventory
             "CREATE TABLE IF NOT EXISTS Inventory (" +
             "id TEXT PRIMARY KEY, " +
-            "pharmacy_id TEXT, " +
-            "medication_id TEXT, " +
-            "supplier_id TEXT, " +
-            "stock_quantity INTEGER, " +
+            "pharmacyId TEXT, " +
+            "medicationId TEXT, " +
+            "supplierId TEXT, " +
+            "stockQuantity INTEGER, " +
             "price REAL, " +
-            "expiration_date TEXT, " +
-            "minimum_stock INTEGER, " +
-            "FOREIGN KEY(pharmacy_id) REFERENCES Pharmacy(id), " +
-            "FOREIGN KEY(medication_id) REFERENCES Medication(id), " +
-            "FOREIGN KEY(supplier_id) REFERENCES Supplier(id))",
+            "expirationDate TEXT, " +
+            "minimumStock INTEGER, " +
+            "FOREIGN KEY(pharmacyId) REFERENCES Pharmacy(id), " +
+            "FOREIGN KEY(medicationId) REFERENCES Medication(id), " +
+            "FOREIGN KEY(supplierId) REFERENCES Supplier(id))",
             
             // Purchase
             "CREATE TABLE IF NOT EXISTS Purchase (" +
             "id TEXT PRIMARY KEY, " +
-            "client_id TEXT, " +
-            "pharmacy_id TEXT, " +
+            "clientId TEXT, " +
+            "pharmacyId TEXT, " +
             "date TEXT, " +
-            "medication_id TEXT, " +
+            "medicationId TEXT, " +
             "quantity INTEGER, " +
             "price REAL, " +
-            "FOREIGN KEY(client_id) REFERENCES Client(id), " +
-            "FOREIGN KEY(pharmacy_id) REFERENCES Pharmacy(id), " +
-            "FOREIGN KEY(medication_id) REFERENCES Medication(id))",
+            "FOREIGN KEY(clientId) REFERENCES Client(id), " +
+            "FOREIGN KEY(pharmacyId) REFERENCES Pharmacy(id), " +
+            "FOREIGN KEY(medicationId) REFERENCES Medication(id))",
             
             // Orders (Corregido: Nombre cambiado de Order a Orders)
             "CREATE TABLE IF NOT EXISTS Orders (" +
             "id TEXT PRIMARY KEY, " +
-            "pharmacy_id TEXT, " +
-            "supplier_id TEXT, " +
-            "medication_id TEXT, " +
+            "pharmacyId TEXT, " +
+            "supplierId TEXT, " +
+            "medicationId TEXT, " +
             "date TEXT, " +
             "quantity INTEGER, " +
             "status TEXT, " +
-            "FOREIGN KEY(pharmacy_id) REFERENCES Pharmacy(id), " +
-            "FOREIGN KEY(supplier_id) REFERENCES Supplier(id), " +
-            "FOREIGN KEY(medication_id) REFERENCES Medication(id))"
+            "FOREIGN KEY(pharmacyId) REFERENCES Pharmacy(id), " +
+            "FOREIGN KEY(supplierId) REFERENCES Supplier(id), " +
+            "FOREIGN KEY(medicationId) REFERENCES Medication(id))"
         };
     
         try (Statement s = c.createStatement()) {
