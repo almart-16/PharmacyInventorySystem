@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+ 
+
+	<persistence-unit name="biomedicalinventory-provider" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+		<!-- Entity Classes PONER SOLO USER Y ROLE CON TODA LA RUTA COMPLETA-->
+		<class>PojosBiomedicalInventory.Role</class>
+		<class>PojosBiomedicalInventory.User</class>
+
+
+		<properties>	
+			<!-- Connection properties -->
+			<property name="javax.persistence.jdbc.driver"
+				value="org.sqlite.JDBC" />
+	    	<property name="javax.persistence.jdbc.url"
+				value="jdbc:sqlite:./db/biomedicalInventory.db" />
+			<!-- Fill if we need user and password -->
+			<property name="javax.persistence.jdbc.user" value="" />
+			<property name="javax.persistence.jdbc.password" value="" />
+	    
+	    	<!-- JPA creates the database schema if it doesn't exist -->
+	    
+			<property name="eclipselink.ddl-generation" value="create-tables" />
+		</properties>
+	</persistence-unit>
+</persistence>
