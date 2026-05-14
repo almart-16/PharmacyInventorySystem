@@ -6,12 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/andre/Downloads/MaterialJPA/MaterialJPA/javax.persistence_2.1.1.v201509150925.jar"/>
-	<classpathentry kind="lib" path="C:/Users/andre/Downloads/MaterialJPA/MaterialJPA/eclipselink-2.7.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/andre/Downloads/sqlite-jdbc-3.47.2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/andre/Downloads/libXML/libXML/istack-commons-runtime-3.0.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/andre/Downloads/libXML/libXML/javax.activation-api-1.2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/andre/Downloads/libXML/libXML/jaxb-api-2.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/andre/Downloads/libXML/libXML/jaxb-impl-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/libXML/istack-commons-runtime-3.0.7.jar"/>
+	<classpathentry kind="lib" path="lib/libXML/javax.activation-api-1.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/libXML/jaxb-api-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/libXML/jaxb-impl-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/MaterialJPA/eclipselink-2.7.10.jar"/>
+	<classpathentry kind="lib" path="lib/MaterialJPA/javax.persistence_2.1.1.v201509150925.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.47.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
