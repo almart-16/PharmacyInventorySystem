@@ -5,6 +5,7 @@ import jpa.JPARoleManager;
 import jpa.JPAUserManager;
 import pojos.*;
 import interfaces.*;
+import xml.PharmacyWrapper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -348,9 +349,6 @@ public class Main {
 		    }
 		}
 	 
-	 
-	 
-	 
 	 /**
 	 
 	 
@@ -645,6 +643,9 @@ public class Main {
 	        System.out.print("New price: ");
 	        double price = readDouble();
 
+	        System.out.print("New purchase price: ");
+	        double purchasePrice = readDouble();
+
 	        System.out.print("New expiration date: ");
 	        String expirationDate = reader.readLine();
 
@@ -655,6 +656,7 @@ public class Main {
 	                pharmacyId,
 	                medicationId,
 	                price,
+	                purchasePrice,
 	                expirationDate,
 	                supplierId);
 
@@ -1326,7 +1328,10 @@ public class Main {
 	            return;
 	        }
 
-	        User newUser = new User(username, password, pharmacistRole);
+	        User newUser = new User();
+	        newUser.setUsername(username);
+	        newUser.setPassword(password);
+	        newUser.setRole(pharmacistRole);
 	        userManager.createUser(newUser);
 
 	        System.out.println("Pharmacist user created successfully.");
@@ -1459,7 +1464,7 @@ public class Main {
 	                    wrapper.setOrders(ordersManager.getAllOrders());
 	                    wrapper.setPurchases(purchaseManager.getAllPurchases());
 	                    wrapper.setPharmacies(pharmacyManager.getAllPharmacies());
-	                    wrapper.setSuppliers(supplierManager.getAllSuppliers());
+	                    wrapper.setSuppliers(supplierManager.getAllSupliers());
 	                    
 	                    xmlManager.exportWholeDatabase(wrapper, outName);
 	                    break;
@@ -1491,7 +1496,7 @@ public class Main {
 	                case 5:
 	                    System.out.print("Enter output file name (e.g., suppliers.xml): ");
 	                    String supOut = reader.readLine();
-	                    xmlManager.exportSuppliers(supplierManager.getAllSuppliers(), supOut);
+	                    xmlManager.exportSuppliers(supplierManager.getAllSupliers(), supOut);
 	                    break;
 
 	                case 6:

@@ -8,7 +8,7 @@ Write-Host "Generating Javadoc documentation..."
 $ClassPath = "lib\*;lib\MaterialJPA\*;lib\libXML\*"
 
 # Execute Javadoc
-javadoc -d $OutputDir -cp $ClassPath -sourcepath src -subpackages interfaces:jdbc:jpa:main:pojos:xml
+javadoc -d $OutputDir -cp `"$ClassPath`" -sourcepath src -subpackages interfaces:jdbc:jpa:main:pojos:xml
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "Javadoc generated successfully in the '$OutputDir' directory." -ForegroundColor Green
