@@ -1,7 +1,14 @@
 package pojos;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "municipality")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Municipality {
-	private int id;
+	@XmlAttribute(name = "id")
+    private int id;
+
+    @XmlElement(name = "name")
     private String name;
 
     public Municipality() {

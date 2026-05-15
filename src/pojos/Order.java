@@ -1,14 +1,31 @@
 package pojos;
 
-public class Order {
-	private String id;
-    private String pharmacyId;
-    private String supplierId;
-    private String medicationId;
-    private String date;
-    private int quantity;
-    private String status;
+import javax.xml.bind.annotation.*;
 
+@XmlRootElement(name = "order")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Order {
+	@XmlAttribute(name = "id")
+    private String id;
+
+    @XmlElement(name = "pharmacyId")
+    private String pharmacyId;
+
+    @XmlElement(name = "supplierId")
+    private String supplierId;
+
+    @XmlElement(name = "medicationId")
+    private String medicationId;
+
+    @XmlElement(name = "orderDate")
+    private String date;
+
+    @XmlElement(name = "quantity")
+    private int quantity;
+
+    @XmlElement(name = "status")
+    private String status;
+    
     public Order() {
     }
 

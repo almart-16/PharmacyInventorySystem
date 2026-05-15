@@ -71,22 +71,7 @@ public class JPAUserManager implements UserManager {
 		}
 	}
 	
-	/*
-	 * @Override
-public User login(String userName, byte[] password) {
-    try {
-        // Buscamos usuario que coincida con nombre Y contraseña a la vez
-        Query q = em.createNativeQuery("SELECT * FROM users WHERE username = ? AND password = ?", User.class);
-        q.setParameter(1, userName);
-        q.setParameter(2, password);
-        
-        return (User) q.getSingleResult();
-    } catch (NoResultException e) {
-        return null; // Login incorrecto
-    }
-}
-	 */
-	
+
 	public boolean checkPassword(String userName, String password) {
 	    User user = this.findUserByUserName(userName);
 	    if (user == null) {
@@ -141,8 +126,8 @@ public User login(String userName, byte[] password) {
 	        em.getTransaction().begin();
 	        User managedUser = em.find(User.class, user.getUserId());
 	        if (managedUser != null) {
-	            managedUser.setPassword(hashedPassword.getBytes()); // Guardar siempre encriptado
-	            user.setPassword(hashedPassword.getBytes());
+	            managedUser.setPassword(hashedPassword); // Guardar siempre encriptado
+	            user.setPassword(hashedPassword);
 	        }
 	        em.getTransaction().commit();
 	    } catch (Exception e) {
@@ -152,42 +137,6 @@ public User login(String userName, byte[] password) {
 		
 	}
 	
-	/*
-	 * @Override 
-public void updatePassword(User user, byte[] newPassword) {
-    try {
-        // 1. Iniciamos la transacción
-        em.getTransaction().begin();
-        
-        // 2. Buscamos al usuario en la base de datos por su ID para que JPA lo "gestione"
-        // Usamos user.getUserId() que es el ID del objeto que recibimos
-        User managedUser = em.find(User.class, user.getUserId());
-        
-        if (managedUser != null) {
-            // 3. Cambiamos la contraseña directamente en el objeto gestionado por JPA
-            managedUser.setPassword(newPassword);
-            
-            // También actualizamos el objeto original que recibimos por parámetro 
-            // para que el resto del programa vea el cambio
-            user.setPassword(newPassword);
-            
-            System.out.println("Password updated successfully for user: " + user.getUserName());
-        } else {
-            System.out.println("User not found in database.");
-        }
-        
-        // 4. Al hacer commit, JPA detecta que el password ha cambiado y lanza el UPDATE a la DB
-        em.getTransaction().commit();
-        
-    } catch (Exception e) {
-        // Si hay error, deshacemos cualquier cambio
-        if (em.getTransaction().isActive()) {
-            em.getTransaction().rollback();
-        }
-        e.printStackTrace();
-    }
-}
-	 */
 	
 	public void disconnect() {
 	    em.close();

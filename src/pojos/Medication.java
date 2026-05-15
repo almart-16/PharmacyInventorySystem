@@ -1,11 +1,25 @@
 package pojos;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "medication")
+@XmlAccessorType(XmlAccessType.FIELD) //esto hace que todo sea un xml automaticamente
 public class Medication {
+	
+	@XmlAttribute(name = "id")
     private String id;
+	
+	@XmlElement(name = "name")
     private String name;
+    
+    @XmlElement(name = "targetIllness")
     private String targetIllness; 
+    
+    @XmlElement(name = "socialSecurity") 
     private boolean ss;
-    private boolean prescription; 
+    
+    @XmlElement(name = "requiresPrescription")
+    private boolean prescription;
 
     public Medication() {}
 
@@ -31,5 +45,5 @@ public class Medication {
     public void setSs(boolean ss) { this.ss = ss; }
 
     public boolean isPrescription() { return prescription; }
-    public void setPrescription(boolean prescription) { this.prescription = prescription; } // Cambiado de setReceta
+    public void setPrescription(boolean prescription) { this.prescription = prescription; }
 }

@@ -1,12 +1,25 @@
 package pojos;
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "history")
+@XmlAccessorType(XmlAccessType.FIELD)
 
 public class History {
 
+	@XmlElement(name = "date")
     private String date;
+
+    @XmlElement(name = "movementType")
     private String movementType; // Sale o Restock
+
+    @XmlElement(name = "medicationId")
     private String medicationId;
+
+    @XmlElement(name = "quantity")
     private int quantity;
-    private Double price; // puede ser null
+
+    @XmlElement(name = "price")
+    private Double price;// puede ser null
 
     public History() {}
 

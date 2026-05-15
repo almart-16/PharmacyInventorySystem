@@ -1,0 +1,74 @@
+<!ELEMENT pharmacy_unit (medications?, suppliers?, clients?, pharmacies?, orders?, purchases?, inventories?, users?, roles?, histories?, municipalities?)>
+
+<!ELEMENT medications (medication*)>
+<!ELEMENT suppliers (supplier*)>
+<!ELEMENT clients (client*)>
+<!ELEMENT pharmacies (pharmacy*)>
+<!ELEMENT orders (order*)>
+<!ELEMENT purchases (purchase*)>
+<!ELEMENT inventories (inventory*)>
+<!ELEMENT users (user*)>
+<!ELEMENT roles (role*)>
+<!ELEMENT histories (history*)>
+<!ELEMENT municipalities (municipality*)>
+
+<!ELEMENT medication (name, targetIllness, socialSecurity, requiresPrescription)>
+<!ATTLIST medication id CDATA #REQUIRED>
+
+<!ELEMENT supplier (name, phone)>
+<!ATTLIST supplier id CDATA #REQUIRED>
+
+<!ELEMENT client (name, nationalId, age, municipalityId)>
+<!ATTLIST client id CDATA #REQUIRED>
+
+<!ELEMENT pharmacy (address, phone, registrationNumber, municipalityId, photo?)>
+<!ATTLIST pharmacy id CDATA #REQUIRED>
+
+<!ELEMENT order (pharmacyId, supplierId, medicationId, orderDate, quantity, status)>
+<!ATTLIST order id CDATA #REQUIRED>
+
+<!ELEMENT purchase (clientId, pharmacyId, purchaseDate, medicationId, quantity, totalPrice)>
+<!ATTLIST purchase id CDATA #REQUIRED>
+
+<!ELEMENT inventory (pharmacyId, medicationId, supplierId, stockQuantity, price, expirationDate, minimumStock)>
+<!ATTLIST inventory id CDATA #REQUIRED>
+
+<!ELEMENT user (username, role)>
+<!ATTLIST user id CDATA #REQUIRED>
+
+<!ELEMENT role (rolename)>
+<!ATTLIST role id CDATA #REQUIRED>
+
+<!ELEMENT history (date, movementType, medicationId, quantity, price?)>
+
+<!ELEMENT municipality (name)>
+<!ATTLIST municipality id CDATA #REQUIRED>
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT targetIllness (#PCDATA)>
+<!ELEMENT socialSecurity (#PCDATA)>
+<!ELEMENT requiresPrescription (#PCDATA)>
+<!ELEMENT phone (#PCDATA)>
+<!ELEMENT nationalId (#PCDATA)>
+<!ELEMENT age (#PCDATA)>
+<!ELEMENT municipalityId (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT registrationNumber (#PCDATA)>
+<!ELEMENT photo (#PCDATA)>
+<!ELEMENT pharmacyId (#PCDATA)>
+<!ELEMENT supplierId (#PCDATA)>
+<!ELEMENT medicationId (#PCDATA)>
+<!ELEMENT orderDate (#PCDATA)>
+<!ELEMENT quantity (#PCDATA)>
+<!ELEMENT status (#PCDATA)>
+<!ELEMENT clientId (#PCDATA)>
+<!ELEMENT purchaseDate (#PCDATA)>
+<!ELEMENT totalPrice (#PCDATA)>
+<!ELEMENT stockQuantity (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ELEMENT expirationDate (#PCDATA)>
+<!ELEMENT minimumStock (#PCDATA)>
+<!ELEMENT username (#PCDATA)>
+<!ELEMENT rolename (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT movementType (#PCDATA)>

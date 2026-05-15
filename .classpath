@@ -13,5 +13,7 @@
 	<classpathentry kind="lib" path="lib/MaterialJPA/eclipselink-2.7.10.jar"/>
 	<classpathentry kind="lib" path="lib/MaterialJPA/javax.persistence_2.1.1.v201509150925.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.47.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/jbcrypt-0.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/jbcrypt-0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

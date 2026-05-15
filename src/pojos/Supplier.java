@@ -1,12 +1,19 @@
 package pojos;
 
-import java.io.Serializable;
+import javax.xml.bind.annotation.*;
 
-public class Supplier implements Serializable {
+@XmlRootElement(name = "supplier")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Supplier {
+	
+	@XmlAttribute(name = "id")
     private String id;
+
+    @XmlElement(name = "name")
     private String name;
+
+    @XmlElement(name = "phone")
     private String phone;
-    
     public Supplier() {}
 
     public Supplier(String id, String name, String phone) {

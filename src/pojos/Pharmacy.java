@@ -1,12 +1,27 @@
 package pojos;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "pharmacy")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Pharmacy {
 
-	private String id;
+	@XmlAttribute(name = "id")
+    private String id;
+
+    @XmlElement(name = "address")
     private String address;
+
+    @XmlElement(name = "phone")
     private String phone;
+
+    @XmlElement(name = "registrationNumber")
     private String registrationNumber;
+
+    @XmlElement(name = "municipalityId")
     private int municipalityId;
+
+    @XmlElement(name = "photo")
     private byte[] photo;
     
     public Pharmacy() {

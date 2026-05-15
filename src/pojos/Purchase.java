@@ -1,12 +1,30 @@
 package pojos;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "purchase")
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Purchase {
-	private String id;
+	@XmlAttribute(name = "id")
+    private String id;
+
+    @XmlElement(name = "clientId")
     private String clientId;
+
+    @XmlElement(name = "pharmacyId")
     private String pharmacyId;
+
+    @XmlElement(name = "purchaseDate")
     private String date;
+
+    @XmlElement(name = "medicationId")
     private String medicationId;
+
+    @XmlElement(name = "quantity")
     private int quantity;
+
+    @XmlElement(name = "totalPrice")
     private double price;
 
     public Purchase() {

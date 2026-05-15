@@ -1,13 +1,33 @@
 package pojos;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "inventory")
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Inventory {
-	private String id;
+	@XmlAttribute(name = "id")
+    private String id;
+
+    @XmlElement(name = "pharmacyId")
     private String pharmacyId;
+
+    @XmlElement(name = "medicationId")
     private String medicationId;
+
+    @XmlElement(name = "supplierId")
     private String supplierId;
+
+    @XmlElement(name = "stockQuantity")
     private int stockQuantity;
+
+    @XmlElement(name = "price")
     private double price;
+
+    @XmlElement(name = "expirationDate")
     private String expirationDate;
+
+    @XmlElement(name = "minimumStock")
     private int minimumStock;
 
     public Inventory() {
