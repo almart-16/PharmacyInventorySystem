@@ -10,10 +10,17 @@ public class JDBCInventoryManager implements InventoryManager {
 
     private Connection connection;
     
+    /**
+     * Constructs a new JDBCInventoryManager with the given database connection.
+     *
+     * @param connection the database connection
+     */
     public JDBCInventoryManager(Connection connection) {
         this.connection = connection;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Inventory findInventory(String pharmacyId, String medicationId) {
         String sql = "SELECT * FROM Inventory WHERE pharmacy_id = ? AND medication_id = ?";
@@ -44,7 +51,9 @@ public class JDBCInventoryManager implements InventoryManager {
 
         return null;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean increaseStock(String pharmacyId, String medicationId, int quantity) {
         String sql = "UPDATE Inventory SET stock_quantity = stock_quantity + ? WHERE pharmacy_id = ? AND medication_id = ?";
@@ -63,7 +72,9 @@ public class JDBCInventoryManager implements InventoryManager {
 
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean reduceStock(String pharmacyId, String medicationId, int quantity) {
         String sql = "UPDATE Inventory SET stock_quantity = stock_quantity - ? WHERE pharmacy_id = ? AND medication_id = ?";
@@ -82,7 +93,9 @@ public class JDBCInventoryManager implements InventoryManager {
 
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addInventory(Inventory i) {
         String sql = "INSERT INTO Inventory (id, pharmacy_id, medication_id, supplier_id, stock_quantity, price, expiration_date, minimum_stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -107,7 +120,9 @@ public class JDBCInventoryManager implements InventoryManager {
 
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean updateInventoryInformation(String pharmacyId, String medicationId,
                                               double price, String expirationDate, String supplierId) {
@@ -131,7 +146,9 @@ public class JDBCInventoryManager implements InventoryManager {
 
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Inventory> getLowStockMedications() {
         List<Inventory> list = new ArrayList<>();
@@ -160,7 +177,9 @@ public class JDBCInventoryManager implements InventoryManager {
 
         return list;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isLowStock(String pharmacyId, String medicationId) {
         String sql = "SELECT * FROM Inventory WHERE pharmacy_id = ? AND medication_id = ? AND stock_quantity <= minimum_stock";
@@ -179,7 +198,9 @@ public class JDBCInventoryManager implements InventoryManager {
 
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isOutOfStock(String pharmacyId, String medicationId) {
         String sql = "SELECT * FROM Inventory WHERE pharmacy_id = ? AND medication_id = ? AND stock_quantity = 0";

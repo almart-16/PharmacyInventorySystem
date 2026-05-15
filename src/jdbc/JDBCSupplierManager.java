@@ -14,11 +14,18 @@ public class JDBCSupplierManager implements SupplierManager{
 	
 	private final Connection connection;
 	
-	public JDBCSupplierManager(Connection connection) {
+	/**
+     * Constructs a new JDBCSupplierManager with the given database connection.
+     *
+     * @param connection the database connection
+     */
+    public JDBCSupplierManager(Connection connection) {
         this.connection = connection;
     }
-	
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Supplier addSupplier(Supplier supplier) {
         String sql = "INSERT INTO Supplier (id, name, phone) VALUES (?, ?, ?)";
 
@@ -41,8 +48,10 @@ public class JDBCSupplierManager implements SupplierManager{
         // If we reach here, there was an error or no rows were inserted
         return null;
     }
-    
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Supplier findById(String id) {
         String sql = "SELECT * FROM Supplier WHERE id = ?";
         Supplier supplier = null;
@@ -62,8 +71,10 @@ public class JDBCSupplierManager implements SupplierManager{
         
         return supplier;
     }
-    
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Supplier> getAllSupliers() {
         String sql = "SELECT * FROM Supplier";
         List<Supplier> suppliers = new ArrayList<>();

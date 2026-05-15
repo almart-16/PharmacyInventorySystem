@@ -10,6 +10,11 @@ import pojos.Supplier;
 
 public class XMLManager {
 	
+	/**
+	 * Exports a list of medications to an XML file.
+	 * @param medications the list of medications
+	 * @param fileName the output file name
+	 */
 	public void exportMedications(List<Medication> medications, String fileName) {
         try {
         	
@@ -32,6 +37,11 @@ public class XMLManager {
         }
     }
 	
+	/**
+	 * Imports medications from an XML file.
+	 * @param fileName the XML file name
+	 * @return the list of imported medications
+	 */
 	public List<Medication> importMedications(String fileName) {
         try {
             JAXBContext context = JAXBContext.newInstance(MedicationList.class);
@@ -48,6 +58,11 @@ public class XMLManager {
         }
     }
 	
+	/**
+	 * Exports a list of suppliers to an XML file.
+	 * @param suppliers the list of suppliers
+	 * @param fileName the output file name
+	 */
 	public void exportSuppliers(List<Supplier> suppliers, String fileName) {
         try {
             JAXBContext context = JAXBContext.newInstance(SupplierList.class);
@@ -67,6 +82,11 @@ public class XMLManager {
     }
 	
 	
+	/**
+	 * Imports suppliers from an XML file.
+	 * @param fileName the XML file name
+	 * @return the list of imported suppliers
+	 */
 	public List<Supplier> importSuppliers (String fileName){
 		try {
 			JAXBContext context = JAXBContext.newInstance(SupplierList.class);
@@ -82,6 +102,11 @@ public class XMLManager {
 		}
 	}
 	
+	/**
+	 * Exports the whole database to an XML file.
+	 * @param project the PharmacyWrapper containing all data
+	 * @param fileName the output file name
+	 */
 	public void exportWholeDatabase(PharmacyWrapper project, String fileName) {
 	    try {
 	        JAXBContext context = JAXBContext.newInstance(PharmacyWrapper.class);
@@ -99,6 +124,11 @@ public class XMLManager {
 	    }
 	}
 	
+	/**
+	 * Imports the whole database from an XML file.
+	 * @param fileName the XML file name
+	 * @return the PharmacyWrapper containing all imported data
+	 */
 	public PharmacyWrapper importWholeDatabase(String fileName) {
 	    try {
 	        JAXBContext context = JAXBContext.newInstance(PharmacyWrapper.class);

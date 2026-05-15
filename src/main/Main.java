@@ -32,6 +32,10 @@ public class Main {
 	private static User loggedUser;
 	
 	
+		/**
+	 * Main method to run the Pharmacy Inventory System.
+	 * @param args command line arguments
+	 */
 	public static void main(String[] args) {
 		
 		
@@ -75,6 +79,12 @@ public class Main {
 	
 	// Initialization of all the managers
 	
+	/**
+	
+	 * Executes the initializeManagers action.
+	
+	 */
+	
 	private static void initializeManagers() {
 		connectionManager = new ConnectionManager();
 		
@@ -96,6 +106,12 @@ public class Main {
 	
 	
 	// LOGIN MENU 
+	
+	 /**
+	
+	  * Executes the loginMenu action.
+	
+	  */
 	
 	 private static void loginMenu() throws IOException {
 
@@ -138,6 +154,12 @@ public class Main {
 	        
 	        
 	// ADMIN MENU
+	 
+	 /**
+	 
+	  * Executes the adminMenu action.
+	 
+	  */
 	 
 	 private static void adminMenu() throws IOException {
 
@@ -228,6 +250,12 @@ public class Main {
 	 
 	 // PHARMACIST MENU
 	 
+	 /**
+	 
+	  * Executes the pharmacistMenu action.
+	 
+	  */
+	 
 	 private static void pharmacistMenu() throws IOException {
 
 	        boolean logout = false;
@@ -297,6 +325,12 @@ public class Main {
 	 
 	 // CASES 1,2,3,4 - MEDICATION METHODS:
 	
+	 /**
+	
+	  * Executes the showAllMedications action.
+	
+	  */
+	
 	 private static void showAllMedications() {
 		    System.out.println("\nMedications: ");
 
@@ -315,6 +349,21 @@ public class Main {
 	 
 	 
 	 
+	 /**
+	 
+	 
+	 
+	 
+	  * Executes the searchMedication action.
+	 
+	 
+	 
+	 
+	  */
+	 
+	 
+	 
+	 
 	 private static void searchMedication() throws IOException {
 
 		    System.out.print("Medication name: ");
@@ -328,6 +377,18 @@ public class Main {
 		        System.out.println(medication);
 		    }
 		}
+	 
+	 
+	 
+	 /**
+	 
+	 
+	 
+	  * Executes the addMedication action.
+	 
+	 
+	 
+	  */
 	 
 	 
 	 
@@ -358,6 +419,21 @@ public class Main {
 		        System.out.println("Medication could not be added.");
 		    }
 		}
+	 
+	 
+	 
+
+	 /**
+	 
+	 
+	 
+
+	  * Executes the deleteMedication action.
+	 
+	 
+	 
+
+	  */
 	 
 	 
 	 
@@ -454,6 +530,12 @@ public class Main {
 	        }
 	    }
 	 
+	 /**
+	 
+	  * Executes the findInventory action.
+	 
+	  */
+	 
 	 private static void findInventory() throws IOException {
 
 	        System.out.print("Pharmacy ID: ");
@@ -470,6 +552,15 @@ public class Main {
 	            System.out.println(inventory);
 	        }
 	    }
+
+	 
+	    /**
+
+	 
+	     * Executes the increaseStock action.
+
+	 
+	     */
 
 	 
 	    private static void increaseStock() throws IOException {
@@ -496,6 +587,18 @@ public class Main {
 	            System.out.println("Stock could not be increased.");
 	        }
 	    }
+	 
+	    
+	    
+	    /**
+	 
+	    
+	    
+	     * Executes the reduceStock action.
+	 
+	    
+	    
+	     */
 	 
 	    
 	    
@@ -526,6 +629,9 @@ public class Main {
 	 
 	    
 	    // METHOD ONLY FOR ADMIN
+	    /**
+	     * Executes the updateInventoryInformation action.
+	     */
 	    private static void updateInventoryInformation() throws IOException {
 
 	        System.out.print("Pharmacy ID: ");
@@ -562,6 +668,12 @@ public class Main {
 	    
 	
 	    // CASE 6: SELL MEDICATION
+	    
+	    /**
+	    
+	     * Executes the sellMedication action.
+	    
+	     */
 	    
 	    private static void sellMedication() throws IOException {
 
@@ -607,6 +719,12 @@ public class Main {
 	    
 	    // CASE 7: STOCK ALERTS MENU AND METHODS
 	    
+	    /**
+	    
+	     * Executes the stockAlertsMenu action.
+	    
+	     */
+	    
 	    private static void stockAlertsMenu() throws IOException {
 
 	        boolean back = false;
@@ -646,6 +764,15 @@ public class Main {
 	    }
 	    
 	    
+	    /**
+	    
+	    
+	     * Executes the showLowStockMedications action.
+	    
+	    
+	     */
+	    
+	    
 	    private static void showLowStockMedications() {
 
 	        List<Inventory> inventories = inventoryManager.getLowStockMedications();
@@ -659,6 +786,15 @@ public class Main {
 	            System.out.println(inventory);
 	        }
 	    }
+
+	    
+	    /**
+
+	    
+	     * Executes the checkLowStock action.
+
+	    
+	     */
 
 	    
 	    private static void checkLowStock() throws IOException {
@@ -677,6 +813,15 @@ public class Main {
 	            System.out.println("This medication is not low stock.");
 	        }
 	    }
+
+	    
+	    /**
+
+	    
+	     * Executes the checkOutOfStock action.
+
+	    
+	     */
 
 	    
 	    private static void checkOutOfStock() throws IOException {
@@ -701,6 +846,12 @@ public class Main {
 	    
 	    
 	    // CASE 8: ORDERS MENU AND METHODS
+	    
+	    /**
+	    
+	     * Executes the ordersMenu action.
+	    
+	     */
 	    
 	    private static void ordersMenu() throws IOException {
 
@@ -751,6 +902,15 @@ public class Main {
 	    }
 
 	    
+	    /**
+
+	    
+	     * Executes the createOrder action.
+
+	    
+	     */
+
+	    
 	    private static void createOrder() throws IOException {
 
 	        System.out.print("Order ID: ");
@@ -790,6 +950,15 @@ public class Main {
 	    }
 
 	    
+	    /**
+
+	    
+	     * Executes the findOrderById action.
+
+	    
+	     */
+
+	    
 	    private static void findOrderById() throws IOException {
 
 	        System.out.print("Order ID: ");
@@ -805,6 +974,15 @@ public class Main {
 	    }
 
 	    
+	    /**
+
+	    
+	     * Executes the showAllOrders action.
+
+	    
+	     */
+
+	    
 	    private static void showAllOrders() {
 
 	        List<Order> orders = ordersManager.getAllOrders();
@@ -818,6 +996,15 @@ public class Main {
 	            System.out.println(order);
 	        }
 	    }
+
+	    
+	    /**
+
+	    
+	     * Executes the updateOrderStatus action.
+
+	    
+	     */
 
 	    
 	    private static void updateOrderStatus() throws IOException {
@@ -837,6 +1024,12 @@ public class Main {
 	        }
 	    }
 
+	    /**
+
+	     * Executes the deleteOrder action.
+
+	     */
+
 	    private static void deleteOrder() throws IOException {
 
 	        System.out.print("Order ID: ");
@@ -854,6 +1047,12 @@ public class Main {
 	    
 	    
 	    // CASE 9: HISTORY MENU AND METHODS
+	    
+	    /**
+	    
+	     * Executes the historyMenu action.
+	    
+	     */
 	    
 	    private static void historyMenu() throws IOException {
 
@@ -893,6 +1092,12 @@ public class Main {
 	        }
 	    }
 
+	    /**
+
+	     * Executes the showHistoryByPharmacy action.
+
+	     */
+
 	    private static void showHistoryByPharmacy() throws IOException {
 
 	        System.out.print("Pharmacy ID: ");
@@ -900,6 +1105,12 @@ public class Main {
 
 	        historyManager.showHistoryByPharmacy(pharmacyId);
 	    }
+
+	    /**
+
+	     * Executes the showHistoryByMedication action.
+
+	     */
 
 	    private static void showHistoryByMedication() throws IOException {
 
@@ -915,6 +1126,12 @@ public class Main {
 	    
 	    
 	    // CASE 10: PHARMACY MENU AND METHODS
+
+	    /**
+
+	     * Executes the pharmacyMenu action.
+
+	     */
 
 	    private static void pharmacyMenu() throws IOException {
 
@@ -954,6 +1171,12 @@ public class Main {
 	        }
 	    }
 
+	    /**
+
+	     * Executes the showAllPharmacies action.
+
+	     */
+
 	    private static void showAllPharmacies() {
 
 	        List<Pharmacy> pharmacies = pharmacyManager.getAllPharmacies();
@@ -969,6 +1192,15 @@ public class Main {
 	    }
 
 	    
+	    /**
+
+	    
+	     * Executes the findPharmacyById action.
+
+	    
+	     */
+
+	    
 	    private static void findPharmacyById() throws IOException {
 
 	        System.out.print("Pharmacy ID: ");
@@ -982,6 +1214,12 @@ public class Main {
 	            System.out.println(pharmacy);
 	        }
 	    }
+
+	    /**
+
+	     * Executes the findPharmacyByRegistrationNumber action.
+
+	     */
 
 	    private static void findPharmacyByRegistrationNumber() throws IOException {
 
@@ -1001,6 +1239,12 @@ public class Main {
 	    
 	    
 	    // CASE 11: USER MANAGEMENT MENU
+	    
+	    /**
+	    
+	     * Executes the userManagementMenu action.
+	    
+	     */
 	    
 	    private static void userManagementMenu() throws IOException {
 
@@ -1055,11 +1299,23 @@ public class Main {
 	        }
 	    }
 
+	    /**
+
+	     * Executes the createPharmacistUser action.
+
+	     */
+
 	    private static void createPharmacistUser() throws IOException {
 	    	
 	    	// NO SE MUY BIEN COMO SE HACE 
 	    	
 	    }
+
+	    /**
+
+	     * Executes the findUserByUsername action.
+
+	     */
 
 	    private static void findUserByUsername() throws IOException {
 
@@ -1076,6 +1332,15 @@ public class Main {
 	    }
 
 	    
+	    /**
+
+	    
+	     * Executes the showAllUsers action.
+
+	    
+	     */
+
+	    
 	    private static void showAllUsers() {
 
 	        List<User> users = userManager.getAllUsers();
@@ -1089,6 +1354,15 @@ public class Main {
 	            System.out.println(user);
 	        }
 	    }
+
+	    
+	    /**
+
+	    
+	     * Executes the updatePassword action.
+
+	    
+	     */
 
 	    
 	    private static void updatePassword() throws IOException {
@@ -1112,6 +1386,15 @@ public class Main {
 	    }
 
 	    
+	    /**
+
+	    
+	     * Executes the deleteUser action.
+
+	    
+	     */
+
+	    
 	    private static void deleteUser() throws IOException {
 
 	        System.out.print("User ID: ");
@@ -1131,6 +1414,12 @@ public class Main {
 	    
 	    // EXTRA METHODS
 	    // Necessary method for using admin / pharmacist 
+	    
+	    /**
+	    
+	     * Executes the isAdmin action.
+	    
+	     */
 	    
 	    private static boolean isAdmin() {
 
@@ -1152,6 +1441,12 @@ public class Main {
 	    
 	    
 	    // Method to log out
+	    
+	    /**
+	    
+	     * Executes the logout action.
+	    
+	     */
 	    
 	    private static void logout() {
 
@@ -1178,5 +1473,6 @@ public class Main {
 	
 	
 }
+
 
 

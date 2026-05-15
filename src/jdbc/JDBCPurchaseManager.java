@@ -14,15 +14,24 @@ public class JDBCPurchaseManager implements PurchaseManager {
     
     private final Connection connection;
 
+    /**
+     * Constructs a new JDBCPurchaseManager with the given database connection.
+     *
+     * @param connection the database connection
+     */
     public JDBCPurchaseManager(Connection connection) {
         this.connection = connection;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean savePurchase(Purchase purchase) {
         return create(purchase); // Reuse the CREATE operation from CRUD
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean sellMedication(Purchase purchase) {
         boolean success = false;

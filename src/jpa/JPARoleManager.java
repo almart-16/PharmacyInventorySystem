@@ -20,8 +20,10 @@ public class JPARoleManager implements RoleManager {
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
 	}
-	
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public void createRole(Role role) {
 		try {
 			em.getTransaction().begin();
@@ -33,8 +35,10 @@ public class JPARoleManager implements RoleManager {
 			e.printStackTrace();
 		}
 	}
-	
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public Role findRoleByName(String roleName) {
 		Query q = em.createNativeQuery("SELECT * FROM roles WHERE roleName = ?", Role.class);
 		q.setParameter(1, roleName);
@@ -44,19 +48,25 @@ public class JPARoleManager implements RoleManager {
 			return null;
 		}
 	}
-	
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public Role findRoleById(Integer id) {
 		return em.find(Role.class, id);
 	}
-	
-	@Override 
+    /**
+     * {@inheritDoc}
+     */
+    @Override 
 	public List<Role> getAllRoles() {
 		Query q = em.createNativeQuery("SELECT * FROM roles", Role.class);
 		return q.getResultList();
 	}
-	
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public void updateRole(Role role) {
 		try {
 			em.getTransaction().begin();
@@ -68,8 +78,10 @@ public class JPARoleManager implements RoleManager {
 			e.printStackTrace();
 		}
 	}
-	
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public void delateRole(Integer id) {
 		try {
 			em.getTransaction().begin();
@@ -92,3 +104,4 @@ public class JPARoleManager implements RoleManager {
 	
 
 }
+

@@ -14,6 +14,9 @@ public class SQLManager {
     private final SupplierManager supplier;
     private final HistoryManager history;
     
+    /**
+     * Default constructor that initializes all managers with a database connection.
+     */
     public SQLManager() {
     	ConnectionManager cManager = new ConnectionManager();
     	Connection c = cManager.getc();
@@ -27,30 +30,58 @@ public class SQLManager {
         this.history = new JDBCHistoryManager(c);
         
     }
+    /**
+     * Gets the inventory manager.
+     * @return the inventory manager
+     */
     public InventoryManager getInventoryManager() {
         return inventory;
     }
 
+    /**
+     * Gets the medication manager.
+     * @return the medication manager
+     */
     public MedicationManager getMedicationManager() {
         return medication;
     }
 
+    /**
+     * Gets the orders manager.
+     * @return the orders manager
+     */
     public OrdersManager getOrdersManager() {
         return orders;
     }
 
+    /**
+     * Gets the pharmacy manager.
+     * @return the pharmacy manager
+     */
     public PharmacyManager getPharmacyManager() {
         return pharmacy;
     }
 
+    /**
+     * Gets the purchase manager.
+     * @return the purchase manager
+     */
     public PurchaseManager getPurchaseManager() {
         return purchase;
     }
 
+    /**
+     * Gets the supplier manager.
+     * @return the supplier manager
+     */
     public SupplierManager getSupplierManager() {
         return supplier;
     }
 
+    /**
+     * Gets the history manager.
+     * @return the history manager
+     */
     public HistoryManager getHistoryManager() {
         return history;
     }

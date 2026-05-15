@@ -10,10 +10,17 @@ public class JDBCOrdersManager implements OrdersManager {
 
     private Connection connection;
 
+    /**
+     * Constructs a new JDBCOrdersManager with the given database connection.
+     *
+     * @param connection the database connection
+     */
     public JDBCOrdersManager(Connection connection) {
         this.connection = connection;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean createOrder(Order o) {
         String sql = "INSERT INTO Orders VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -37,7 +44,9 @@ public class JDBCOrdersManager implements OrdersManager {
 
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean updateOrderStatus(String id, String status) {
         String sql = "UPDATE Orders SET status = ? WHERE id = ?";
@@ -55,7 +64,9 @@ public class JDBCOrdersManager implements OrdersManager {
 
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean deleteOrder(String id) {
         String sql = "DELETE FROM Orders WHERE id = ?";
@@ -72,10 +83,14 @@ public class JDBCOrdersManager implements OrdersManager {
 
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Order findOrderById(String id) { return null; }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Order> getAllOrders() { return new ArrayList<>(); }
 }

@@ -10,10 +10,16 @@ public class ConnectionManager {
     private Connection c;
     private final String URL = "jdbc:sqlite:./src/db/pharmacy.db";
     
+    /**
+     * Default constructor that initializes the database connection.
+     */
     public ConnectionManager () {
         initializeDB();
     }
         
+    /**
+     * Initializes the database connection and creates tables if they do not exist.
+     */
     private void initializeDB() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -29,6 +35,9 @@ public class ConnectionManager {
         }
     }
     
+    /**
+     * Creates all necessary tables for the pharmacy inventory system.
+     */
     private void createTables() {
         String[] tablesQueries = {
             // Municipality
@@ -120,6 +129,11 @@ public class ConnectionManager {
         }
     }
     
+    /**
+     * Gets the established database connection.
+     *
+     * @return the connection object
+     */
     public Connection getc() {
         return c;
     }

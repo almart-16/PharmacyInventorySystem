@@ -5,6 +5,10 @@ import java.sql.Statement;
 
 public class TestDataBaseCreation {
 	
+	/**
+	 * Main method to create the database and tables.
+	 * @param args the command line arguments
+	 */
 	public static void main(String[]args) {
 		
         ConnectionManager connectionManager = new ConnectionManager();
@@ -41,6 +45,11 @@ public class TestDataBaseCreation {
 		
 	}
 	
+	/**
+	 * Drops all tables in the database if they exist.
+	 * @param s the statement object to execute the queries
+	 * @throws Exception if an error occurs during execution
+	 */
 	private static void dropTables(Statement s) throws Exception {
 
         s.executeUpdate("DROP TABLE IF EXISTS Orders");
@@ -58,6 +67,11 @@ public class TestDataBaseCreation {
     }
 
 
+	/**
+	 * Creates all tables required for the database.
+	 * @param s the statement object to execute the queries
+	 * @throws Exception if an error occurs during execution
+	 */
 	private static void createTables(Statement s) throws Exception {
 
         createMunicipalityTable(s);
@@ -76,6 +90,11 @@ public class TestDataBaseCreation {
 
     
     
+	/**
+	 * Creates the Municipality table.
+	 * @param s the statement object
+	 * @throws Exception if an error occurs
+	 */
 	private static void createMunicipalityTable(Statement s) throws Exception {
 
         String sql = "CREATE TABLE IF NOT EXISTS Municipality ("
@@ -87,6 +106,11 @@ public class TestDataBaseCreation {
     }
     
     
+	/**
+	 * Creates the Medication table.
+	 * @param s the statement object
+	 * @throws Exception if an error occurs
+	 */
 	private static void createMedicationTable(Statement s) throws Exception {
 
         String sql = "CREATE TABLE IF NOT EXISTS Medication ("
@@ -100,7 +124,12 @@ public class TestDataBaseCreation {
         s.executeUpdate(sql);
     }
 
-    private static void createSupplierTable(Statement s) throws Exception {
+    /**
+	 * Creates the Supplier table.
+	 * @param s the statement object
+	 * @throws Exception if an error occurs
+	 */
+	private static void createSupplierTable(Statement s) throws Exception {
 
         String sql = "CREATE TABLE IF NOT EXISTS Supplier ("
                 + "id TEXT PRIMARY KEY, "
@@ -111,7 +140,12 @@ public class TestDataBaseCreation {
         s.executeUpdate(sql);
     }
 
-    private static void createClientTable(Statement s) throws Exception {
+    /**
+	 * Creates the Client table.
+	 * @param s the statement object
+	 * @throws Exception if an error occurs
+	 */
+	private static void createClientTable(Statement s) throws Exception {
 
         String sql = "CREATE TABLE IF NOT EXISTS Client ("
                 + "id TEXT PRIMARY KEY, "
@@ -125,7 +159,12 @@ public class TestDataBaseCreation {
         s.executeUpdate(sql);
     }
 
-    private static void createPharmacyTable(Statement s) throws Exception {
+    /**
+	 * Creates the Pharmacy table.
+	 * @param s the statement object
+	 * @throws Exception if an error occurs
+	 */
+	private static void createPharmacyTable(Statement s) throws Exception {
 
         String sql = "CREATE TABLE IF NOT EXISTS Pharmacy ("
                 + "id TEXT PRIMARY KEY, "
@@ -140,7 +179,12 @@ public class TestDataBaseCreation {
         s.executeUpdate(sql);
     }
 
-    private static void createInventoryTable(Statement s) throws Exception {
+    /**
+	 * Creates the Inventory table.
+	 * @param s the statement object
+	 * @throws Exception if an error occurs
+	 */
+	private static void createInventoryTable(Statement s) throws Exception {
 
         String sql = "CREATE TABLE IF NOT EXISTS Inventory ("
                 + "id TEXT PRIMARY KEY, "
@@ -159,7 +203,12 @@ public class TestDataBaseCreation {
         s.executeUpdate(sql);
     }
 
-    private static void createPurchaseTable(Statement s) throws Exception {
+    /**
+	 * Creates the Purchase table.
+	 * @param s the statement object
+	 * @throws Exception if an error occurs
+	 */
+	private static void createPurchaseTable(Statement s) throws Exception {
 
         String sql = "CREATE TABLE IF NOT EXISTS Purchase ("
                 + "id TEXT PRIMARY KEY, "
@@ -177,7 +226,12 @@ public class TestDataBaseCreation {
         s.executeUpdate(sql);
     }
 
-    private static void createOrdersTable(Statement s) throws Exception {
+    /**
+	 * Creates the Orders table.
+	 * @param s the statement object
+	 * @throws Exception if an error occurs
+	 */
+	private static void createOrdersTable(Statement s) throws Exception {
 
         String sql = "CREATE TABLE IF NOT EXISTS Orders ("
                 + "id TEXT PRIMARY KEY, "
@@ -195,7 +249,12 @@ public class TestDataBaseCreation {
         s.executeUpdate(sql);
     }
 
-    private static void createRoleTable(Statement s) throws Exception {
+    /**
+	 * Creates the Role table.
+	 * @param s the statement object
+	 * @throws Exception if an error occurs
+	 */
+	private static void createRoleTable(Statement s) throws Exception {
 
         String sql = "CREATE TABLE IF NOT EXISTS Role ("
                 + "id TEXT PRIMARY KEY, "
@@ -205,7 +264,12 @@ public class TestDataBaseCreation {
         s.executeUpdate(sql);
     }
 
-    private static void createUserTable(Statement s) throws Exception {
+    /**
+	 * Creates the User table.
+	 * @param s the statement object
+	 * @throws Exception if an error occurs
+	 */
+	private static void createUserTable(Statement s) throws Exception {
 
         String sql = "CREATE TABLE IF NOT EXISTS User ("
                 + "id TEXT PRIMARY KEY, "
@@ -226,3 +290,4 @@ public class TestDataBaseCreation {
 	
 	
 }
+

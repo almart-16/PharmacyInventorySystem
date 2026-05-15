@@ -27,7 +27,10 @@ public class JPAUserManager implements UserManager {
 		em.getTransaction().commit();
 		
 	}
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void createUser(User user) {
 		try {
 			em.getTransaction().begin(); 
@@ -42,8 +45,10 @@ public class JPAUserManager implements UserManager {
 			e.printStackTrace();
 		}
   	}
-	
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public User findUserByUserName (String userName) {
 		Query q = em.createNativeQuery("SELECT * FROM users WHERE username = ?", User.class);
 	    q.setParameter(1, userName); //en el primer ? metes la variable userName
@@ -53,8 +58,10 @@ public class JPAUserManager implements UserManager {
 	        return null; 
 	    }
 	}
-	
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public User login(String userName, String password) {
 		try {
 			Query q = em.createNativeQuery("SELECT * FROM users WHERE username = ?", User.class);
@@ -84,13 +91,18 @@ public class JPAUserManager implements UserManager {
 		
 	
 	@SuppressWarnings("unchecked")
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public List<User> getAllUsers() {
 	    Query q = em.createNativeQuery("SELECT * FROM users", User.class);
 	    return q.getResultList();
 	}
-	
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public void updateUser(User user) {
 		try {
 			em.getTransaction().begin();
@@ -101,8 +113,10 @@ public class JPAUserManager implements UserManager {
 			e.printStackTrace();
 		}
 	}
-	
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public void delateUser(Integer id) {
 		try {
 			em.getTransaction().begin();
@@ -117,8 +131,10 @@ public class JPAUserManager implements UserManager {
 			e.printStackTrace();
 		}
 	}
-	
-	@Override 
+    /**
+     * {@inheritDoc}
+     */
+    @Override 
 	public void updatePassword(User user, String newPassword ) {
 		String hashedPassword = BCrypt.hashpw(new String(newPassword), BCrypt.gensalt());
 	    
@@ -146,3 +162,4 @@ public class JPAUserManager implements UserManager {
 		
 	
 }
+

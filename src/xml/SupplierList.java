@@ -14,7 +14,10 @@ public class SupplierList {
     @XmlElement(name = "supplier")
     private List<Supplier> suppliers;
 
-    public SupplierList() {
+    /**
+	 * Default constructor for SupplierList.
+	 */
+	public SupplierList() {
         this.suppliers = new ArrayList<>();
     }
 
@@ -22,12 +25,20 @@ public class SupplierList {
         this.suppliers = suppliers;
     }
 
-
-    public List<Supplier> getSuppliers() {
+	/**
+	 * Gets the Suppliers.
+	 * @return the Suppliers
+	 */
+	public List<Supplier> getSuppliers() {
         return suppliers;
     }
 
-    public void setSuppliers(List<Supplier> suppliers) {
+	/**
+	 * Sets the Suppliers.
+	 * @param suppliers the new Suppliers
+	 */
+	public void setSuppliers(List<Supplier> suppliers) {
         this.suppliers = suppliers;
     }
 }
+

@@ -14,7 +14,10 @@ public class MedicationList {
     @XmlElement(name = "medication")
     private List<Medication> medications;
 
-    public MedicationList() {
+    /**
+	 * Default constructor for MedicationList.
+	 */
+	public MedicationList() {
         this.medications = new ArrayList<>();
     }
 
@@ -24,11 +27,21 @@ public class MedicationList {
     }
 
     // Getters y Setters
-    public List<Medication> getMedications() {
+
+	/**
+	 * Gets the Medications.
+	 * @return the Medications
+	 */
+	public List<Medication> getMedications() {
         return medications;
     }
 
-    public void setMedications(List<Medication> medications) {
+	/**
+	 * Sets the Medications.
+	 * @param medications the new Medications
+	 */
+	public void setMedications(List<Medication> medications) {
         this.medications = medications;
     }
 }
+

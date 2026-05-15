@@ -13,11 +13,19 @@ import java.util.List;
 public class JDBCPharmacyManager implements PharmacyManager {
     private final Connection connection;
 
+    /**
+     * Constructs a new JDBCPharmacyManager with the given database connection.
+     *
+     * @param connection the database connection
+     */
     public JDBCPharmacyManager(Connection connection) {
         this.connection = connection;
     }
   
     // Using DML for queries
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Pharmacy findbyRegistrationNumber(String number) {
         String sql = "SELECT * FROM Pharmacy WHERE registration_number = ?";
@@ -38,7 +46,9 @@ public class JDBCPharmacyManager implements PharmacyManager {
         }
         return pharmacy;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Pharmacy findById(String id) {
         String sql = "SELECT * FROM Pharmacy WHERE id = ?";
@@ -61,7 +71,9 @@ public class JDBCPharmacyManager implements PharmacyManager {
         }
         return pharmacy;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Pharmacy> getAllPharmacies() {
         String sql = "SELECT * FROM Pharmacy";

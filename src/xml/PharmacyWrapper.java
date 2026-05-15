@@ -54,95 +54,187 @@ public class PharmacyWrapper {
     @XmlElement(name = "role")
     private List<Role> roles = new ArrayList<>();
     
-    public PharmacyWrapper () {}
+    /**
+	 * Default constructor for PharmacyWrapper.
+	 */
+	public PharmacyWrapper() {}
 
+	/**
+	 * Gets the Medications.
+	 * @return the Medications
+	 */
 	public List<Medication> getMedications() {
 		return medications;
 	}
 
+	/**
+	 * Sets the Medications.
+	 * @param medications the new Medications
+	 */
 	public void setMedications(List<Medication> medications) {
 		this.medications = medications;
 	}
 
+	/**
+	 * Gets the Suppliers.
+	 * @return the Suppliers
+	 */
 	public List<Supplier> getSuppliers() {
 		return suppliers;
 	}
 
+	/**
+	 * Sets the Suppliers.
+	 * @param suppliers the new Suppliers
+	 */
 	public void setSuppliers(List<Supplier> suppliers) {
 		this.suppliers = suppliers;
 	}
 
+	/**
+	 * Gets the Clients.
+	 * @return the Clients
+	 */
 	public List<Client> getClients() {
 		return clients;
 	}
 
+	/**
+	 * Sets the Clients.
+	 * @param clients the new Clients
+	 */
 	public void setClients(List<Client> clients) {
 		this.clients = clients;
 	}
 
+	/**
+	 * Gets the Pharmacies.
+	 * @return the Pharmacies
+	 */
 	public List<Pharmacy> getPharmacies() {
 		return pharmacies;
 	}
 
+	/**
+	 * Sets the Pharmacies.
+	 * @param pharmacies the new Pharmacies
+	 */
 	public void setPharmacies(List<Pharmacy> pharmacies) {
 		this.pharmacies = pharmacies;
 	}
 
+	/**
+	 * Gets the Orders.
+	 * @return the Orders
+	 */
 	public List<Order> getOrders() {
 		return orders;
 	}
 
+	/**
+	 * Sets the Orders.
+	 * @param orders the new Orders
+	 */
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 
+	/**
+	 * Gets the Purchases.
+	 * @return the Purchases
+	 */
 	public List<Purchase> getPurchases() {
 		return purchases;
 	}
 
+	/**
+	 * Sets the Purchases.
+	 * @param purchases the new Purchases
+	 */
 	public void setPurchases(List<Purchase> purchases) {
 		this.purchases = purchases;
 	}
 
+	/**
+	 * Gets the Inventories.
+	 * @return the Inventories
+	 */
 	public List<Inventory> getInventories() {
 		return inventories;
 	}
 
+	/**
+	 * Sets the Inventories.
+	 * @param inventories the new Inventories
+	 */
 	public void setInventories(List<Inventory> inventories) {
 		this.inventories = inventories;
 	}
 
+	/**
+	 * Gets the Histories.
+	 * @return the Histories
+	 */
 	public List<History> getHistories() {
 		return histories;
 	}
 
+	/**
+	 * Sets the Histories.
+	 * @param histories the new Histories
+	 */
 	public void setHistories(List<History> histories) {
 		this.histories = histories;
 	}
 
+	/**
+	 * Gets the Municipalities.
+	 * @return the Municipalities
+	 */
 	public List<Municipality> getMunicipalities() {
 		return municipalities;
 	}
 
+	/**
+	 * Sets the Municipalities.
+	 * @param municipalities the new Municipalities
+	 */
 	public void setMunicipalities(List<Municipality> municipalities) {
 		this.municipalities = municipalities;
 	}
 
+	/**
+	 * Gets the Users.
+	 * @return the Users
+	 */
 	public List<User> getUsers() {
 		return users;
 	}
 
+	/**
+	 * Sets the Users.
+	 * @param users the new Users
+	 */
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
+	/**
+	 * Gets the Roles.
+	 * @return the Roles
+	 */
 	public List<Role> getRoles() {
 		return roles;
 	}
 
+	/**
+	 * Sets the Roles.
+	 * @param roles the new Roles
+	 */
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
     
     
 }
+

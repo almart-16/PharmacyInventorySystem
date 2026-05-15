@@ -10,10 +10,17 @@ public class JDBCMedicationManager implements MedicationManager {
 
     private Connection connection;
 
+    /**
+     * Constructs a new JDBCMedicationManager with the given database connection.
+     *
+     * @param connection the database connection
+     */
     public JDBCMedicationManager(Connection connection) {
         this.connection = connection;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Medication findByName(String name) {
         String sql = "SELECT * FROM Medication WHERE name = ?";
@@ -40,7 +47,9 @@ public class JDBCMedicationManager implements MedicationManager {
 
         return null;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Medication> getAllMedications() {
         List<Medication> list = new ArrayList<>();
@@ -66,7 +75,9 @@ public class JDBCMedicationManager implements MedicationManager {
 
         return list;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addMedication(Medication m) {
         String sql = "INSERT INTO Medication (id, name, targetIllnes, ss, prescription) VALUES (?, ?, ?, ?, ?)";
@@ -90,7 +101,9 @@ public class JDBCMedicationManager implements MedicationManager {
 
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean deleteMedication(String medicationId) {
         String sql = "DELETE FROM Medication WHERE id = ?";

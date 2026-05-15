@@ -10,11 +10,19 @@ public class JDBCHistoryManager implements HistoryManager {
 
     private Connection connection;
 
+    /**
+     * Constructs a new JDBCHistoryManager with the given database connection.
+     *
+     * @param connection the database connection
+     */
     public JDBCHistoryManager(Connection connection) {
         this.connection = connection;
     }
 
     // 🔹 HISTORIAL POR FARMACIA
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showHistoryByPharmacy(String pharmacyId) {
 
@@ -51,6 +59,9 @@ public class JDBCHistoryManager implements HistoryManager {
     }
 
     // HISTORIAL POR MEDICAMENTO
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showHistoryByMedication(String medicationId) {
 
@@ -87,6 +98,9 @@ public class JDBCHistoryManager implements HistoryManager {
     }
 
     // 🔹 TODO EL HISTORIAL
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showAllHistory() {
 
