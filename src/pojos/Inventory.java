@@ -24,6 +24,9 @@ public class Inventory {
     @XmlElement(name = "price")
     private double price;
 
+    @XmlElement(name = "purchasePrice")
+    private double purchasePrice;
+
     @XmlElement(name = "expirationDate")
     private String expirationDate;
 
@@ -40,13 +43,14 @@ public class Inventory {
      * Parameterized constructor for Inventory.
      */
     public Inventory(String id, String pharmacyId, String medicationId, String supplierId,
-                     int stockQuantity, double price, String expirationDate, int minimumStock) {
+                     int stockQuantity, double price, double purchasePrice, String expirationDate, int minimumStock) {
         this.id = id;
         this.pharmacyId = pharmacyId;
         this.medicationId = medicationId;
         this.supplierId = supplierId;
         this.stockQuantity = stockQuantity;
         this.price = price;
+        this.purchasePrice = purchasePrice;
         this.expirationDate = expirationDate;
         this.minimumStock = minimumStock;
     }
@@ -158,6 +162,25 @@ public class Inventory {
         this.price = price;
     }
 
+    /**
+     * Gets the value of purchasePrice.
+     * @return The value of purchasePrice.
+     */
+    public double getPurchasePrice() {
+        return purchasePrice;
+    }
+
+    /**
+     * Sets the value of purchasePrice.
+     * @param purchasePrice The new value of purchasePrice.
+     */
+    public void setPurchasePrice(double purchasePrice) {
+        if (purchasePrice < 0) {
+            throw new IllegalArgumentException("Purchase price cannot be negative");
+        }
+        this.purchasePrice = purchasePrice;
+    }
+
 
     /**
      * Gets the value of expirationDate.
@@ -208,11 +231,9 @@ public class Inventory {
                 ", supplierId='" + supplierId + '\'' +
                 ", stockQuantity=" + stockQuantity +
                 ", price=" + price +
+                ", purchasePrice=" + purchasePrice +
                 ", expirationDate='" + expirationDate + '\'' +
                 ", minimumStock=" + minimumStock +
                 '}';
     }
 }
-	
-	
-

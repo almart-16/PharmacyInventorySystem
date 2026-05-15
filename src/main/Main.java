@@ -28,6 +28,7 @@ public class Main {
 	
 	private static JPAUserManager userManager;
 	private static JPARoleManager roleManager;
+	private static xml.XMLManager xmlManager;
 	
 	private static User loggedUser;
 	
@@ -99,6 +100,7 @@ public class Main {
 
 		userManager = new JPAUserManager();
 		roleManager = new JPARoleManager();
+		xmlManager = new xml.XMLManager();
 		
 	}
 	
@@ -230,7 +232,7 @@ public class Main {
 	                    break;
 	                    
 	                case 12:
-	                    // ESTO ES XML, HAY QUE HACERLO;
+	                    xmlMenu();
 	                    break;
 
 	                case 13:
@@ -1306,9 +1308,28 @@ public class Main {
 	     */
 
 	    private static void createPharmacistUser() throws IOException {
-	    	
-	    	// NO SE MUY BIEN COMO SE HACE 
-	    	
+	        System.out.println("\n--- Create Pharmacist User ---");
+	        System.out.print("Username: ");
+	        String username = reader.readLine();
+
+	        if (userManager.findUserByUserName(username) != null) {
+	            System.out.println("Username already exists.");
+	            return;
+	        }
+
+	        System.out.print("Password: ");
+	        String password = reader.readLine();
+
+	        Role pharmacistRole = roleManager.findRoleByName("pharmacist");
+	        if (pharmacistRole == null) {
+	            System.out.println("Role 'pharmacist' does not exist in the database. Please create it first or contact admin.");
+	            return;
+	        }
+
+	        User newUser = new User(username, password, pharmacistRole);
+	        userManager.createUser(newUser);
+
+	        System.out.println("Pharmacist user created successfully.");
 	    }
 
 	    /**
@@ -1407,7 +1428,99 @@ public class Main {
 	    
 	    
 	    
-	    // CASE 12: XML MENU -> NO LO HEMOS HECHO TODAVIA, CUANDO LO HAGAMOS LO METO TODO
+	    // CASE 12: XML MENU
+	    
+	    /**
+	     * Executes the xmlMenu action.
+	     */
+	    private static void xmlMenu() throws IOException {
+	        boolean back = false;
+	        while (!back) {
+	            System.out.println("\n XML MANAGEMENT MENU");
+	            System.out.println("1. Export whole database to XML");
+	            System.out.println("2. Import whole database from XML");
+	            System.out.println("3. Export medications to XML");
+	            System.out.println("4. Import medications from XML");
+	            System.out.println("5. Export suppliers to XML");
+	            System.out.println("6. Import suppliers from XML");
+	            System.out.println("7. Validate XML against XSD");
+	            System.out.println("8. Back");
+	            
+	            System.out.print("Choose an option: ");
+	            int option = readInt();
+	            
+	            switch (option) {
+	                case 1:
+	                    System.out.print("Enter output file name (e.g., database.xml): ");
+	                    String outName = reader.readLine();
+	                    System.out.println("Loading data to export...");
+	                    PharmacyWrapper wrapper = new PharmacyWrapper();
+	                    wrapper.setMedications(medicationManager.getAllMedications());
+	                    wrapper.setOrders(ordersManager.getAllOrders());
+	                    wrapper.setPurchases(purchaseManager.getAllPurchases());
+	                    wrapper.setPharmacies(pharmacyManager.getAllPharmacies());
+	                    wrapper.setSuppliers(supplierManager.getAllSuppliers());
+	                    
+	                    xmlManager.exportWholeDatabase(wrapper, outName);
+	                    break;
+
+	                case 2:
+	                    System.out.print("Enter input file name (e.g., database.xml): ");
+	                    String inName = reader.readLine();
+	                    PharmacyWrapper importedWrapper = xmlManager.importWholeDatabase(inName);
+	                    if (importedWrapper != null) {
+	                        System.out.println("Database imported successfully into wrapper.");
+	                    }
+	                    break;
+
+	                case 3:
+	                    System.out.print("Enter output file name (e.g., medications.xml): ");
+	                    String medOut = reader.readLine();
+	                    xmlManager.exportMedications(medicationManager.getAllMedications(), medOut);
+	                    break;
+
+	                case 4:
+	                    System.out.print("Enter input file name (e.g., medications.xml): ");
+	                    String medIn = reader.readLine();
+	                    List<Medication> meds = xmlManager.importMedications(medIn);
+	                    if (meds != null) {
+	                        System.out.println("Medications loaded from XML.");
+	                    }
+	                    break;
+
+	                case 5:
+	                    System.out.print("Enter output file name (e.g., suppliers.xml): ");
+	                    String supOut = reader.readLine();
+	                    xmlManager.exportSuppliers(supplierManager.getAllSuppliers(), supOut);
+	                    break;
+
+	                case 6:
+	                    System.out.print("Enter input file name (e.g., suppliers.xml): ");
+	                    String supIn = reader.readLine();
+	                    List<Supplier> sups = xmlManager.importSuppliers(supIn);
+	                    if (sups != null) {
+	                        System.out.println("Suppliers loaded from XML.");
+	                    }
+	                    break;
+
+	                case 7:
+	                    System.out.print("Enter XML file name to validate: ");
+	                    String xmlFile = reader.readLine();
+	                    System.out.print("Enter XSD file name for validation: ");
+	                    String xsdFile = reader.readLine();
+	                    xmlManager.validateXML(xmlFile, xsdFile);
+	                    break;
+
+	                case 8:
+	                    back = true;
+	                    break;
+
+	                default:
+	                    System.out.println("Invalid option.");
+	                    break;
+	            }
+	        }
+	    }
 	    
 	    
 	    

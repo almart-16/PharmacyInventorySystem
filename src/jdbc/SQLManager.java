@@ -13,6 +13,7 @@ public class SQLManager {
     private final PurchaseManager purchase;
     private final SupplierManager supplier;
     private final HistoryManager history;
+    private final ReportManager report;
     
     /**
      * Default constructor that initializes all managers with a database connection.
@@ -28,6 +29,7 @@ public class SQLManager {
         this.purchase = new JDBCPurchaseManager(c);
         this.supplier = new JDBCSupplierManager(c);
         this.history = new JDBCHistoryManager(c);
+        this.report = new JDBCReportManager(c);
         
     }
     /**
@@ -85,5 +87,12 @@ public class SQLManager {
     public HistoryManager getHistoryManager() {
         return history;
     }
-}
 
+    /**
+     * Gets the report manager.
+     * @return the report manager
+     */
+    public ReportManager getReportManager() {
+        return report;
+    }
+}

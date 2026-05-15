@@ -193,6 +193,7 @@ public class TestDataBaseCreation {
                 + "supplierId TEXT, "
                 + "stockQuantity INTEGER, "
                 + "price REAL, "
+                + "purchasePrice REAL, "
                 + "expirationDate TEXT, "
                 + "minimumStock INTEGER, "
                 + "FOREIGN KEY(pharmacyId) REFERENCES Pharmacy(id), "
