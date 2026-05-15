@@ -5,6 +5,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import org.mindrot.jbcrypt.BCrypt;
+
 
 import interfaces.UserManager;
 import pojos.Role;
@@ -53,7 +55,7 @@ public class JPAUserManager implements UserManager {
 	}
 	
 	@Override
-	public User login(String userName, byte[] password) {
+	public User login(String userName, String password) {
 		try {
 			Query q = em.createNativeQuery("SELECT * FROM users WHERE username = ?", User.class);
 			q.setParameter(1, userName);
@@ -85,7 +87,7 @@ public User login(String userName, byte[] password) {
 }
 	 */
 	
-	public boolean checkPassword(String userName, byte[] password) {
+	public boolean checkPassword(String userName, String password) {
 	    User user = this.findUserByUserName(userName);
 	    if (user == null) {
 	        return false;
@@ -132,7 +134,7 @@ public User login(String userName, byte[] password) {
 	}
 	
 	@Override 
-	public void updatePassword(User user, byte [] newPassword ) {
+	public void updatePassword(User user, String newPassword ) {
 		String hashedPassword = BCrypt.hashpw(new String(newPassword), BCrypt.gensalt());
 	    
 	    try {

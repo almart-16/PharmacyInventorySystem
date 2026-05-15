@@ -17,8 +17,8 @@ public class User implements Serializable {
 	@Column (name="userName", nullable = false, unique = true)
 	private String username;
 	
-	@Column (name = "password", nullable = false)
-	private byte[] password;
+	@Column(name = "password", nullable = false)
+	private String password;
 	
 	@ManyToOne 
 	@JoinColumn (name = "role_id", nullable = false)
@@ -26,7 +26,7 @@ public class User implements Serializable {
 	
 	public User () {}
 	
-	public User(Integer id, String username, byte[] password, Role role) {
+	public User(Integer id, String username, String password, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -39,8 +39,8 @@ public class User implements Serializable {
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
 
-    public byte[] getPassword() { return password; }
-    public void setPassword(byte[] password) { this.password = password; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
     public Role getRole() { return role; }
     public void setRole(Role role) { this.role = role; }

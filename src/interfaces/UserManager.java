@@ -10,7 +10,7 @@ public interface UserManager {
 	
 	User findUserByUserName(String userName);
 	
-	User login(String userName, byte[] password);
+	User login(String userName, String password);
 	
 	List<User> getAllUsers();
 	
@@ -18,6 +18,6 @@ public interface UserManager {
 	
 	void delateUser(Integer id);
 	
-	void updatePassword(User user, byte[] newPassword);
+	void updatePassword(User user, String newPassword);
 	
 }
