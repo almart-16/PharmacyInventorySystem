@@ -4,6 +4,9 @@ import java.util.List;
 
 import pojos.Pharmacy;
 
+/**
+ * Interface defining operations for managing pharmacies.
+ */
 public interface PharmacyManager {
 
 	/**

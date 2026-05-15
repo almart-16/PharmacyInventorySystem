@@ -5,6 +5,9 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "purchase")
 @XmlAccessorType(XmlAccessType.FIELD)
 
+/**
+ * Represents a purchase made by a client at a pharmacy.
+ */
 public class Purchase {
 	@XmlAttribute(name = "id")
     private String id;
@@ -35,6 +38,14 @@ public class Purchase {
 
     /**
      * Parameterized constructor for Purchase.
+     *
+     * @param id The unique identifier of the purchase.
+     * @param clientId The identifier of the client making the purchase.
+     * @param pharmacyId The identifier of the pharmacy.
+     * @param date The date of the purchase.
+     * @param medicationId The identifier of the medication purchased.
+     * @param quantity The quantity of the medication purchased.
+     * @param price The total price of the purchase.
      */
     public Purchase(String id, String clientId, String pharmacyId, String date,
                     String medicationId, int quantity, double price) {

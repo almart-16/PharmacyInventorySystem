@@ -4,6 +4,9 @@ import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "municipality")
 @XmlAccessorType(XmlAccessType.FIELD)
+/**
+ * Represents a municipality in the system.
+ */
 public class Municipality {
 	@XmlAttribute(name = "id")
     private int id;
@@ -19,6 +22,9 @@ public class Municipality {
 
     /**
      * Parameterized constructor for Municipality.
+     *
+     * @param id The unique identifier of the municipality.
+     * @param name The name of the municipality.
      */
     public Municipality(int id, String name) {
         this.id = id;

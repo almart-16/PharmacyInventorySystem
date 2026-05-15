@@ -4,6 +4,9 @@ import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "order")
 @XmlAccessorType(XmlAccessType.FIELD)
+/**
+ * Represents an order placed by a pharmacy to a supplier for a specific medication.
+ */
 public class Order {
 	@XmlAttribute(name = "id")
     private String id;
@@ -34,6 +37,14 @@ public class Order {
 
     /**
      * Parameterized constructor for Order.
+     *
+     * @param id The unique identifier of the order.
+     * @param pharmacyId The identifier of the pharmacy placing the order.
+     * @param supplierId The identifier of the supplier receiving the order.
+     * @param medicationId The identifier of the medication being ordered.
+     * @param date The date the order was placed.
+     * @param quantity The quantity of medication ordered.
+     * @param status The current status of the order.
      */
     public Order(String id, String pharmacyId, String supplierId, String medicationId,
                   String date, int quantity, String status) {

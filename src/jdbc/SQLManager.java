@@ -5,6 +5,9 @@ import java.sql.Connection;
 import interfaces.*;
 
 
+/**
+ * Manages SQL database connection and basic initialization operations.
+ */
 public class SQLManager {
 	private final InventoryManager inventory;
     private final MedicationManager medication;

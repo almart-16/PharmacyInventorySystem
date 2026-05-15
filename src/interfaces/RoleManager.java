@@ -4,6 +4,9 @@ import java.util.List;
 
 import pojos.Role;
 
+/**
+ * Interface defining operations for managing user roles.
+ */
 public interface RoleManager {
 	
 	/**

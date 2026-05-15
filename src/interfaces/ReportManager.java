@@ -4,6 +4,9 @@ import java.util.List;
 import pojos.GlobalStats;
 import pojos.MedicationStats;
 
+/**
+ * Interface defining operations for managing and generating reports.
+ */
 public interface ReportManager {
 
     /**

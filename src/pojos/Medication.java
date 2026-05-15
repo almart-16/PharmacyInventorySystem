@@ -4,6 +4,10 @@ import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "medication")
 @XmlAccessorType(XmlAccessType.FIELD) //esto hace que todo sea un xml automaticamente
+/**
+ * Represents a medication entity within the pharmacy inventory system.
+ * This class is mapped to an XML structure using JAXB annotations.
+ */
 public class Medication {
 	
 	@XmlAttribute(name = "id")
@@ -28,6 +32,12 @@ public class Medication {
 
     /**
      * Parameterized constructor for Medication.
+     *
+     * @param id The unique identifier of the medication.
+     * @param name The name of the medication.
+     * @param targetIllness The target illness the medication treats.
+     * @param ss Indicates whether it is covered by Social Security.
+     * @param prescription Indicates whether it requires a prescription.
      */
     public Medication(String id, String name, String targetIllness, boolean ss, boolean prescription) {
         this.id = id;

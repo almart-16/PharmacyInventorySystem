@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.*;
 
 import pojos.*;
 
+/**
+ * Wrapper class representing the entire pharmacy system database for XML serialization.
+ */
 @XmlRootElement(name = "pharmacy_unit")
 public class PharmacyWrapper {
 	

@@ -4,6 +4,9 @@ import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "supplier")
 @XmlAccessorType(XmlAccessType.FIELD)
+/**
+ * Represents a medication supplier.
+ */
 public class Supplier {
 	
 	@XmlAttribute(name = "id")
@@ -21,6 +24,10 @@ public class Supplier {
 
     /**
      * Parameterized constructor for Supplier.
+     *
+     * @param id The unique identifier of the supplier.
+     * @param name The name of the supplier.
+     * @param phone The contact phone number of the supplier.
      */
     public Supplier(String id, String name, String phone) {
         this.id = id;

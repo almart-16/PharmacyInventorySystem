@@ -3,6 +3,9 @@ import java.util.List;
 
 import pojos.Order;
 
+/**
+ * Interface defining operations for managing orders.
+ */
 public interface OrdersManager {
 
 	/**

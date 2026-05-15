@@ -2,6 +2,9 @@ package interfaces;
 
 import pojos.Purchase;
 
+/**
+ * Interface defining operations for managing purchases.
+ */
 public interface PurchaseManager {
 
 	/**

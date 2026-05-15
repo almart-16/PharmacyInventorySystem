@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "role") 
 @XmlAccessorType(XmlAccessType.FIELD)
 
+/**
+ * Represents a user role in the system.
+ */
 public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,6 +33,9 @@ public class Role implements Serializable {
 
     /**
      * Parameterized constructor for Role.
+     *
+     * @param id The unique identifier of the role.
+     * @param roleName The name of the role (e.g. admin, pharmacist).
      */
     public Role(Integer id, String roleName) {
         this.id = id;

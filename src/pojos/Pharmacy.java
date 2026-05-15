@@ -4,6 +4,9 @@ import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "pharmacy")
 @XmlAccessorType(XmlAccessType.FIELD)
+/**
+ * Represents a pharmacy in the inventory system.
+ */
 public class Pharmacy {
 
 	@XmlAttribute(name = "id")
@@ -32,6 +35,13 @@ public class Pharmacy {
 
     /**
      * Parameterized constructor for Pharmacy.
+     *
+     * @param id The unique identifier of the pharmacy.
+     * @param address The address of the pharmacy.
+     * @param phone The contact phone number of the pharmacy.
+     * @param registrationNumber The official registration number of the pharmacy.
+     * @param municipalityId The identifier of the municipality where the pharmacy is located.
+     * @param photo A byte array representing the photo of the pharmacy.
      */
     public Pharmacy(String id, String address, String phone, String registrationNumber, int municipalityId,byte[] photo ) {
         this.id = id;

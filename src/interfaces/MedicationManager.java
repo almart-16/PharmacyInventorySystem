@@ -3,6 +3,9 @@ import java.util.List;
 
 import pojos.Medication;
 
+/**
+ * Interface defining operations for managing medications.
+ */
 public interface MedicationManager {
 	
 	/**

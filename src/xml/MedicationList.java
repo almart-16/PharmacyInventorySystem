@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.*;
 
 import pojos.Medication;
 
+/**
+ * Wrapper class for a list of medications, used for XML serialization.
+ */
 @XmlRootElement(name = "medications")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MedicationList {
@@ -21,7 +24,10 @@ public class MedicationList {
         this.medications = new ArrayList<>();
     }
 
-    //El que usa tu XMLManager
+    /**
+     * Parameterized constructor for MedicationList.
+     * @param medications the list of medications
+     */
     public MedicationList(List<Medication> medications) {
         this.medications = medications;
     }
