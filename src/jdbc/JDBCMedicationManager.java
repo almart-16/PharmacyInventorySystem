@@ -28,8 +28,8 @@ public class JDBCMedicationManager implements MedicationManager {
                 return new Medication(
                     rs.getString("id"),
                     rs.getString("name"),
-                    rs.getString("target_illnes"),
-                    rs.getString("SS").equalsIgnoreCase("yes"),
+                    rs.getString("targetIllnes"),
+                    rs.getString("ss").equalsIgnoreCase("yes"),
                     rs.getString("prescription").equalsIgnoreCase("yes")
                 );
             }
@@ -54,8 +54,8 @@ public class JDBCMedicationManager implements MedicationManager {
                 list.add(new Medication(
                     rs.getString("id"),
                     rs.getString("name"),
-                    rs.getString("target_illnes"),
-                    rs.getString("SS").equalsIgnoreCase("yes"),
+                    rs.getString("targetIllnes"),
+                    rs.getString("ss").equalsIgnoreCase("yes"),
                     rs.getString("prescription").equalsIgnoreCase("yes")
                 ));
             }
@@ -69,7 +69,7 @@ public class JDBCMedicationManager implements MedicationManager {
 
     @Override
     public boolean addMedication(Medication m) {
-        String sql = "INSERT INTO Medication (id, name, target_illnes, SS, prescription) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Medication (id, name, targetIllnes, ss, prescription) VALUES (?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -107,4 +107,11 @@ public class JDBCMedicationManager implements MedicationManager {
 
         return false;
     }
+    
+    
+    
+    
+    
+    
+    
 }

@@ -8,7 +8,6 @@ public interface PurchaseManager {
 	boolean savePurchase(Purchase purchase);
 	
 	// The sale of a medicine is registered, then the stock is reduced from the inventory and lastly the purchase is registered.
-	// CUANDO HAGÁIS ESTE MÉTODO, COMPROBAR SI EL MEDICAMENTO NECESITA RECETA O NO!!
 	boolean sellMedication(Purchase purchase);
 	
 	

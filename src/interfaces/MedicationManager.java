@@ -12,5 +12,8 @@ public interface MedicationManager {
 	boolean addMedication(Medication medication);
 	
 	boolean deleteMedication(String medicationId);
+	
+
+	
 
 }
