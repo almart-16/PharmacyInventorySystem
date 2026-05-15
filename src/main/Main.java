@@ -7,6 +7,43 @@ import java.sql.Connection;
 
 public class Main {
 	
+	/* PARA CUANDO HAGAS EL MAIN: El login no tiene que preguntar si eres admin o pharmacist, 
+	 * porque el rol ya viene guardado en la base de datos dentro del objeto User 
+	 * mediante la relación con Role.
+
+Ahora mismo ya tenemos:
+
+* entidades User y Role hechas,
+* relación ManyToOne entre User y Role,
+* login funcionando con JPA y BCrypt.
+
+El problema que falta resolver no es el login en sí, 
+sino la autorización: decidir qué menú y qué funciones puede usar cada usuario según su rol.
+
+La idea correcta sería:
+
+1. Tener un único login (username + password).
+2. Cuando el usuario inicia sesión, JPA devuelve el User completo.
+3. El sistema mira user.getRole().getRoleName().
+4. Según el rol, mostrar:
+
+   * adminMenu()
+   * pharmacistMenu()
+
+Importante:
+
+* El usuario NO elige ser admin o pharmacist.
+* El rol ya está guardado en la BD.
+* Así evitamos que cualquiera pueda entrar como admin.
+
+También hace falta crear un primer admin manualmente una sola vez (por ejemplo admin/admin123)
+ para poder después crear pharmacists desde el sistema.
+Por lo que he visto, esto debería integrarse desde Main.java,
+ porque el main es quien controla el flujo y los menús, no desde JDBC ni ConnectionManager.*/	
+	
+	
+
+	
 	public static void main(String[] args) {
         System.out.println("Starting Pharmacy Management System");
 
