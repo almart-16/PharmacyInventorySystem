@@ -42,7 +42,10 @@ public class JPAUserManager implements UserManager {
 			User user = new User();
 			user.setUsername(userName);
 			user.setPassword(hashedPassword);
-			user.setRole(role);
+			
+			// merge the detached role into the current persistence context to avoid detached entity exceptions
+			Role managedRole = em.merge(role);
+			user.setRole(managedRole);
 			
 			em.persist(user); // Guarda el usuario (y si es un Client, guarda sus datos extra)
 			em.getTransaction().commit(); 

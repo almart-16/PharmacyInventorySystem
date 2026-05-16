@@ -26,6 +26,7 @@ public class Main {
 	private static JDBCSupplierManager supplierManager;
 	private static JDBCHistoryManager historyManager;
 	private static JDBCPharmacyManager pharmacyManager;	
+	private static JDBCReportManager reportManager;
 	
 	private static JPAUserManager userManager;
 	private static JPARoleManager roleManager;
@@ -99,7 +100,7 @@ public class Main {
 		supplierManager = new JDBCSupplierManager(connectionManager.getc());
 		historyManager = new JDBCHistoryManager(connectionManager.getc());
 		pharmacyManager = new JDBCPharmacyManager(connectionManager.getc());
-
+		reportManager = new JDBCReportManager(connectionManager.getc());
 
 		userManager = new JPAUserManager();
 		roleManager = new JPARoleManager();
@@ -220,7 +221,8 @@ public class Main {
 	            System.out.println("10. Pharmacy menu");
 	            System.out.println("11. User management");
 	            System.out.println("12. XML menu");
-	            System.out.println("13. Logout");
+	            System.out.println("13. Reports menu");
+	            System.out.println("14. Logout");
 
 	            System.out.print("Choose an option: ");
 	            int option = readInt();
@@ -275,6 +277,10 @@ public class Main {
 	                    break;
 
 	                case 13:
+	                    reportsMenu();
+	                    break;
+
+	                case 14:
 	                    logout = true;
 	                    logout();
 	                    break;
@@ -1624,11 +1630,118 @@ public class Main {
 			return Double.parseDouble(reader.readLine());
 		}
 	    
+	    // REPORTS MENU
 	    
-	
-	
-	
-	
+	    private static void reportsMenu() throws IOException {
+	        boolean back = false;
+
+	        while (!back) {
+	            System.out.println("\n REPORTS MENU");
+	            System.out.println("1. Monthly medication sales");
+	            System.out.println("2. Total revenue and profit per medication");
+	            System.out.println("3. Global monthly revenue and profit");
+	            System.out.println("4. Top selling medications");
+	            System.out.println("5. Low selling medications");
+	            System.out.println("6. Back");
+
+	            System.out.print("Choose an option: ");
+	            int option = readInt();
+
+	            switch (option) {
+	                case 1:
+	                    monthlyMedicationSales();
+	                    break;
+	                case 2:
+	                    totalRevenueAndProfitPerMedication();
+	                    break;
+	                case 3:
+	                    globalMonthlyRevenueAndProfit();
+	                    break;
+	                case 4:
+	                    topSellingMedications();
+	                    break;
+	                case 5:
+	                    lowSellingMedications();
+	                    break;
+	                case 6:
+	                    back = true;
+	                    break;
+	                default:
+	                    System.out.println("Invalid option.");
+	                    break;
+	            }
+	        }
+	    }
+
+	    private static void monthlyMedicationSales() throws IOException {
+	        System.out.print("Enter month (MM): ");
+	        String month = reader.readLine();
+	        System.out.print("Enter year (YYYY): ");
+	        String year = reader.readLine();
+	        List<MedicationStats> stats = reportManager.getMonthlyMedicationSales(month, year);
+	        if (stats == null || stats.isEmpty()) {
+	            System.out.println("No records found.");
+	        } else {
+	            for (MedicationStats s : stats) {
+	                System.out.println(s);
+	            }
+	        }
+	    }
+
+	    private static void totalRevenueAndProfitPerMedication() {
+	        List<MedicationStats> stats = reportManager.getTotalRevenueAndProfitPerMedication();
+	        if (stats == null || stats.isEmpty()) {
+	            System.out.println("No records found.");
+	        } else {
+	            for (MedicationStats s : stats) {
+	                System.out.println(s);
+	            }
+	        }
+	    }
+
+	    private static void globalMonthlyRevenueAndProfit() throws IOException {
+	        System.out.print("Enter month (MM): ");
+	        String month = reader.readLine();
+	        System.out.print("Enter year (YYYY): ");
+	        String year = reader.readLine();
+	        GlobalStats stats = reportManager.getGlobalMonthlyRevenueAndProfit(month, year);
+	        if (stats == null) {
+	            System.out.println("No records found.");
+	        } else {
+	            System.out.println(stats);
+	        }
+	    }
+
+	    private static void topSellingMedications() throws IOException {
+	        System.out.print("Enter month (MM): ");
+	        String month = reader.readLine();
+	        System.out.print("Enter year (YYYY): ");
+	        String year = reader.readLine();
+	        System.out.print("Enter limit: ");
+	        int limit = readInt();
+	        List<MedicationStats> stats = reportManager.getTopSellingMedications(month, year, limit);
+	        if (stats == null || stats.isEmpty()) {
+	            System.out.println("No records found.");
+	        } else {
+	            for (MedicationStats s : stats) {
+	                System.out.println(s);
+	            }
+	        }
+	    }
+
+	    private static void lowSellingMedications() throws IOException {
+	        System.out.print("Enter limit: ");
+	        int limit = readInt();
+	        List<MedicationStats> stats = reportManager.getLowSellingMedications(limit);
+	        if (stats == null || stats.isEmpty()) {
+	            System.out.println("No records found.");
+	        } else {
+	            for (MedicationStats s : stats) {
+	                System.out.println(s);
+	            }
+	        }
+	    }
+	    
 }
 
 
