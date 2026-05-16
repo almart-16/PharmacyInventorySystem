@@ -6,13 +6,11 @@ import jdbc.*;
 import jpa.JPARoleManager;
 import jpa.JPAUserManager;
 import pojos.*;
-import interfaces.*;
 import xml.PharmacyWrapper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.util.List;
 
 public class Main {
@@ -40,11 +38,12 @@ public class Main {
 	 * Main method to run the Pharmacy Inventory System.
 	 * @param args command line arguments
 	 */
+	
 	public static void main(String[] args) {
 		
 		
 		try {
-			
+					    
 			initializeManagers();
 			createInitialAdmin();
 			
@@ -160,19 +159,39 @@ public class Main {
 	 
 	 
 	 // INITIAL CONFIGURATION ADMIN
-	 
+	
 	 private static void createInitialAdmin() {
-		 
-		 Role adminRole = roleManager.findRoleByName("admin");
-		 if(adminRole == null) {
-			 System.out.println("Admin role doesn't exist");
-			 return;
-		 }
-		 
-		 userManager.createUser("admin", "admin123", adminRole);
-		 
-		 
-	 }
+			try {
+				// 1. Aseguramos que el rol 'admin' exista delegando en tu manager
+				Role adminRole = roleManager.findRoleByName("admin");
+				if (adminRole == null) {
+					System.out.println("Creating 'admin' role structure...");
+					adminRole = new Role();
+					adminRole.setRoleName("admin");
+					roleManager.createRole(adminRole);
+					adminRole = roleManager.findRoleByName("admin");
+				}
+				
+				// 2. Aseguramos que el rol 'pharmacist' exista también
+				Role pharmacistRole = roleManager.findRoleByName("pharmacist");
+				if (pharmacistRole == null) {
+					System.out.println("Creating 'pharmacist' role structure in startup...");
+					pharmacistRole = new Role();
+					pharmacistRole.setRoleName("pharmacist");
+					roleManager.createRole(pharmacistRole);
+				}
+				
+				// 3. Creamos tu usuario administrador si no existe
+				User checkUser = userManager.login("andrea.123", "1234");
+				if (checkUser == null) {
+					System.out.println("Creating default administrator 'andrea.123'...");
+					userManager.createUser("andrea.123", "1234", adminRole);
+					System.out.println("Administrator setup complete!");
+				}
+			} catch (Exception e) {
+				System.out.println("Database initialization notice: " + e.getMessage());
+			}
+		}
 	        
 	        
 	// ADMIN MENU
@@ -1332,6 +1351,7 @@ public class Main {
 	        System.out.print("Username: ");
 	        String username = reader.readLine();
 
+	        // 1. Validar si el nombre de usuario ya existe
 	        if (userManager.findUserByUserName(username) != null) {
 	            System.out.println("Username already exists.");
 	            return;
@@ -1340,18 +1360,22 @@ public class Main {
 	        System.out.print("Password: ");
 	        String password = reader.readLine();
 
+	        // 2. Buscar el rol pharmacist en la base de datos
 	        Role pharmacistRole = roleManager.findRoleByName("pharmacist");
 	        if (pharmacistRole == null) {
-	            System.out.println("Role 'pharmacist' does not exist in the database. Please create it first or contact admin.");
+	            System.out.println("Role 'pharmacist' does not exist in the database. Please contact admin.");
 	            return;
 	        }
 
-	       
-	        userManager.createUser(username, password, pharmacistRole);
-
-	        System.out.println("Pharmacist user created successfully.");
+	        // 3. Crear el usuario delegando directamente en tu manager
+	        try {
+	            System.out.println("Saving new pharmacist '" + username + "' into database...");
+	            userManager.createUser(username, password, pharmacistRole);
+	            System.out.println("Pharmacist user '" + username + "' created successfully!");
+	        } catch (Exception e) {
+	            System.out.println("Error creating pharmacist user: " + e.getMessage());
+	        } 
 	    }
-
 	    /**
 
 	     * Executes the findUserByUsername action.

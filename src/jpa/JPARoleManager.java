@@ -101,6 +101,11 @@ public class JPARoleManager implements RoleManager {
 	    em.close();
 	}
 	
+	public EntityManager getEntityManager () {
+		return this.em;
+		
+	}
+	
 	
 
 }

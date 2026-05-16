@@ -178,6 +178,9 @@ public class JPAUserManager implements UserManager {
 	public void disconnect() {
 	    em.close();
 	}
+	public EntityManager getEntityManager() {
+		return this.em;
+	}
 	
 	
 		
