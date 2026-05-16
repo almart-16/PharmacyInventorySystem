@@ -198,7 +198,8 @@ public class JDBCPurchaseManager implements PurchaseManager {
         }
     }
 
-    public List<Purchase> readAll() {
+    @Override
+    public List<Purchase> getAllPurchases() {
         String sql = "SELECT * FROM Purchase";
         List<Purchase> purchases = new ArrayList<>();
         try (PreparedStatement pstmt = connection.prepareStatement(sql);

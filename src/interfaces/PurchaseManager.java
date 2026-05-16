@@ -26,4 +26,11 @@ public interface PurchaseManager {
 	 */
 	boolean sellMedication(Purchase purchase);
 
+	/**
+	 * Retrieves all purchases in the system.
+	 *
+	 * @return a list of all purchases
+	 */
+	java.util.List<pojos.Purchase> getAllPurchases();
+
 }
