@@ -1,6 +1,8 @@
 package main;
 
 import jdbc.*;
+
+
 import jpa.JPARoleManager;
 import jpa.JPAUserManager;
 import pojos.*;
@@ -44,6 +46,7 @@ public class Main {
 		try {
 			
 			initializeManagers();
+			createInitialAdmin();
 			
 			boolean exit = false;
 			while(!exit) {
@@ -153,6 +156,22 @@ public class Main {
 		        loggedUser = null;
 
 	        }
+	 }
+	 
+	 
+	 // INITIAL CONFIGURATION ADMIN
+	 
+	 private static void createInitialAdmin() {
+		 
+		 Role adminRole = roleManager.findRoleByName("admin");
+		 if(adminRole == null) {
+			 System.out.println("Admin role doesn't exist");
+			 return;
+		 }
+		 
+		 userManager.createUser("admin", "admin123", adminRole);
+		 
+		 
 	 }
 	        
 	        
@@ -1310,7 +1329,6 @@ public class Main {
 	     */
 
 	    private static void createPharmacistUser() throws IOException {
-	        System.out.println("\n--- Create Pharmacist User ---");
 	        System.out.print("Username: ");
 	        String username = reader.readLine();
 
@@ -1328,11 +1346,8 @@ public class Main {
 	            return;
 	        }
 
-	        User newUser = new User();
-	        newUser.setUsername(username);
-	        newUser.setPassword(password);
-	        newUser.setRole(pharmacistRole);
-	        userManager.createUser(newUser);
+	       
+	        userManager.createUser(username, password, pharmacistRole);
 
 	        System.out.println("Pharmacist user created successfully.");
 	    }

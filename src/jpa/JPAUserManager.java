@@ -31,11 +31,23 @@ public class JPAUserManager implements UserManager {
      * {@inheritDoc}
      */
     @Override
-    public void createUser(User user) {
+    public void createUser(String userName, String normalPassword, Role role) {
 		try {
 			em.getTransaction().begin(); 
+			String hashedPassword = BCrypt.hashpw(normalPassword, BCrypt.gensalt());
+			// It encripts the normal password introduced by the user before saving it in the database,
+			// by doing this, you can later in the login compare the 2 passwords now written in the same
+			// "language", which is the hashed one.
+			
+			User user = new User();
+			user.setUsername(userName);
+			user.setPassword(hashedPassword);
+			user.setRole(role);
+			
 			em.persist(user); // Guarda el usuario (y si es un Client, guarda sus datos extra)
 			em.getTransaction().commit(); 
+			
+	
 		
 		}catch (Exception e) {
 			//Si vas a crear un usuario y, por ejemplo, se corta la conexión a internet justo cuando el nombre se ha guardado 
@@ -64,16 +76,25 @@ public class JPAUserManager implements UserManager {
     @Override
 	public User login(String userName, String password) {
 		try {
-			Query q = em.createNativeQuery("SELECT * FROM users WHERE username = ?", User.class);
+			Query q = em.createNativeQuery("SELECT * FROM users WHERE userName = ?", User.class);
 			q.setParameter(1, userName);
 			User user = (User) q.getSingleResult();
 			
-			if(BCrypt.checkpw(password, user.getPassword())) {
+			if(user == null) {
+				return null;
+			}
+			
+			String hashedPassword = user.getPassword();
+			
+			if(BCrypt.checkpw(password, hashedPassword)) {
 				return user;
 			}else {
 				return null;
 			}
 		}catch (NoResultException e) {
+			return null;
+		} catch(IllegalArgumentException e) {
+			System.out.println("Password stored in database is not a valid BCrypt hash.");
 			return null;
 		}
 	}

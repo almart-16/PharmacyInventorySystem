@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.List;
 
+import pojos.Role;
 import pojos.User;
 
 public interface UserManager {
@@ -11,7 +12,7 @@ public interface UserManager {
 	 *
 	 * @param user the user object to create
 	 */
-	void createUser(User user);
+	void createUser(String userName, String password, Role role);
 	
 	/**
 	 * Finds a user by their username.
@@ -23,7 +24,7 @@ public interface UserManager {
 	
 	/**
 	 * Authenticates a user with their username and password.
-	 *
+	 *s
 	 * @param userName the username
 	 * @param password the password
 	 * @return the authenticated user object if successful, null otherwise
