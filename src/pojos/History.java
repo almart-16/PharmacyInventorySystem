@@ -5,21 +5,26 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class History {
-
-	@XmlElement(name = "date")
-    private String date;
-
-    @XmlElement(name = "movementType")
-    private String movementType; // Sale o Restock
-
+	@XmlAttribute(name = "id")
+    private String id;
+	
+    @XmlElement(name = "pharmacyId")
+    private String pharmacyId;
+    
     @XmlElement(name = "medicationId")
     private String medicationId;
+    
+    @XmlElement(name = "movementType")
+    private String movementType; // Sale o Restock
 
     @XmlElement(name = "quantity")
     private int quantity;
 
     @XmlElement(name = "price")
     private Double price;// puede ser null
+    
+	@XmlElement(name = "date")
+    private String date;
 
     /**
      * Default constructor for History.
@@ -29,14 +34,23 @@ public class History {
     /**
      * Parameterized constructor for History.
      */
-    public History(String date, String movementType, String medicationId, int quantity, Double price) {
-        this.date = date;
-        this.movementType = movementType;
+    public History(String id, String pharmacyId, String medicationId, String movementType,   int quantity, Double price, String date) {
+    	this.id = id;
+    	this.pharmacyId = pharmacyId;
         this.medicationId = medicationId;
+        this.movementType = movementType;
         this.quantity = quantity;
         this.price = price;
+        this.date = date;
     }
 
+    /**
+     * Gets the value of id.
+     * @return The value of id.
+     */
+    public String getId() {
+        return id;
+    }
     /**
      * Gets the value of date.
      * @return The value of date.
@@ -53,9 +67,15 @@ public class History {
      */
     public String getMedicationId() { return medicationId; }
     /**
+     * Gets the value of pharmacyId.
+     * @return The value of pharmacyId.
+     */
+    public String getPharmacyId() { return pharmacyId; }
+    /**
      * Gets the value of quantity.
      * @return The value of quantity.
      */
+    
     public int getQuantity() { return quantity; }
     /**
      * Gets the value of price.
@@ -70,11 +90,13 @@ public class History {
      */
     public String toString() {
         return "History{" +
-                "date='" + date + '\'' +
-                ", type='" + movementType + '\'' +
-                ", medication='" + medicationId + '\'' +
+    
+        		"pharmacy=" + pharmacyId + '\'' +
+        	    ", medication='" + medicationId + '\'' +
+        	    ", type='" + movementType + '\'' +
                 ", quantity=" + quantity +
-                ", price=" + price +
+                ", price='" + price + '\'' +
+                ", date=" + date +
                 '}';
     }
 }

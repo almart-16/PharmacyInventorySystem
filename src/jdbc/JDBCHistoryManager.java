@@ -19,35 +19,34 @@ public class JDBCHistoryManager implements HistoryManager {
         this.connection = connection;
     }
 
-    // 🔹 HISTORIAL POR FARMACIA
+    // HISTORY BY PHAARMACY
     /**
      * {@inheritDoc}
      */
     @Override
     public void showHistoryByPharmacy(String pharmacyId) {
 
-        String sql = 
-            "SELECT date, 'Sale' AS type, medicationId, quantity, price " +
-            "FROM Purchase WHERE pharmacy_id = ? " +
-            "UNION ALL " +
-            "SELECT date, 'Restock' AS type, medication_id, quantity, NULL AS price " +
-            "FROM Orders WHERE pharmacy_id = ? " +
+        String sql =
+            "SELECT id, pharmacyId, medicationId, movementType, quantity, price, date " +
+            "FROM History " +
+            "WHERE pharmacyId = ? " +
             "ORDER BY date DESC";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, pharmacyId);
-            stmt.setString(2, pharmacyId);
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 History h = new History(
-                    rs.getString("date"),
-                    rs.getString("type"),
-                    rs.getString("medication_id"),
+                    rs.getString("id"),
+                    rs.getString("pharmacyId"),
+                    rs.getString("medicationId"),
+                    rs.getString("movementType"),
                     rs.getInt("quantity"),
-                    rs.getDouble("price")
+                    rs.getDouble("price"),
+                    rs.getString("date")
                 );
 
                 System.out.println(h);
@@ -57,57 +56,16 @@ public class JDBCHistoryManager implements HistoryManager {
             e.printStackTrace();
         }
     }
-
-    // HISTORIAL POR MEDICAMENTO
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void showHistoryByMedication(String medicationId) {
-
-        String sql = 
-            "SELECT date, 'Sale' AS type, medication_id, quantity, price " +
-            "FROM Purchase WHERE medication_id = ? " +
-            "UNION ALL " +
-            "SELECT date, 'Restock' AS type, medication_id, quantity, NULL AS price " +
-            "FROM Orders WHERE medication_id = ? " +
-            "ORDER BY date DESC";
-
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, medicationId);
-            stmt.setString(2, medicationId);
-
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                History h = new History(
-                    rs.getString("date"),
-                    rs.getString("type"),
-                    rs.getString("medication_id"),
-                    rs.getInt("quantity"),
-                    rs.getDouble("price")
-                );
-
-                System.out.println(h);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // 🔹 TODO EL HISTORIAL
+    // ALL HISTORY
     /**
      * {@inheritDoc}
      */
     @Override
     public void showAllHistory() {
 
-        String sql = 
-            "SELECT date, 'Sale' AS type, medication_id, quantity, price FROM Purchase " +
-            "UNION ALL " +
-            "SELECT date, 'Restock' AS type, medication_id, quantity, NULL FROM Orders " +
+        String sql =
+            "SELECT id, pharmacyId, medicationId, movementType, quantity, price, date " +
+            "FROM History " +
             "ORDER BY date DESC";
 
         try {
@@ -116,11 +74,13 @@ public class JDBCHistoryManager implements HistoryManager {
 
             while (rs.next()) {
                 History h = new History(
-                    rs.getString("date"),
-                    rs.getString("type"),
-                    rs.getString("medication_id"),
+                    rs.getString("id"),
+                    rs.getString("pharmacyId"),
+                    rs.getString("medicationId"),
+                    rs.getString("movementType"),
                     rs.getInt("quantity"),
-                    rs.getDouble("price")
+                    rs.getDouble("price"),
+                    rs.getString("date")
                 );
 
                 System.out.println(h);
@@ -130,4 +90,44 @@ public class JDBCHistoryManager implements HistoryManager {
             e.printStackTrace();
         }
     }
+    
+    // HISTORY BY MEDICATION
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void showHistoryByMedication(String medicationId) {
+
+        String sql =
+            "SELECT id, pharmacyId, medicationId, movementType, quantity, price, date " +
+            "FROM History " +
+            "WHERE medicationId = ? " +
+            "ORDER BY date DESC";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, medicationId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                History h = new History(
+                    rs.getString("id"),
+                    rs.getString("pharmacyId"),
+                    rs.getString("medicationId"),
+                    rs.getString("movementType"),
+                    rs.getInt("quantity"),
+                    rs.getDouble("price"),
+                    rs.getString("date")
+                );
+
+                System.out.println(h);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 }
