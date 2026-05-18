@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import interfaces.RoleManager;
 import pojos.Role;
@@ -40,10 +41,10 @@ public class JPARoleManager implements RoleManager {
      */
     @Override
 	public Role findRoleByName(String roleName) {
-		Query q = em.createNativeQuery("SELECT * FROM roles WHERE roleName = ?", Role.class);
-		q.setParameter(1, roleName);
+		TypedQuery<Role> q = em.createQuery("SELECT r FROM Role r WHERE r.roleName = :roleName", Role.class);
+		q.setParameter("roleName", roleName);
 		try {
-			return (Role) q.getSingleResult();
+			return q.getSingleResult();
 		} catch (Exception e) {
 			return null;
 		}
@@ -60,7 +61,7 @@ public class JPARoleManager implements RoleManager {
      */
     @Override 
 	public List<Role> getAllRoles() {
-		Query q = em.createNativeQuery("SELECT * FROM roles", Role.class);
+		TypedQuery<Role> q = em.createQuery("SELECT r FROM Role r", Role.class);
 		return q.getResultList();
 	}
     /**

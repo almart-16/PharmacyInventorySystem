@@ -65,10 +65,10 @@ public class JPAUserManager implements UserManager {
      */
     @Override
 	public User findUserByUserName (String userName) {
-		Query q = em.createNativeQuery("SELECT * FROM users WHERE username = ?", User.class);
-	    q.setParameter(1, userName); //en el primer ? metes la variable userName
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u WHERE u.username = :userName", User.class);
+	    q.setParameter("userName", userName);
 	    try {
-	        return (User) q.getSingleResult();
+	        return q.getSingleResult();
 	    } catch (Exception e) {
 	        return null; 
 	    }
@@ -79,9 +79,9 @@ public class JPAUserManager implements UserManager {
     @Override
 	public User login(String userName, String password) {
 		try {
-			Query q = em.createNativeQuery("SELECT * FROM users WHERE userName = ?", User.class);
-			q.setParameter(1, userName);
-			User user = (User) q.getSingleResult();
+			TypedQuery<User> q = em.createQuery("SELECT u FROM User u WHERE u.username = :userName", User.class);
+			q.setParameter("userName", userName);
+			User user = q.getSingleResult();
 			
 			if(user == null) {
 				return null;
@@ -120,7 +120,7 @@ public class JPAUserManager implements UserManager {
      */
     @Override
 	public List<User> getAllUsers() {
-	    Query q = em.createNativeQuery("SELECT * FROM users", User.class);
+	    TypedQuery<User> q = em.createQuery("SELECT u FROM User u", User.class);
 	    return q.getResultList();
 	}
     /**

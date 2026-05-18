@@ -148,7 +148,8 @@ public class DataBaseInitializer {
                 "INSERT OR IGNORE INTO Municipality (id, name) VALUES " +
                 "('MUN-0', 'Boadilla del Monte'), " +
                 "('MUN-1', 'Pozuelo de Alarcon'), " +
-                "('MUN-2', 'Alcorcon')"
+                "('MUN-2', 'Alcorcon'), " +
+                "('MUN-3', 'Majadahonda')"
             );
 
          // Medications
@@ -161,7 +162,9 @@ public class DataBaseInitializer {
                 "('M-4', 'Omeprazol', 'Antacid', 1, 1), " +
                 "('M-5', 'Loratadina', 'Antihistamine', 0, 0), " +
                 "('M-6', 'Metformina', 'Antidiabetic', 1, 1), " +
-                "('M-7', 'Diazepam', 'Anxiolytic', 1, 1)"
+                "('M-7', 'Diazepam', 'Anxiolytic', 1, 1), " +
+                "('M-8', 'Lansoprazol', 'Gastric Ulcer', 1, 1), " +
+                "('M-9', 'Vitamin C', 'Supplement', 0, 0)"
             );
             
     		
@@ -170,7 +173,8 @@ public class DataBaseInitializer {
                 "INSERT OR IGNORE INTO Supplier (id, name, phone) VALUES " +
                 "('S-0', 'Bayer', '623401393'), " +
                 "('S-1', 'Cardinal Health', '629461032'), " +
-                "('S-2', 'Bidafarma', '64928351')"
+                "('S-2', 'Bidafarma', '64928351'), " +
+                "('S-3', 'Pfizer', '612345678')"
             );
 
          // Clients
@@ -178,7 +182,9 @@ public class DataBaseInitializer {
                 "INSERT OR IGNORE INTO Client (id, name, nationalId, age, municipalityId) VALUES " +
                 "('C-0', 'Paola', '27673831L', 70, 'MUN-1'), " +
                 "('C-1', 'Alex', '36219443S', 32, 'MUN-2'), " +
-                "('C-2', 'Alba', '58347523P', 15, 'MUN-0')"
+                "('C-2', 'Alba', '58347523P', 15, 'MUN-0'), " +
+                "('C-3', 'Carlos', '12345678Z', 45, 'MUN-3'), " +
+                "('C-4', 'Maria', '87654321A', 28, 'MUN-1')"
             );
             
             
@@ -201,7 +207,10 @@ public class DataBaseInitializer {
                 "('I-4', 'P-1', 'M-4', 'S-1', 100, 8.0, 3.5, '2027-10-15', 20), " +
                 "('I-5', 'P-2', 'M-5', 'S-2', 40, 5.5, 2.0, '2029-01-20', 10), " +
                 "('I-6', 'P-0', 'M-6', 'S-1', 60, 4.0, 1.5, '2028-11-30', 15), " +
-                "('I-7', 'P-1', 'M-7', 'S-0', 20, 15.0, 8.0, '2027-08-10', 5)"
+                "('I-7', 'P-1', 'M-7', 'S-0', 20, 15.0, 8.0, '2027-08-10', 5), " +
+                "('I-8', 'P-0', 'M-8', 'S-3', 15, 10.0, 4.0, '2023-05-01', 5), " + // Expired product
+                "('I-9', 'P-2', 'M-9', 'S-2', 2, 7.0, 3.0, '2028-12-01', 10), " +  // Low stock product
+                "('I-10', 'P-1', 'M-8', 'S-3', 0, 10.0, 4.0, '2029-05-01', 5)"     // Out of stock product
             );
             
             
@@ -211,7 +220,9 @@ public class DataBaseInitializer {
                 "(id, clientId, pharmacyId, date, medicationId, quantity, price) VALUES " +
                 "('PUR-0', 'C-2', 'P-0', '2026-04-12', 'M-1', 1, 4.0), " +
                 "('PUR-1', 'C-1', 'P-1', '2026-01-04', 'M-2', 2, 6.0), " +
-                "('PUR-2', 'C-0', 'P-2', '2026-03-26', 'M-0', 1, 5.0)"
+                "('PUR-2', 'C-0', 'P-2', '2026-03-26', 'M-0', 1, 5.0), " +
+                "('PUR-3', 'C-3', 'P-0', '2026-05-15', 'M-6', 2, 4.0), " +
+                "('PUR-4', 'C-4', 'P-2', '2026-05-16', 'M-5', 3, 5.5)"
             );
     		
          // Orders
@@ -219,8 +230,9 @@ public class DataBaseInitializer {
                 "INSERT OR IGNORE INTO Orders " +
                 "(id, pharmacyId, supplierId, medicationId, date, quantity, status) VALUES " +
                 "('ORD-0', 'P-1', 'S-1', 'M-2', '2026-03-12', 10, 'Pending'), " +
-                "('ORD-1', 'P-2', 'S-2', 'M-0', '2026-01-10', 15, 'Pending'), " +
-                "('ORD-2', 'P-0', 'S-0', 'M-1', '2026-02-11', 20, 'Pending')"
+                "('ORD-1', 'P-2', 'S-2', 'M-0', '2026-01-10', 15, 'Received'), " +
+                "('ORD-2', 'P-0', 'S-0', 'M-1', '2026-02-11', 20, 'Pending'), " +
+                "('ORD-3', 'P-1', 'S-3', 'M-8', '2026-05-10', 50, 'Pending')"
             );
             
          // History
@@ -229,7 +241,9 @@ public class DataBaseInitializer {
             	    "(id, pharmacyId, medicationId, movementType, quantity, price, date) VALUES " +
             	    "('H-0', 'P-0', 'M-1', 'SALE', 1, 4.0, '2026-04-12'), " +
             	    "('H-1', 'P-1', 'M-0', 'RESTOCK', 25, 125.0, '2026-03-01'), " +
-            	    "('H-2', 'P-2', 'M-2', 'RESTOCK', 10, 30.0, '2026-03-12')"
+            	    "('H-2', 'P-2', 'M-2', 'RESTOCK', 10, 30.0, '2026-03-12'), " +
+                    "('H-3', 'P-0', 'M-6', 'SALE', 2, 8.0, '2026-05-15'), " +
+                    "('H-4', 'P-2', 'M-5', 'SALE', 3, 16.5, '2026-05-16')"
             	);
 
             System.out.println("Initial data inserted correctly");
@@ -239,10 +253,6 @@ public class DataBaseInitializer {
     		System.err.println("Error inserting the initial data");
 			e.printStackTrace();
 		}
-    	
-    	
-    	
-    	
     }
     
     

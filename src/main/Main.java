@@ -53,7 +53,6 @@ public class Main {
 				System.out.println("\n PHARMACY INVENTORY SYSTEM \n");
 				System.out.println("\n1. Login");
 				System.out.println("\n2. Exit");
-				
 				System.out.println("Choose an option:");
 				int option = readInt();
 				
@@ -180,6 +179,7 @@ public class Main {
 					pharmacistRole = new Role();
 					pharmacistRole.setRoleName("pharmacist");
 					roleManager.createRole(pharmacistRole);
+                    pharmacistRole = roleManager.findRoleByName("pharmacist");
 				}
 				
 				// 3. Creamos tu usuario administrador si no existe
@@ -189,6 +189,14 @@ public class Main {
 					userManager.createUser("andrea.123", "1234", adminRole);
 					System.out.println("Administrator setup complete!");
 				}
+
+                // 4. Creamos un usuario pharmacist por defecto si no existe
+                User checkPharmacist = userManager.login("pharmacist.test", "1234");
+                if (checkPharmacist == null) {
+                    System.out.println("Creating default pharmacist 'pharmacist.test'...");
+                    userManager.createUser("pharmacist.test", "1234", pharmacistRole);
+                    System.out.println("Pharmacist setup complete!");
+                }
 			} catch (Exception e) {
 				System.out.println("Database initialization notice: " + e.getMessage());
 			}
