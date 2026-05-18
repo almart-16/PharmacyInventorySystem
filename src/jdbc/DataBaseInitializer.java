@@ -65,6 +65,7 @@ public class DataBaseInitializer {
             "supplierId TEXT, " +
             "stockQuantity INTEGER, " +
             "price REAL, " +
+            "purchasePrice REAL, " +
             "expirationDate TEXT, " +
             "minimumStock INTEGER, " +
             "FOREIGN KEY(pharmacyId) REFERENCES Pharmacy(id), " +
@@ -122,6 +123,20 @@ public class DataBaseInitializer {
             System.err.println("Error creating tables");
             e.printStackTrace();
         }
+
+        // Try to add purchasePrice column to existing Inventory table
+        try (Statement s = c.createStatement()) {
+            s.executeUpdate("ALTER TABLE Inventory ADD COLUMN purchasePrice REAL");
+        } catch (SQLException e) {
+            // Ignore error if column already exists
+        }
+        
+        // Update old initial data if purchasePrice is missing or null
+        try (Statement s = c.createStatement()) {
+            s.executeUpdate("UPDATE Inventory SET purchasePrice = price / 2 WHERE purchasePrice IS NULL");
+        } catch (SQLException e) {
+            // Ignore error
+        }
     }
     
     
@@ -141,7 +156,12 @@ public class DataBaseInitializer {
                 "INSERT OR IGNORE INTO Medication (id, name, targetIllness, ss, prescription) VALUES " +
                 "('M-0', 'Ibuprofeno', 'Anti-inflammatory', 0, 0), " +
                 "('M-1', 'Paracetamol', 'Analgesic and antipyretic', 0, 0), " +
-                "('M-2', 'Aspirina', 'Antiplatelet', 0, 0)"
+                "('M-2', 'Aspirina', 'Antiplatelet', 0, 0), " +
+                "('M-3', 'Amoxicilina', 'Antibiotic', 1, 1), " +
+                "('M-4', 'Omeprazol', 'Antacid', 1, 1), " +
+                "('M-5', 'Loratadina', 'Antihistamine', 0, 0), " +
+                "('M-6', 'Metformina', 'Antidiabetic', 1, 1), " +
+                "('M-7', 'Diazepam', 'Anxiolytic', 1, 1)"
             );
             
     		
@@ -173,10 +193,15 @@ public class DataBaseInitializer {
          // Inventory
             s.executeUpdate(
                 "INSERT OR IGNORE INTO Inventory " +
-                "(id, pharmacyId, medicationId, supplierId, stockQuantity, price, expirationDate, minimumStock) VALUES " +
-                "('I-0', 'P-2', 'M-2', 'S-0', 30, 6.0, '2029-04-01', 7), " +
-                "('I-1', 'P-0', 'M-1', 'S-2', 20, 4.0, '2027-03-01', 7), " +
-                "('I-2', 'P-1', 'M-0', 'S-1', 25, 5.0, '2032-09-01', 7)"
+                "(id, pharmacyId, medicationId, supplierId, stockQuantity, price, purchasePrice, expirationDate, minimumStock) VALUES " +
+                "('I-0', 'P-2', 'M-2', 'S-0', 30, 6.0, 3.0, '2029-04-01', 7), " +
+                "('I-1', 'P-0', 'M-1', 'S-2', 20, 4.0, 2.0, '2027-03-01', 7), " +
+                "('I-2', 'P-1', 'M-0', 'S-1', 25, 5.0, 2.5, '2032-09-01', 7), " +
+                "('I-3', 'P-0', 'M-3', 'S-0', 50, 12.0, 6.0, '2028-05-01', 10), " +
+                "('I-4', 'P-1', 'M-4', 'S-1', 100, 8.0, 3.5, '2027-10-15', 20), " +
+                "('I-5', 'P-2', 'M-5', 'S-2', 40, 5.5, 2.0, '2029-01-20', 10), " +
+                "('I-6', 'P-0', 'M-6', 'S-1', 60, 4.0, 1.5, '2028-11-30', 15), " +
+                "('I-7', 'P-1', 'M-7', 'S-0', 20, 15.0, 8.0, '2027-08-10', 5)"
             );
             
             
