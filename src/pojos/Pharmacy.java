@@ -22,7 +22,7 @@ public class Pharmacy {
     private String registrationNumber;
 
     @XmlElement(name = "municipalityId")
-    private int municipalityId;
+    private String municipalityId;
 
     @XmlElement(name = "photo")
     private byte[] photo;
@@ -43,7 +43,7 @@ public class Pharmacy {
      * @param municipalityId The identifier of the municipality where the pharmacy is located.
      * @param photo A byte array representing the photo of the pharmacy.
      */
-    public Pharmacy(String id, String address, String phone, String registrationNumber, int municipalityId,byte[] photo ) {
+    public Pharmacy(String id, String address, String phone, String registrationNumber, String municipalityId, byte[] photo ) {
         this.id = id;
         this.address = address;
         this.phone = phone;
@@ -100,12 +100,12 @@ public class Pharmacy {
      * Gets the value of municipalityId.
      * @return The value of municipalityId.
      */
-    public int getMunicipalityId() { return municipalityId; }
+    public String getMunicipalityId() { return municipalityId; }
     /**
      * Sets the value of municipalityId.
      * @param municipalityId The new value of municipalityId.
      */
-    public void setMunicipalityId(int municipalityId) { this.municipalityId = municipalityId; }
+    public void setMunicipalityId(String municipalityId) { this.municipalityId = municipalityId; }
 
     /**
      * Gets the value of photo.
@@ -129,12 +129,10 @@ public class Pharmacy {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", registrationNumber='" + registrationNumber + '\'' +
-                ", municipalityId=" + municipalityId +
+                ", municipalityId='" + municipalityId + '\'' +
                 '}';
     }
 	
 	
 	
 }
-
-

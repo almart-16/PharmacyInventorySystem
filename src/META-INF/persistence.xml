@@ -12,11 +12,11 @@
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:./src/db/pharmacy.db" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:./src/db/pharmacy_final_run.db" />
             <property name="javax.persistence.jdbc.user" value="" />
             <property name="javax.persistence.jdbc.password" value="" />
 
-            <property name="eclipselink.ddl-generation" value="create-tables" />
+            <property name="eclipselink.ddl-generation" value="none" />
             <property name="eclipselink.ddl-generation.output-mode" value="database" />
         </properties>
     </persistence-unit>

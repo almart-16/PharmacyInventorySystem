@@ -11,6 +11,7 @@ import pojos.*;
  * Wrapper class representing the entire pharmacy system database for XML serialization.
  */
 @XmlRootElement(name = "pharmacy_unit")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PharmacyWrapper {
 	
 	@XmlElementWrapper(name = "medications")

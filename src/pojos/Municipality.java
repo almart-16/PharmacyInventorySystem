@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.*;
  */
 public class Municipality {
 	@XmlAttribute(name = "id")
-    private int id;
+    private String id;
 
     @XmlElement(name = "name")
     private String name;
@@ -26,7 +26,7 @@ public class Municipality {
      * @param id The unique identifier of the municipality.
      * @param name The name of the municipality.
      */
-    public Municipality(int id, String name) {
+    public Municipality(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -35,7 +35,7 @@ public class Municipality {
      * Gets the value of id.
      * @return The value of id.
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -43,7 +43,7 @@ public class Municipality {
      * Sets the value of id.
      * @param id The new value of id.
      */
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -73,11 +73,9 @@ public class Municipality {
      */
     public String toString() {
         return "Municipality{" +
-                "id=" + id +
-                ", name='" + name +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
     
 }
-	
-

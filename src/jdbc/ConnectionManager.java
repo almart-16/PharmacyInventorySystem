@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class ConnectionManager {
 
     private Connection c;
-    private final String URL = "jdbc:sqlite:./src/db/pharmacy.db";
+    private final String URL = "jdbc:sqlite:./src/db/pharmacy_final_run.db";
     
     /**
      * Default constructor that initializes the database connection.

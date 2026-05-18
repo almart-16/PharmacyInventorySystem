@@ -28,7 +28,7 @@ public class JDBCPharmacyManager implements PharmacyManager {
      */
     @Override
     public Pharmacy findbyRegistrationNumber(String number) {
-        String sql = "SELECT * FROM Pharmacy WHERE registration_number = ?";
+        String sql = "SELECT * FROM Pharmacy WHERE registrationNumber = ?";
         Pharmacy pharmacy = null;
 
         // Using try-with-resources to ensure PreparedStatement and ResultSet are closed
@@ -93,7 +93,7 @@ public class JDBCPharmacyManager implements PharmacyManager {
     }
 
     public boolean create(Pharmacy pharmacy) {
-        String sql = "INSERT INTO Pharmacy (id, address, phone, registration_number, municipality_id, photo) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Pharmacy (id, address, phone, registrationNumber, municipalityId, photo) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, pharmacy.getId());
@@ -101,7 +101,7 @@ public class JDBCPharmacyManager implements PharmacyManager {
             pstmt.setString(3, pharmacy.getPhone());
             pstmt.setString(4, pharmacy.getRegistrationNumber());
             // Transform the POJO's int to SQLite's TEXT
-            pstmt.setString(5, String.valueOf(pharmacy.getMunicipalityId()));
+            pstmt.setString(5, pharmacy.getMunicipalityId());
             pstmt.setBytes(6, pharmacy.getPhoto());
 
             int rowsAffected = pstmt.executeUpdate();
@@ -114,13 +114,13 @@ public class JDBCPharmacyManager implements PharmacyManager {
     }
 
     public boolean update(Pharmacy pharmacy) {
-        String sql = "UPDATE Pharmacy SET address = ?, phone = ?, registration_number = ?, municipality_id = ?, photo = ? WHERE id = ?";
+        String sql = "UPDATE Pharmacy SET address = ?, phone = ?, registrationNumber = ?, municipalityId = ?, photo = ? WHERE id = ?";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, pharmacy.getAddress());
             pstmt.setString(2, pharmacy.getPhone());
             pstmt.setString(3, pharmacy.getRegistrationNumber());
-            pstmt.setString(4, String.valueOf(pharmacy.getMunicipalityId()));
+            pstmt.setString(4, pharmacy.getMunicipalityId());
             pstmt.setBytes(5, pharmacy.getPhoto());
             pstmt.setString(6, pharmacy.getId());
 
@@ -155,17 +155,13 @@ public class JDBCPharmacyManager implements PharmacyManager {
         pharmacy.setId(rs.getString("id"));
         pharmacy.setAddress(rs.getString("address"));
         pharmacy.setPhone(rs.getString("phone"));
-        pharmacy.setRegistrationNumber(rs.getString("registration_number"));
+        pharmacy.setRegistrationNumber(rs.getString("registrationNumber"));
         pharmacy.setPhoto(rs.getBytes("photo"));
         
         // Inverse mapping: from TEXT in SQLite to int in the POJO
-        String municipalityIdStr = rs.getString("municipality_id");
+        String municipalityIdStr = rs.getString("municipalityId");
         if (municipalityIdStr != null && !municipalityIdStr.isEmpty()) {
-            try {
-                pharmacy.setMunicipalityId(Integer.parseInt(municipalityIdStr));
-            } catch (NumberFormatException e) {
-                System.err.println("Error: The municipality is not a valid number: " + municipalityIdStr);
-            }
+            pharmacy.setMunicipalityId(municipalityIdStr);
         }
         
         return pharmacy;

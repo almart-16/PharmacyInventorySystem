@@ -19,6 +19,24 @@ public class DataBaseInitializer {
     public void createTables() {
         String[] tablesQueries = {
         		
+            // Roles
+            "CREATE TABLE IF NOT EXISTS roles (" +
+            "role_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "roleName TEXT NOT NULL UNIQUE)",
+            
+            // EclipseLink Sequence table
+            "CREATE TABLE IF NOT EXISTS SEQUENCE (" +
+            "SEQ_NAME VARCHAR(50) PRIMARY KEY, " +
+            "SEQ_COUNT INTEGER)",
+            
+            // Users
+            "CREATE TABLE IF NOT EXISTS users (" +
+            "user_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "userName TEXT NOT NULL UNIQUE, " +
+            "password TEXT NOT NULL, " +
+            "role_id INTEGER NOT NULL, " +
+            "FOREIGN KEY(role_id) REFERENCES roles(role_id))",
+
             // Municipality
             "CREATE TABLE IF NOT EXISTS Municipality (" +
             "id TEXT PRIMARY KEY, " +
@@ -143,6 +161,9 @@ public class DataBaseInitializer {
     public void insertInitialData() {
     	try (Statement s = c.createStatement()){
     		
+    		// EclipseLink Sequence
+    		s.executeUpdate("INSERT OR IGNORE INTO SEQUENCE (SEQ_NAME, SEQ_COUNT) VALUES ('SEQ_GEN_IDENTITY', 0)");
+    		
     		// Municipalities
             s.executeUpdate(
                 "INSERT OR IGNORE INTO Municipality (id, name) VALUES " +
@@ -219,10 +240,25 @@ public class DataBaseInitializer {
                 "INSERT OR IGNORE INTO Purchase " +
                 "(id, clientId, pharmacyId, date, medicationId, quantity, price) VALUES " +
                 "('PUR-0', 'C-2', 'P-0', '2026-04-12', 'M-1', 1, 4.0), " +
-                "('PUR-1', 'C-1', 'P-1', '2026-01-04', 'M-2', 2, 6.0), " +
-                "('PUR-2', 'C-0', 'P-2', '2026-03-26', 'M-0', 1, 5.0), " +
-                "('PUR-3', 'C-3', 'P-0', '2026-05-15', 'M-6', 2, 4.0), " +
-                "('PUR-4', 'C-4', 'P-2', '2026-05-16', 'M-5', 3, 5.5)"
+                "('PUR-1', 'C-1', 'P-2', '2026-01-04', 'M-2', 2, 12.0), " +
+                "('PUR-2', 'C-0', 'P-1', '2026-03-26', 'M-0', 1, 5.0), " +
+                "('PUR-3', 'C-3', 'P-0', '2026-05-15', 'M-6', 2, 8.0), " +
+                "('PUR-4', 'C-4', 'P-2', '2026-05-16', 'M-5', 3, 16.5), " +
+                "('P-5', 'C-1', 'P-0', '2026-05-02', 'M-3', 1, 12.0), " +
+                "('P-6', 'C-2', 'P-1', '2026-05-10', 'M-4', 2, 16.0), " +
+                "('P-7', 'C-3', 'P-1', '2026-05-18', 'M-7', 1, 15.0), " +
+                "('P-8', 'C-0', 'P-0', '2026-05-20', 'M-8', 4, 40.0), " +
+                "('P-9', 'C-4', 'P-2', '2026-05-25', 'M-9', 2, 14.0), " +
+                "('P-10', 'C-1', 'P-0', '2026-06-01', 'M-1', 5, 20.0), " +
+                "('P-11', 'C-2', 'P-1', '2026-06-05', 'M-0', 3, 15.0), " +
+                "('P-12', 'C-3', 'P-2', '2026-06-10', 'M-2', 1, 6.0), " +
+                "('P-13', 'C-4', 'P-0', '2026-06-15', 'M-3', 2, 24.0), " +
+                "('P-14', 'C-0', 'P-1', '2026-06-20', 'M-4', 1, 8.0), " +
+                "('P-15', 'C-2', 'P-0', '2026-01-08', 'M-1', 2, 8.0), " +
+                "('P-16', 'C-1', 'P-1', '2026-01-12', 'M-0', 1, 5.0), " +
+                "('P-17', 'C-3', 'P-0', '2026-01-18', 'M-3', 2, 24.0), " +
+                "('P-18', 'C-4', 'P-1', '2026-01-22', 'M-4', 3, 24.0), " +
+                "('P-19', 'C-0', 'P-2', '2026-01-28', 'M-5', 1, 5.5)"
             );
     		
          // Orders

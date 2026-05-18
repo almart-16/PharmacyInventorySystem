@@ -446,8 +446,8 @@ public class Main {
 	 
 	 private static void addMedication() throws IOException {
 
-		    System.out.print("Medication ID: ");
-		    String id = reader.readLine();
+		    String id = generateNextId("Medication", "M");
+		    System.out.println("Generated Medication ID: " + id);
 
 		    System.out.print("Medication name: ");
 		    String name = reader.readLine();
@@ -733,8 +733,8 @@ public class Main {
 	    
 	    private static void sellMedication() throws IOException {
 
-	        System.out.print("Purchase ID: ");
-	        String id = reader.readLine();
+	        String id = generateNextId("Purchase", "P");
+	        System.out.println("Generated Purchase ID: " + id);
 
 	        System.out.print("Client ID: ");
 	        String clientId = reader.readLine();
@@ -756,7 +756,7 @@ public class Main {
 	        System.out.print("Price: ");
 	        double price = readDouble();
 	        
-	        System.out.print("Medication ID: ");
+	        System.out.print("Date (YYYY-MM-DD): ");
 	        String date = reader.readLine();
 
 	        Purchase purchase = new Purchase(id, clientId, pharmacyId, date, medicationId, quantity, price);
@@ -969,8 +969,8 @@ public class Main {
 	    
 	    private static void createOrder() throws IOException {
 
-	        System.out.print("Order ID: ");
-	        String id = reader.readLine();
+	        String id = generateNextId("Orders", "O");
+	        System.out.println("Generated Order ID: " + id);
 
 	        System.out.print("Pharmacy ID: ");
 	        String pharmacyId = reader.readLine();
@@ -1748,6 +1748,28 @@ public class Main {
 	                System.out.println(s);
 	            }
 	        }
+	    }
+
+	    private static String generateNextId(String tableName, String prefix) {
+	        String sql = "SELECT id FROM " + tableName + " WHERE id LIKE '" + prefix + "-%'";
+	        int max = -1;
+	        try (java.sql.Statement stmt = connectionManager.getc().createStatement();
+	             java.sql.ResultSet rs = stmt.executeQuery(sql)) {
+	            while (rs.next()) {
+	                String id = rs.getString("id");
+	                try {
+	                    int num = Integer.parseInt(id.substring(prefix.length() + 1));
+	                    if (num > max) {
+	                        max = num;
+	                    }
+	                } catch (NumberFormatException e) {
+	                    // Ignore invalid formats
+	                }
+	            }
+	        } catch (java.sql.SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return prefix + "-" + (max + 1);
 	    }
 	    
 }

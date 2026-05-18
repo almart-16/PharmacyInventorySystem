@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pharmacy_unit>
+    <medications>
+        <medication id="M-0">
+            <name>Ibuprofeno</name>
+            <targetIllness>Anti-inflammatory</targetIllness>
+            <socialSecurity>false</socialSecurity>
+            <requiresPrescription>false</requiresPrescription>
+        </medication>
+        <medication id="M-1">
+            <name>Paracetamol</name>
+            <targetIllness>Analgesic and antipyretic</targetIllness>
+            <socialSecurity>false</socialSecurity>
+            <requiresPrescription>false</requiresPrescription>
+        </medication>
+        <medication id="M-2">
+            <name>Aspirina</name>
+            <targetIllness>Antiplatelet</targetIllness>
+            <socialSecurity>false</socialSecurity>
+            <requiresPrescription>false</requiresPrescription>
+        </medication>
+        <medication id="M-3">
+            <name>Amoxicilina</name>
+            <targetIllness>Antibiotic</targetIllness>
+            <socialSecurity>false</socialSecurity>
+            <requiresPrescription>false</requiresPrescription>
+        </medication>
+        <medication id="M-4">
+            <name>Omeprazol</name>
+            <targetIllness>Antacid</targetIllness>
+            <socialSecurity>false</socialSecurity>
+            <requiresPrescription>false</requiresPrescription>
+        </medication>
+        <medication id="M-5">
+            <name>Loratadina</name>
+            <targetIllness>Antihistamine</targetIllness>
+            <socialSecurity>false</socialSecurity>
+            <requiresPrescription>false</requiresPrescription>
+        </medication>
+        <medication id="M-6">
+            <name>Metformina</name>
+            <targetIllness>Antidiabetic</targetIllness>
+            <socialSecurity>false</socialSecurity>
+            <requiresPrescription>false</requiresPrescription>
+        </medication>
+        <medication id="M-7">
+            <name>Diazepam</name>
+            <targetIllness>Anxiolytic</targetIllness>
+            <socialSecurity>false</socialSecurity>
+            <requiresPrescription>false</requiresPrescription>
+        </medication>
+        <medication id="M-8">
+            <name>Lansoprazol</name>
+            <targetIllness>Gastric Ulcer</targetIllness>
+            <socialSecurity>false</socialSecurity>
+            <requiresPrescription>false</requiresPrescription>
+        </medication>
+        <medication id="M-9">
+            <name>Vitamin C</name>
+            <targetIllness>Supplement</targetIllness>
+            <socialSecurity>false</socialSecurity>
+            <requiresPrescription>false</requiresPrescription>
+        </medication>
+    </medications>
+    <suppliers>
+        <supplier id="S-0">
+            <name>Bayer</name>
+            <phone>623401393</phone>
+        </supplier>
+        <supplier id="S-1">
+            <name>Cardinal Health</name>
+            <phone>629461032</phone>
+        </supplier>
+        <supplier id="S-2">
+            <name>Bidafarma</name>
+            <phone>64928351</phone>
+        </supplier>
+        <supplier id="S-3">
+            <name>Pfizer</name>
+            <phone>612345678</phone>
+        </supplier>
+    </suppliers>
+    <clients/>
+    <pharmacies>
+        <pharmacy id="P-0">
+            <address>Calle Monteamor, 3</address>
+            <phone>639826101</phone>
+            <registrationNumber>28-82016</registrationNumber>
+            <municipalityId>MUN-0</municipalityId>
+        </pharmacy>
+        <pharmacy id="P-1">
+            <address>Calle Tomillo, 9</address>
+            <phone>619362434</phone>
+            <registrationNumber>28-46194</registrationNumber>
+            <municipalityId>MUN-2</municipalityId>
+        </pharmacy>
+        <pharmacy id="P-2">
+            <address>Calle Sotavento, 22</address>
+            <phone>610372947</phone>
+            <registrationNumber>28-98451</registrationNumber>
+            <municipalityId>MUN-1</municipalityId>
+        </pharmacy>
+    </pharmacies>
+    <orders/>
+    <purchases>
+        <purchase id="PUR-0">
+            <clientId>C-2</clientId>
+            <pharmacyId>P-0</pharmacyId>
+            <purchaseDate>2026-04-12</purchaseDate>
+            <medicationId>M-1</medicationId>
+            <quantity>1</quantity>
+            <totalPrice>4.0</totalPrice>
+        </purchase>
+        <purchase id="PUR-1">
+            <clientId>C-1</clientId>
+            <pharmacyId>P-2</pharmacyId>
+            <purchaseDate>2026-01-04</purchaseDate>
+            <medicationId>M-2</medicationId>
+            <quantity>2</quantity>
+            <totalPrice>12.0</totalPrice>
+        </purchase>
+        <purchase id="PUR-2">
+            <clientId>C-0</clientId>
+            <pharmacyId>P-1</pharmacyId>
+            <purchaseDate>2026-03-26</purchaseDate>
+            <medicationId>M-0</medicationId>
+            <quantity>1</quantity>
+            <totalPrice>5.0</totalPrice>
+        </purchase>
+        <purchase id="PUR-3">
+            <clientId>C-3</clientId>
+            <pharmacyId>P-0</pharmacyId>
+            <purchaseDate>2026-05-15</purchaseDate>
+            <medicationId>M-6</medicationId>
+            <quantity>2</quantity>
+            <totalPrice>8.0</totalPrice>
+        </purchase>
+        <purchase id="PUR-4">
+            <clientId>C-4</clientId>
+            <pharmacyId>P-2</pharmacyId>
+            <purchaseDate>2026-05-16</purchaseDate>
+            <medicationId>M-5</medicationId>
+            <quantity>3</quantity>
+            <totalPrice>16.5</totalPrice>
+        </purchase>
+        <purchase id="P-5">
+            <clientId>C-1</clientId>
+            <pharmacyId>P-0</pharmacyId>
+            <purchaseDate>2026-05-02</purchaseDate>
+            <medicationId>M-3</medicationId>
+            <quantity>1</quantity>
+            <totalPrice>12.0</totalPrice>
+        </purchase>
+        <purchase id="P-6">
+            <clientId>C-2</clientId>
+            <pharmacyId>P-1</pharmacyId>
+            <purchaseDate>2026-05-10</purchaseDate>
+            <medicationId>M-4</medicationId>
+            <quantity>2</quantity>
+            <totalPrice>16.0</totalPrice>
+        </purchase>
+        <purchase id="P-7">
+            <clientId>C-3</clientId>
+            <pharmacyId>P-1</pharmacyId>
+            <purchaseDate>2026-05-18</purchaseDate>
+            <medicationId>M-7</medicationId>
+            <quantity>1</quantity>
+            <totalPrice>15.0</totalPrice>
+        </purchase>
+        <purchase id="P-8">
+            <clientId>C-0</clientId>
+            <pharmacyId>P-0</pharmacyId>
+            <purchaseDate>2026-05-20</purchaseDate>
+            <medicationId>M-8</medicationId>
+            <quantity>4</quantity>
+            <totalPrice>40.0</totalPrice>
+        </purchase>
+        <purchase id="P-9">
+            <clientId>C-4</clientId>
+            <pharmacyId>P-2</pharmacyId>
+            <purchaseDate>2026-05-25</purchaseDate>
+            <medicationId>M-9</medicationId>
+            <quantity>2</quantity>
+            <totalPrice>14.0</totalPrice>
+        </purchase>
+        <purchase id="P-10">
+            <clientId>C-1</clientId>
+            <pharmacyId>P-0</pharmacyId>
+            <purchaseDate>2026-06-01</purchaseDate>
+            <medicationId>M-1</medicationId>
+            <quantity>5</quantity>
+            <totalPrice>20.0</totalPrice>
+        </purchase>
+        <purchase id="P-11">
+            <clientId>C-2</clientId>
+            <pharmacyId>P-1</pharmacyId>
+            <purchaseDate>2026-06-05</purchaseDate>
+            <medicationId>M-0</medicationId>
+            <quantity>3</quantity>
+            <totalPrice>15.0</totalPrice>
+        </purchase>
+        <purchase id="P-12">
+            <clientId>C-3</clientId>
+            <pharmacyId>P-2</pharmacyId>
+            <purchaseDate>2026-06-10</purchaseDate>
+            <medicationId>M-2</medicationId>
+            <quantity>1</quantity>
+            <totalPrice>6.0</totalPrice>
+        </purchase>
+        <purchase id="P-13">
+            <clientId>C-4</clientId>
+            <pharmacyId>P-0</pharmacyId>
+            <purchaseDate>2026-06-15</purchaseDate>
+            <medicationId>M-3</medicationId>
+            <quantity>2</quantity>
+            <totalPrice>24.0</totalPrice>
+        </purchase>
+        <purchase id="P-14">
+            <clientId>C-0</clientId>
+            <pharmacyId>P-1</pharmacyId>
+            <purchaseDate>2026-06-20</purchaseDate>
+            <medicationId>M-4</medicationId>
+            <quantity>1</quantity>
+            <totalPrice>8.0</totalPrice>
+        </purchase>
+        <purchase id="P-15">
+            <clientId>C-2</clientId>
+            <pharmacyId>P-0</pharmacyId>
+            <purchaseDate>2026-01-08</purchaseDate>
+            <medicationId>M-1</medicationId>
+            <quantity>2</quantity>
+            <totalPrice>8.0</totalPrice>
+        </purchase>
+        <purchase id="P-16">
+            <clientId>C-1</clientId>
+            <pharmacyId>P-1</pharmacyId>
+            <purchaseDate>2026-01-12</purchaseDate>
+            <medicationId>M-0</medicationId>
+            <quantity>1</quantity>
+            <totalPrice>5.0</totalPrice>
+        </purchase>
+        <purchase id="P-17">
+            <clientId>C-3</clientId>
+            <pharmacyId>P-0</pharmacyId>
+            <purchaseDate>2026-01-18</purchaseDate>
+            <medicationId>M-3</medicationId>
+            <quantity>2</quantity>
+            <totalPrice>24.0</totalPrice>
+        </purchase>
+        <purchase id="P-18">
+            <clientId>C-4</clientId>
+            <pharmacyId>P-1</pharmacyId>
+            <purchaseDate>2026-01-22</purchaseDate>
+            <medicationId>M-4</medicationId>
+            <quantity>3</quantity>
+            <totalPrice>24.0</totalPrice>
+        </purchase>
+        <purchase id="P-19">
+            <clientId>C-0</clientId>
+            <pharmacyId>P-2</pharmacyId>
+            <purchaseDate>2026-01-28</purchaseDate>
+            <medicationId>M-5</medicationId>
+            <quantity>1</quantity>
+            <totalPrice>5.5</totalPrice>
+        </purchase>
+    </purchases>
+    <inventories/>
+    <histories/>
+    <municipalities/>
+    <users/>
+    <roles/>
+</pharmacy_unit>

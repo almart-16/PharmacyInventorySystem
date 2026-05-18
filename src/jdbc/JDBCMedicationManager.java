@@ -23,7 +23,7 @@ public class JDBCMedicationManager implements MedicationManager {
      */
     @Override
     public Medication findByName(String name) {
-        String sql = "SELECT * FROM Medication WHERE name = ?";
+        String sql = "SELECT * FROM Medication WHERE LOWER(name) = LOWER(?)";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
