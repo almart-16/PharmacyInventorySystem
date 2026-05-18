@@ -102,5 +102,17 @@ public class Medication {
      * @param prescription The new value of prescription.
      */
     public void setPrescription(boolean prescription) { this.prescription = prescription; }
+    
+    @Override
+    public String toString() {
+        return "Medication{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", targetIllness='" + targetIllness + '\'' +
+                ", ss=" + ss +
+                ", prescription=" + prescription +
+                '}';
+    }
+    
 }
 

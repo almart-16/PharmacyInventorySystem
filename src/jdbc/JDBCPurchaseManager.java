@@ -63,7 +63,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
             }
 
             // Check current stock and minimum inventory in the specific pharmacy
-            String sqlCheckStock = "SELECT stock_quantity, minimum_stock FROM Inventory WHERE pharmacy_id = ? AND medication_id = ?";
+            String sqlCheckStock = "SELECT stockQuantity, minimumStock FROM Inventory WHERE pharmacyId = ? AND medicationId = ?";
             int currentStock = 0;
             int minStock = 0;
             
@@ -72,8 +72,8 @@ public class JDBCPurchaseManager implements PurchaseManager {
                 pstmtStock.setString(2, purchase.getMedicationId());
                 try (ResultSet rsStock = pstmtStock.executeQuery()) {
                     if (rsStock.next()) {
-                        currentStock = rsStock.getInt("stock_quantity");
-                        minStock = rsStock.getInt("minimum_stock");
+                        currentStock = rsStock.getInt("stockQuantity");
+                        minStock = rsStock.getInt("minimumStock");
                     } else {
                         throw new SQLException("The medication is not in the inventory of this pharmacy.");
                     }
@@ -88,7 +88,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
             }
 
             // Reduce stock (UPDATE)
-            String sqlUpdateStock = "UPDATE Inventory SET stock_quantity = stock_quantity - ? WHERE pharmacy_id = ? AND medication_id = ?";
+            String sqlUpdateStock = "UPDATE Inventory SET stockQuantity = stockQuantity - ? WHERE pharmacyId = ? AND medicationId = ?";
             try (PreparedStatement pstmtUpdate = connection.prepareStatement(sqlUpdateStock)) {
                 pstmtUpdate.setInt(1, purchase.getQuantity());
                 pstmtUpdate.setString(2, purchase.getPharmacyId());
@@ -133,7 +133,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
     }
 
     public boolean create(Purchase purchase) {
-        String sql = "INSERT INTO Purchase (id, client_id, pharmacy_id, medication_id, date, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Purchase (id, clientId, pharmacyId, medicationId, date, quantity, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, purchase.getId());
             pstmt.setString(2, purchase.getClientId()); // Changed from getPatientId to getClientId
@@ -168,7 +168,7 @@ public class JDBCPurchaseManager implements PurchaseManager {
     }
 
     public boolean update(Purchase purchase) {
-        String sql = "UPDATE Purchase SET client_id = ?, pharmacy_id = ?, medication_id = ?, date = ?, quantity = ?, price = ? WHERE id = ?";
+        String sql = "UPDATE Purchase SET clientId = ?, pharmacyId = ?, medicationId = ?, date = ?, quantity = ?, price = ? WHERE id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, purchase.getClientId()); // Changed from getPatientId to getClientId
             pstmt.setString(2, purchase.getPharmacyId());
@@ -217,9 +217,9 @@ public class JDBCPurchaseManager implements PurchaseManager {
     private Purchase extractPurchaseFromResultSet(ResultSet rs) throws SQLException {
         Purchase purchase = new Purchase();
         purchase.setId(rs.getString("id"));
-        purchase.setClientId(rs.getString("client_id")); // Changed from setPatientId to setClientId
-        purchase.setPharmacyId(rs.getString("pharmacy_id")); // Changed camelCase to snake_case based on DB
-        purchase.setMedicationId(rs.getString("medication_id"));
+        purchase.setClientId(rs.getString("clientId")); // Changed from setPatientId to setClientId
+        purchase.setPharmacyId(rs.getString("pharmacyId")); // Changed camelCase to snake_case based on DB
+        purchase.setMedicationId(rs.getString("medicationId"));
         purchase.setDate(rs.getString("date"));
         purchase.setQuantity(rs.getInt("quantity"));
         purchase.setPrice(rs.getDouble("price"));
