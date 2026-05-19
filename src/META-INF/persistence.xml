@@ -12,12 +12,14 @@
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:./src/db/pharmacy_final_run.db" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:./src/db/pharmacy_final_run.db?journal_mode=WAL&amp;busy_timeout=30000" />
             <property name="javax.persistence.jdbc.user" value="" />
             <property name="javax.persistence.jdbc.password" value="" />
 
             <property name="eclipselink.ddl-generation" value="none" />
             <property name="eclipselink.ddl-generation.output-mode" value="database" />
+            <property name="eclipselink.weaving" value="false" />
+            <property name="eclipselink.logging.level" value="OFF" />
         </properties>
     </persistence-unit>
 </persistence>

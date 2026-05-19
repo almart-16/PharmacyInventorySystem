@@ -8,15 +8,15 @@ import java.sql.Statement;
 public class ConnectionManager {
 
     private Connection c;
-    private final String URL = "jdbc:sqlite:./src/db/pharmacy_final_run.db";
-    
+    private final String URL = "jdbc:sqlite:./src/db/pharmacy_final_run.db?journal_mode=WAL&busy_timeout=30000";
+
     /**
      * Default constructor that initializes the database connection.
      */
-    public ConnectionManager () {
+    public ConnectionManager() {
         initializeDB();
     }
-        
+
     /**
      * Initializes the database connection and creates tables if they do not exist.
      */
@@ -24,23 +24,19 @@ public class ConnectionManager {
         try {
             Class.forName("org.sqlite.JDBC");
             this.c = DriverManager.getConnection(URL);
-            try (Statement s = c.createStatement()) {
-                s.execute("PRAGMA foreign_keys = ON;"); 
-            }
-            
+
             DataBaseInitializer initializer = new DataBaseInitializer(c);
             initializer.createTables();
             initializer.insertInitialData();
-            
+
             System.out.println("Connection established: " + URL);
-            
-        } catch(Exception e) {
+
+        } catch (Exception e) {
             System.out.println("Database access error");
             e.printStackTrace();
         }
     }
-    
-    
+
     /**
      * Gets the established database connection.
      *

@@ -25,28 +25,24 @@ public class JDBCInventoryManager implements InventoryManager {
     public Inventory findInventory(String pharmacyId, String medicationId) {
         String sql = "SELECT * FROM Inventory WHERE pharmacyId = ? AND medicationId = ?";
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, pharmacyId);
             stmt.setString(2, medicationId);
 
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                // Determine column names based on the DB schema. The older queries used pharmacy_id,
-                // but TestDataBaseCreation uses pharmacyId. We'll try rs.getString(index) or column labels carefully.
-                // It's safer to use exact column labels as created in TestDataBaseCreation: id, pharmacyId, medicationId, supplierId, stockQuantity, price, purchasePrice, expirationDate, minimumStock
-                return new Inventory(
-                    rs.getString("id"),
-                    rs.getString("pharmacyId"),
-                    rs.getString("medicationId"),
-                    rs.getString("supplierId"),
-                    rs.getInt("stockQuantity"),
-                    rs.getDouble("price"),
-                    rs.getDouble("purchasePrice"),
-                    rs.getString("expirationDate"),
-                    rs.getInt("minimumStock")
-                );
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Inventory(
+                        rs.getString("id"),
+                        rs.getString("pharmacyId"),
+                        rs.getString("medicationId"),
+                        rs.getString("supplierId"),
+                        rs.getInt("stockQuantity"),
+                        rs.getDouble("price"),
+                        rs.getDouble("purchasePrice"),
+                        rs.getString("expirationDate"),
+                        rs.getInt("minimumStock")
+                    );
+                }
             }
 
         } catch (SQLException e) {
@@ -62,8 +58,7 @@ public class JDBCInventoryManager implements InventoryManager {
     public boolean increaseStock(String pharmacyId, String medicationId, int quantity) {
         String sql = "UPDATE Inventory SET stockQuantity = stockQuantity + ? WHERE pharmacyId = ? AND medicationId = ?";
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, quantity);
             stmt.setString(2, pharmacyId);
             stmt.setString(3, medicationId);
@@ -83,8 +78,7 @@ public class JDBCInventoryManager implements InventoryManager {
     public boolean reduceStock(String pharmacyId, String medicationId, int quantity) {
         String sql = "UPDATE Inventory SET stockQuantity = stockQuantity - ? WHERE pharmacyId = ? AND medicationId = ?";
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, quantity);
             stmt.setString(2, pharmacyId);
             stmt.setString(3, medicationId);
@@ -104,8 +98,7 @@ public class JDBCInventoryManager implements InventoryManager {
     public boolean addInventory(Inventory i) {
         String sql = "INSERT INTO Inventory (id, pharmacyId, medicationId, supplierId, stockQuantity, price, purchasePrice, expirationDate, minimumStock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, i.getId());
             stmt.setString(2, i.getPharmacyId());
@@ -134,8 +127,7 @@ public class JDBCInventoryManager implements InventoryManager {
 
         String sql = "UPDATE Inventory SET price = ?, purchasePrice = ?, expirationDate = ?, supplierId = ? WHERE pharmacyId = ? AND medicationId = ?";
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setDouble(1, price);
             stmt.setDouble(2, purchasePrice);
@@ -191,13 +183,13 @@ public class JDBCInventoryManager implements InventoryManager {
     public boolean isLowStock(String pharmacyId, String medicationId) {
         String sql = "SELECT * FROM Inventory WHERE pharmacyId = ? AND medicationId = ? AND stockQuantity <= minimumStock";
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, pharmacyId);
             stmt.setString(2, medicationId);
 
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -212,13 +204,13 @@ public class JDBCInventoryManager implements InventoryManager {
     public boolean isOutOfStock(String pharmacyId, String medicationId) {
         String sql = "SELECT * FROM Inventory WHERE pharmacyId = ? AND medicationId = ? AND stockQuantity = 0";
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, pharmacyId);
             stmt.setString(2, medicationId);
 
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
